@@ -23,9 +23,9 @@ default: &default
 
 development:
   <<: *default
-  database: portal_development
-  username: <%= ENV['PORTAL_DATABASE_USERNAME'] %>
-  password: <%= ENV['PORTAL_DATABASE_PASSWORD'] %>
+  database: horse_stable_development
+  username: <%= ENV['HORSE_STABLE_DATABASE_USERNAME'] %>
+  password: <%= ENV['HORSE_STABLE_DATABASE_PASSWORD'] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -60,7 +60,7 @@ development:
 test:
   <<: *default
   host: localhost
-  database: portal_test
+  database: horse_stable_test
   username: azirumga
   password: iselPodij
 
@@ -86,6 +86,6 @@ test:
 #
 production:
   <<: *default
-  database: portal_production
+  database: horse_stable_production
   username: portal
-  password: <%= ENV['PORTAL_DATABASE_PASSWORD'] %>
+  password: <%= ENV['HORSE_STABLE_DATABASE_PASSWORD'] %>
