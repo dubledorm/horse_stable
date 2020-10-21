@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     post '/users/auth/create_user_and_service', to: 'omniauth_callbacks#create_user_and_service', as: :create_user_and_service
   end
 
+  namespace :api do
+     get :i_am_free, to: 'consumer#i_am_free'
+  end
+
 #  authenticated(:user) do
 
     resource :user_profile, only: [:show, :update], controller: 'user_profile/users', as: :user_profile
