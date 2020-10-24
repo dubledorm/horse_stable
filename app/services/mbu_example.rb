@@ -22,7 +22,21 @@ module MbuExample
                                                      selector: {class: 'search2__button'},
                                                      do: 'click' }
                                      }
-                            }
+                            },
+                            '3' => { check: {},
+                                     do: {'1' => { human_name: 'Скролл вниз',
+                                                   do: 'scroll',
+                                                   value: '100',
+                                                   direction: 'down'},
+                                          '2' => { human_name: 'ждать',
+                                                   do: 'sleep',
+                                                   },
+                                          '3' => { human_name: 'Скролл вверх',
+                                                   do: 'scroll',
+                                                   value: '50',
+                                                   direction: 'up'}
+                                     },
+                                     next: {}}
                           }
 
 
