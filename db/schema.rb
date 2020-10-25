@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_071322) do
+ActiveRecord::Schema.define(version: 2020_10_25_110100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,6 +185,29 @@ ActiveRecord::Schema.define(version: 2020_05_06_071322) do
     t.index ["taggable_id", "taggable_type", "tag_id"], name: "taggable_tag_id"
   end
 
+  create_table "test_cases", force: :cascade do |t|
+    t.string "human_name"
+    t.text "desription"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_test_cases_on_user_id"
+  end
+
+  create_table "test_tasks", force: :cascade do |t|
+    t.text "test_setting_json", null: false
+    t.integer "duration"
+    t.datetime "start_time"
+    t.string "result_kod"
+    t.text "result_values_json"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "state"
+    t.index ["result_kod"], name: "index_test_tasks_on_result_kod"
+    t.index ["start_time"], name: "index_test_tasks_on_start_time"
+    t.index ["state"], name: "index_test_tasks_on_state"
+  end
+
   create_table "user_parameters", force: :cascade do |t|
     t.text "description"
     t.bigint "user_id", null: false
@@ -218,5 +241,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_071322) do
   add_foreign_key "blogs", "users"
   add_foreign_key "grades", "users"
   add_foreign_key "pictures", "galleries"
+  add_foreign_key "test_cases", "users"
   add_foreign_key "user_parameters", "users"
 end

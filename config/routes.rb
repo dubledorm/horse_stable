@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-     get :i_am_free, to: 'consumer#i_am_free'
+    resources :test_tasks, only: [:update] do
+      collection do
+        get :get_task
+      end
+    end
+     #get :i_am_free, to: 'consumer#i_am_free'
   end
 
 #  authenticated(:user) do

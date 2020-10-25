@@ -1,5 +1,7 @@
 class Api::BaseController < ActionController::API
 
+  include BaseConcern
+
   rescue_from Exception, :with => :render_500
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from ActionController::ParameterMissing, :with => :render_400
@@ -21,5 +23,42 @@ class Api::BaseController < ActionController::API
   def render_500(e)
     Rails.logger.error(e.message)
     render json: { message: e.message }.to_json, status: :internal_server_error
+  end
+
+  def show
+    get_resource
+    render json: @resource
+  end
+
+  def index
+    get_collection
+    render json: @collection
+  end
+
+  def create
+    begin
+      yield
+    rescue ActiveRecord::RecordInvalid => e
+      raise ActionController::BadRequest, @resource.errors.full_messages
+    end
+    render json: @resource, status: :created
+  end
+
+  def update
+    get_resource
+    begin
+      yield
+    rescue ActiveRecord::RecordInvalid => e
+      raise ActionController::BadRequest, @resource.errors.full_messages
+    end
+    render json: @resource
+  end
+
+  def destroy
+    get_resource
+    ActiveRecord::Base.transaction do
+      @resource.destroy!
+    end
+    render json: {}, nothing: true, status: 200
   end
 end
