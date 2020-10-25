@@ -16,7 +16,6 @@ Rails.application.routes.draw do
         get :get_task
       end
     end
-     #get :i_am_free, to: 'consumer#i_am_free'
   end
 
 #  authenticated(:user) do
