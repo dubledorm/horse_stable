@@ -1,0 +1,21 @@
+ru:
+  activemodel:
+    attributes:
+      functions/click:
+        selector: Селектор
+        human_name: Функция
+        human_description: Описание
+        function_name: Имя
+    errors:
+      models:
+        functions/click:
+          attributes:
+            selector:
+              blank: Должно быть заполнено
+            human_name:
+              blank: Должно быть заполнено
+            human_description:
+              blank: Должно быть заполнено
+            function_name:
+              blank: Должно быть заполнено
+
