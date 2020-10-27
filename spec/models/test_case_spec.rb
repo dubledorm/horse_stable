@@ -8,5 +8,7 @@ RSpec.describe TestCase, type: :model do
     it { expect(test_case).to be_valid }
 
     it { should belong_to(:user) }
+    it { should belong_to(:experiment) }
+    it { should have_many(:operations) }
   end
 end

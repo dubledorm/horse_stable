@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_203825) do
+ActiveRecord::Schema.define(version: 2020_10_27_194438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,16 @@ ActiveRecord::Schema.define(version: 2020_10_26_203825) do
     t.index ["user_id"], name: "index_blogs_on_user_id"
   end
 
+  create_table "experiments", force: :cascade do |t|
+    t.string "human_name"
+    t.text "human_description"
+    t.bigint "user_id", null: false
+    t.string "state", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_experiments_on_user_id"
+  end
+
   create_table "galleries", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
@@ -205,6 +215,8 @@ ActiveRecord::Schema.define(version: 2020_10_26_203825) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "number", null: false
+    t.bigint "experiment_id", null: false
+    t.index ["experiment_id"], name: "index_test_cases_on_experiment_id"
     t.index ["number"], name: "index_test_cases_on_number"
     t.index ["user_id"], name: "index_test_cases_on_user_id"
   end
@@ -254,9 +266,11 @@ ActiveRecord::Schema.define(version: 2020_10_26_203825) do
   add_foreign_key "articles", "users"
   add_foreign_key "blogs", "galleries"
   add_foreign_key "blogs", "users"
+  add_foreign_key "experiments", "users"
   add_foreign_key "grades", "users"
   add_foreign_key "operations", "test_cases"
   add_foreign_key "pictures", "galleries"
+  add_foreign_key "test_cases", "experiments"
   add_foreign_key "test_cases", "users"
   add_foreign_key "user_parameters", "users"
 end

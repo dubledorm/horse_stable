@@ -18,7 +18,7 @@
           <li class="<%= active_menu_item('user') %>"><a href=<%= user_profile_path %>><%= I18n.t('main_menu.profile') %></a></li>
         <% end %>
 
-        <li class="<%= active_menu_item('home') %>"><a href="about-us.html">About Us</a></li>
+        <li class="<%= active_menu_item('test_tasks') %>"><%=link_to('Задания', user_cabinet_test_tasks_path) %></li>
         <li><a href="services.html">Services</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
         <li class="dropdown">

@@ -1,8 +1,7 @@
 FactoryGirl.define do
-  factory :test_case, class: TestCase do
+  factory :experiment, class: Experiment do
     sequence(:human_name) { |n| "human_name#{n}" }
-    sequence(:number) { |n| n}
+    state :new
     user
-    experiment
   end
 end

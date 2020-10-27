@@ -3,7 +3,7 @@
     %tr
       - locals[:object_class].columns.map(&:name).each do |attribute|
         %th
-          = attribute
+          = locals[:object_class].human_attribute_name(attribute)
     - @collection.each do |record|
       %tr
         - locals[:object_class].columns.map(&:name).each do |attribute|

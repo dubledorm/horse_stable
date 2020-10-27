@@ -112,11 +112,25 @@ ru:
         created_at: Создан
         updated_at: Изменён
 
+      test_task:
+        test_setting_json: Скрипт
+        duration: Длительность выполнения
+        start_time: Время начала
+        result_kod: Результат
+        result_values_json: Выходные значения
+        state: Состояние
+        created_at: Создан
+        updated_at: Изменён
+
     errors:
       messages:
         record_invalid: Record Invalid - попытка создать запись с ошибоными значениями полей
         content_type: Не верный формат файла
       models:
+        operation:
+          attributes:
+            number:
+              taken: Номер уже занят
         grade:
           attributes:
             grade_value:
