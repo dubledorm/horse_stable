@@ -1,4 +1,4 @@
-class TestCase < ApplicationRecord
+class ExperimentCase < ApplicationRecord
   # Класс, для сохранения шагов теста
   # Содержит элементарные операции - operation
 
@@ -6,5 +6,6 @@ class TestCase < ApplicationRecord
   belongs_to :experiment
   has_many :operations
 
-  validates :human_name, presence: :true
+  validates :human_name, :number, presence: :true
+  validates :number, uniqueness: { scope: [:experiment] }
 end

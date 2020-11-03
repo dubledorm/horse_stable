@@ -8,6 +8,6 @@ RSpec.describe Experiment, type: :model do
     it { expect(experiment).to be_valid }
 
     it { should belong_to(:user) }
-    it { should have_many(:test_cases) }
+    it { should have_many(:experiment_cases) }
   end
 end

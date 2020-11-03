@@ -1,0 +1,21 @@
+= form_with(model: @resource, local: true, url: user_cabinet_experiment_experiment_cases_path(experiment_id: params[:experiment_id])) do |f|
+  .col-md-5.col-md-offset-1
+    .form-group.required
+      = f.label(:number)
+      = f.text_field(:number, class: 'form-control')
+      .field_hint
+        Номер по порядку
+    .form-group.required
+      = f.label(:human_name)
+      = f.text_field(:human_name, class: 'form-control')
+      .field_hint
+        Название теста
+    .form-group
+      = f.label(:human_description)
+      = f.text_area(:human_description, class: 'form-control')
+      .field_hint
+        Описание теста
+
+    .form-group
+      %button.btn.btn-primary.btn-lg{:name => "submit", :required => "required", :type => "submit"}
+        = I18n.t('forms.article_new.create')

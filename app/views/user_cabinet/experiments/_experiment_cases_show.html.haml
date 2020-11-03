@@ -1,0 +1,23 @@
+%div
+  %table
+    %tr
+      %th
+        = ExperimentCase.human_attribute_name(:number)
+      %th
+        = ExperimentCase.human_attribute_name(:human_name)
+      %th
+        = ExperimentCase.human_attribute_name(:human_description)
+      %th
+
+
+    - @resource.experiment_cases.order(:number).each do |record|
+      %tr
+        %td
+          = record.number
+        %td
+          = record.human_name
+        %td
+          = record.human_description
+        %td
+          = link_to user_cabinet_experiment_experiment_case_path(experiment_id: record.experiment_id, id: record.id) do
+            %i.fa.fa-edit.rc-fa-edit

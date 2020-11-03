@@ -1,0 +1,18 @@
+= render('layouts/template_parts/small_title', locals: { title: I18n.t('experiment.show.title') })
+
+%section#article-page
+  .container
+    = render('layouts/template_parts/large_title', locals: { title: I18n.t('experiment.show.large_title'),
+    text: I18n.t('experiment.show.title_text') })
+
+    .row.contact-wrap
+      -# Сообщения об ошибках
+      = render('shared/resource_alert_notice')
+
+    .page-blocks
+      = render('experiment_show')
+    .page-blocks
+      = render('experiment_cases_show')
+    %div
+      = link_to new_user_cabinet_experiment_experiment_case_path(experiment_id: @resource.id) do
+        %i.fa.fa-plus-square

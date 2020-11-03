@@ -12,11 +12,38 @@ module Functions
 
     validates :function_name, presence: true
 
+    SERVICE_FIELDS = %w[human_name human_description function_name].freeze
+
+
+    def initialize(hash_attributes = {})
+      super(hash_attributes)
+      self.attributes=hash_attributes
+    end
 
     def attributes=(hash)
       hash.each do |key, value|
         send("#{key}=", value)
       end
+    end
+
+    def attribute_names
+      self.class.instance_methods.find_all{ |item| item =~ /\w.*=$/ }
+                              .reject{ |item| item == 'attributes='.to_sym }
+                              .map{ |item| item.to_s.gsub('=', '') }
+    end
+
+    def short_attribute_names
+      attribute_names.reject{ |name| SERVICE_FIELDS.include?(name) }
+    end
+
+    # Возможные значения атрибутов
+    def attribute_values
+      {}
+    end
+
+    # Порядок вывода атрибутов на форме
+    def attribute_orders
+      {}
     end
 
     protected

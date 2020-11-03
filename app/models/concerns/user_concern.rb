@@ -13,7 +13,7 @@ module UserConcern
   end
 
   def unconfirmed_days_still_available
-    (((self.created_at + User.allow_unconfirmed_access_for) - Time.now) / 1.day).to_i
+    (((self.created_at + (User.allow_unconfirmed_access_for || 0)) - Time.now) / 1.day).to_i
   end
 
   def name

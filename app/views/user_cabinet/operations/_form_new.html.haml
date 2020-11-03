@@ -1,0 +1,21 @@
+= form_with(model: @resource, local: true, url: user_cabinet_experiment_case_operations_path(experiment_case_id: params[:experiment_case_id])) do |f|
+  .col-md-5.col-md-offset-1
+    .form-group.required
+      = f.label(:number)
+      = f.number_field(:number, class: 'form-control')
+      .field_hint
+        Номер по порядку
+    .form-group
+      = f.label(:operation_type)
+      = f.text_field(:operation_type, class: 'form-control')
+      .field_hint
+        Тип операции
+    .form-group
+      = f.label(:function_name)
+      = f.select(:function_name, Functions::Factory.options_for_select, { include_blank: true }, { class: 'form-control' })
+      .field_hint
+        Описание теста
+
+    .form-group
+      %button.btn.btn-primary.btn-lg{:name => "submit", :required => "required", :type => "submit"}
+        = I18n.t('forms.article_new.create')

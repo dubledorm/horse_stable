@@ -25,7 +25,11 @@ module ApplicationHelper
   end
 
   def attributes_mask_to_json(resource, hash_mask)
-    Hash[*hash_mask.keys.map{|key| [key, resource.decorate.send(key)]}.flatten].to_json
+    if resource.respond_to?('decorated?'.to_sym) && resource.decorated?
+      Hash[*hash_mask.keys.map{|key| [key, resource.decorate.send(key)]}.flatten].to_json
+    else
+      Hash[*hash_mask.keys.map{|key| [key, resource.send(key)]}.flatten].to_json
+    end
   end
 
 

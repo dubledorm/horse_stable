@@ -6,16 +6,25 @@ ru:
         human_name: Функция
         human_description: Описание
         function_name: Имя
+        selector_name: Выбор по признаку
+        selector_value: Значение выбора
     errors:
+      aliases:
+        _field_errors_alias: &fielderrors
+          blank: Должно быть заполнено
+
       models:
         functions/click:
           attributes:
             selector:
-              blank: Должно быть заполнено
+              <<: *fielderrors
             human_name:
-              blank: Должно быть заполнено
+              <<: *fielderrors
             human_description:
-              blank: Должно быть заполнено
+              <<: *fielderrors
             function_name:
-              blank: Должно быть заполнено
-
+              <<: *fielderrors
+            selector_name:
+              <<: *fielderrors
+            selector_value:
+              <<: *fielderrors

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :test_case, class: TestCase do
+  factory :experiment_case, class: ExperimentCase do
     sequence(:human_name) { |n| "human_name#{n}" }
     sequence(:number) { |n| n}
     user

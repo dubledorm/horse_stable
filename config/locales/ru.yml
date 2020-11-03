@@ -1,4 +1,9 @@
 ru:
+  aliases:
+    _timestamps_alias: &timestamps
+      id: Ид-р
+      created_at: Создан
+      updated_at: Изменён
   activerecord:
     models:
       article:
@@ -11,6 +16,17 @@ ru:
       category:
         one: Категория
         other: Категории
+      experiment_case:
+        one: Тестовый шаг
+        other: Тестовые шаги
+      experiment:
+        one: Тест
+        other: Тесты
+      operation:
+        one: Операция
+        other: Операции
+      functions/click:
+        one: Клик мышкой
       user:
         one: Пользователь
         other: Пользователи
@@ -63,6 +79,19 @@ ru:
         updated_at: Изменён
         main_image: Главная картинка
         tags: Тэги
+      experiment:
+        human_name: Название
+        human_description: Описание
+        user_id: Пользователь
+        state: Состояние
+        <<: *timestamps
+      experiment_case:
+        human_name: Название
+        description: Описание
+        user_id: Пользователь
+        number: Номер
+        experiment: Тест
+        <<: *timestamps
       grade_average:
         user: Пользователь
         object: Объект

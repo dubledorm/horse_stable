@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_194438) do
+ActiveRecord::Schema.define(version: 2020_10_31_080637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,19 @@ ActiveRecord::Schema.define(version: 2020_10_27_194438) do
     t.index ["user_id"], name: "index_blogs_on_user_id"
   end
 
+  create_table "experiment_cases", force: :cascade do |t|
+    t.string "human_name"
+    t.text "human_description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "number", null: false
+    t.bigint "experiment_id", null: false
+    t.index ["experiment_id"], name: "index_experiment_cases_on_experiment_id"
+    t.index ["number"], name: "index_experiment_cases_on_number"
+    t.index ["user_id"], name: "index_experiment_cases_on_user_id"
+  end
+
   create_table "experiments", force: :cascade do |t|
     t.string "human_name"
     t.text "human_description"
@@ -160,16 +173,16 @@ ActiveRecord::Schema.define(version: 2020_10_27_194438) do
   end
 
   create_table "operations", force: :cascade do |t|
-    t.bigint "test_case_id", null: false
     t.string "operation_type", null: false
     t.integer "number", null: false
     t.text "operation_json"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "function_name"
+    t.bigint "experiment_case_id"
+    t.index ["experiment_case_id"], name: "index_operations_on_experiment_case_id"
     t.index ["number"], name: "index_operations_on_number"
     t.index ["operation_type"], name: "index_operations_on_operation_type"
-    t.index ["test_case_id"], name: "index_operations_on_test_case_id"
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -206,19 +219,6 @@ ActiveRecord::Schema.define(version: 2020_10_27_194438) do
     t.integer "taggable_id", null: false
     t.string "taggable_type", null: false
     t.index ["taggable_id", "taggable_type", "tag_id"], name: "taggable_tag_id"
-  end
-
-  create_table "test_cases", force: :cascade do |t|
-    t.string "human_name"
-    t.text "desription"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "number", null: false
-    t.bigint "experiment_id", null: false
-    t.index ["experiment_id"], name: "index_test_cases_on_experiment_id"
-    t.index ["number"], name: "index_test_cases_on_number"
-    t.index ["user_id"], name: "index_test_cases_on_user_id"
   end
 
   create_table "test_tasks", force: :cascade do |t|
@@ -266,11 +266,10 @@ ActiveRecord::Schema.define(version: 2020_10_27_194438) do
   add_foreign_key "articles", "users"
   add_foreign_key "blogs", "galleries"
   add_foreign_key "blogs", "users"
+  add_foreign_key "experiment_cases", "experiments"
+  add_foreign_key "experiment_cases", "users"
   add_foreign_key "experiments", "users"
   add_foreign_key "grades", "users"
-  add_foreign_key "operations", "test_cases"
   add_foreign_key "pictures", "galleries"
-  add_foreign_key "test_cases", "experiments"
-  add_foreign_key "test_cases", "users"
   add_foreign_key "user_parameters", "users"
 end

@@ -1,7 +1,7 @@
 class Experiment < ApplicationRecord
 
   belongs_to :user
-  has_many :test_cases
+  has_many :experiment_cases
 
-  validates :state, presence: :true
+  validates :state, :human_name, presence: :true
 end

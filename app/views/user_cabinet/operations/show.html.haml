@@ -1,0 +1,13 @@
+= render('layouts/template_parts/small_title', locals: { title: I18n.t('operation.show.title') })
+
+%section#article-page
+  .container
+    = render('layouts/template_parts/large_title', locals: { title: I18n.t('operation.show.large_title'),
+    text: I18n.t('operation.show.title_text') })
+
+    .row.contact-wrap
+      -# Сообщения об ошибках
+      = render('shared/resource_alert_notice')
+
+    .page-blocks
+      = render('operation_show')

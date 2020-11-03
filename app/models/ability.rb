@@ -14,6 +14,9 @@ class Ability
 
     can :manage, User, id: user.id
 
+    can :manage, Operation, { experiment_case: {user_id: user.id} }
+    can :manage, Experiment, user_id: user.id
+    can :manage, ExperimentCase, user_id: user.id
     can :manage, Article, user_id: user.id
     can :manage, Grade, user_id: user.id
     can :manage, GradeAverage, user_id: user.id

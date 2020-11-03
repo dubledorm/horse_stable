@@ -1,0 +1,25 @@
+.col-xs-12.col-md-8
+  = rc_string_field(@resource, :number, user_cabinet_experiment_experiment_case_path(id: @resource.id, experiment_id: params[:experiment_id]))
+  = rc_string_field(@resource, :human_name, user_cabinet_experiment_experiment_case_path(id: @resource.id, experiment_id: params[:experiment_id]))
+  = rc_text_field(@resource, :human_description, user_cabinet_experiment_experiment_case_path(id: @resource.id, experiment_id: params[:experiment_id]))
+  %h2
+    = Operation.model_name.human(count: 3)
+
+  %h4
+    = t('.check')
+  - @resource.operations.check.each do |operation|
+    = render('operation_show', locals: { operation: operation })
+  %div
+    = render('add_operation_button', locals: { operation_type: 'check' })
+  %h4
+    = t('.do')
+  - @resource.operations.do.each do |operation|
+    = render('operation_show', locals: { operation: operation })
+  %div
+    = render('add_operation_button', locals: { operation_type: 'do' })
+  %h4
+    = t('.next')
+  - @resource.operations.next.each do |operation|
+    = render('operation_show', locals: { operation: operation })
+  %div
+    = render('add_operation_button', locals: { operation_type: 'next' })

@@ -27,6 +27,18 @@ Rails.application.routes.draw do
 
     resource :user_cabinet, only: [:show, :update], controller: 'user_cabinet/users', as: :user_cabinet
     namespace :user_cabinet do
+      resources :experiments, except: [:edit] do
+        resources :experiment_cases, except: [:index, :edit]
+      end
+
+      resources :experiment_cases, only: [] do
+        resources :operations, except: [:index, :edit], shallow: true do
+          member do
+            put :function_update
+          end
+        end
+      end
+
       resources :test_tasks
       resources :galleries
       resource :category, only: :update
