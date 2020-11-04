@@ -23,4 +23,8 @@ RSpec.describe Operation, type: :model do
     it { expect(operation4).to be_valid }
 
   end
+
+  describe 'serializable' do
+
+  end
 end

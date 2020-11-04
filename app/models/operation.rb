@@ -14,7 +14,7 @@ class Operation < ApplicationRecord
 
 
   validates :operation_type, :number, :function_name, presence: :true
- # validates :number, uniqueness: { scope: [:experiment_case, :operation_type] }
+  validates :number, uniqueness: { scope: [:experiment_case, :operation_type] }
   validates :operation_type, inclusion: { in: %w(check do next),
                                           message: "Поле operation_type может содержать значения: check, do,next. %{value} это не корректное значение" }
   validates :function_name, inclusion: { in: Functions::Factory::NAME_TO_CLASS.keys,
@@ -26,4 +26,8 @@ class Operation < ApplicationRecord
   scope :check, -> { where(operation_type: 'check').order(:number) }
   scope :do, -> { where(operation_type: 'do').order(:number) }
   scope :next, -> { where(operation_type: 'next').order(:number) }
+
+  def as_json
+    JSON.parse(operation_json || '{}').stringify_keys
+  end
 end
