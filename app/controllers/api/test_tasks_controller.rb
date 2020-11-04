@@ -15,7 +15,7 @@ module Api
       if task.present?
         result = { job_status: :job,
                    job_id: task.id,
-                   test: task.test_setting_json }.to_json
+                   test: JSON.parse(task.test_setting_json).symbolize_keys }
       else
         result = { job_status: :idle }.to_json
       end

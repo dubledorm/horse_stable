@@ -16,6 +16,6 @@ class Experiment < ApplicationRecord
   def experiment_cases_hash
     experiment_cases.order(:number).inject({}) do |result, experiment_case|
       result.merge({ "#{experiment_case.number}".to_sym => experiment_case.as_json })
-    end.stringify_keys
+    end
   end
 end
