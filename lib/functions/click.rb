@@ -19,6 +19,10 @@ module Functions
       self.selector = build_selector
     end
 
+    def short_attribute_names
+      super.reject{ |name| name == 'selector' }
+    end
+
     protected
 
     def attributes

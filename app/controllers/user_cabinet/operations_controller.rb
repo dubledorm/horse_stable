@@ -56,11 +56,13 @@ module UserCabinet
 
     def destroy
       super do
-        experiment_case_id = @resource.experiment_case_id
+        experiment_case = @resource.experiment_case
+        experiment_case_id = experiment_case.id
+        experiment_id = experiment_case.experiment.id
         ActiveRecord::Base.transaction do
           @resource.destroy!
         end
-        redirect_to user_cabinet_experiment_case_path(id: experiment_case_id)
+        redirect_to user_cabinet_experiment_experiment_case_path(id: experiment_case_id, experiment_id: experiment_id)
       end
     end
 

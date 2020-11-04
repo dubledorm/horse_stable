@@ -1,2 +1,8 @@
+= locals[:operation].id
 = locals[:operation].number
 = locals[:operation].function_name
+= locals[:operation].operation_json
+= link_to user_cabinet_operation_path(id: locals[:operation].id) do
+  %i.fa.fa-edit.rc-fa-edit
+= link_to user_cabinet_operation_path(id: locals[:operation].id), method: :delete do
+  %i.fa.fa-minus-square

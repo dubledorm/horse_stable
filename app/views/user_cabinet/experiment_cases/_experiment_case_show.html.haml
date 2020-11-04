@@ -8,18 +8,21 @@
   %h4
     = t('.check')
   - @resource.operations.check.each do |operation|
-    = render('operation_show', locals: { operation: operation })
+    .operation
+      = render('operation_show', locals: { operation: operation })
   %div
     = render('add_operation_button', locals: { operation_type: 'check' })
   %h4
     = t('.do')
   - @resource.operations.do.each do |operation|
-    = render('operation_show', locals: { operation: operation })
+    .operation
+      = render('operation_show', locals: { operation: operation })
   %div
     = render('add_operation_button', locals: { operation_type: 'do' })
   %h4
     = t('.next')
   - @resource.operations.next.each do |operation|
-    = render('operation_show', locals: { operation: operation })
+    .operation
+      = render('operation_show', locals: { operation: operation })
   %div
     = render('add_operation_button', locals: { operation_type: 'next' })

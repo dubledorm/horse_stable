@@ -26,12 +26,7 @@ module Functions
       end
     end
 
-    def attribute_names
-      self.class.instance_methods.find_all{ |item| item =~ /\w.*=$/ }
-                              .reject{ |item| item == 'attributes='.to_sym }
-                              .map{ |item| item.to_s.gsub('=', '') }
-    end
-
+    # Список атрибутов для отображения на форме ввода
     def short_attribute_names
       attribute_names.reject{ |name| SERVICE_FIELDS.include?(name) }
     end
@@ -48,11 +43,19 @@ module Functions
 
     protected
 
+    # Список атрибутов для сериализации
     def attributes
       { 'human_name' => self.human_name,
         'human_description' => self.human_description,
         'function_name' => self.function_name
       }
+    end
+
+    # Общий спсиок имён всех атрибутов
+    def attribute_names
+      self.class.instance_methods.find_all{ |item| item =~ /\w.*=$/ }
+          .reject{ |item| item == 'attributes='.to_sym }
+          .map{ |item| item.to_s.gsub('=', '') }
     end
   end
 end

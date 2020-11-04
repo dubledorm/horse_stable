@@ -1,0 +1,6 @@
+ru:
+  operation:
+    operation_type:
+      check: Проверка
+      do: Действие
+      next: Переход

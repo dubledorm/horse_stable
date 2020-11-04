@@ -1,9 +1,9 @@
-= render('layouts/template_parts/small_title', locals: { title: I18n.t('forms.operation_new.title') })
+= render('layouts/template_parts/small_title', locals: { title: t('.title') })
 
 %section#contact-page
   .container
-    = render('layouts/template_parts/large_title', locals: { title: I18n.t('forms.operation_new.large_title'),
-    text: I18n.t('forms.operation_new.title_text') })
+    = render('layouts/template_parts/large_title', locals: { title: t('.large_title'),
+    text: t('.title_text') })
 
     .row.contact-wrap
       -# Сообщения об ошибках

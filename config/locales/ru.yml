@@ -108,6 +108,11 @@ ru:
         content: Отзыв
         created_at: Создан
         updated_at: Изменён
+      operation:
+        number: Номер
+        operation_type: Тип операции
+        function_name: Функция
+        <<: *timestamps
       service:
         user: Пользователь
         provider: Провайдер
@@ -152,14 +157,26 @@ ru:
         updated_at: Изменён
 
     errors:
+      aliases:
+        _field_errors_alias: &fielderrors
+          blank: Должно быть заполнено
+          required: Должно быть заполнено
+          taken: Значение уже используется
+          greater_than: Должно быть больше 0
+          not_an_integer: Должно быть целым числом
+          less_than_or_equal_to: Превышает верхнее разрешённое значение
       messages:
         record_invalid: Record Invalid - попытка создать запись с ошибоными значениями полей
         content_type: Не верный формат файла
       models:
         operation:
           attributes:
+            operation_type:
+              <<: *fielderrors
+            function_name:
+              <<: *fielderrors
             number:
-              taken: Номер уже занят
+              <<: *fielderrors
         grade:
           attributes:
             grade_value:

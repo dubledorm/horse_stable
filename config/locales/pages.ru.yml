@@ -1,5 +1,14 @@
 ru:
   user_cabinet:
+    operations:
+      show:
+        title: Операция
+        large_title: Простая операция
+        title_text: "Выберите тип операции, функцию и параметры функции"
+      new:
+        title: Операция
+        large_title: Простая операция
+        title_text: "Выберите тип операции, функцию и параметры функции"
     experiment_cases:
       show:
         title: Шаг тестирования

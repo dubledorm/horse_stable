@@ -13,3 +13,5 @@
       = render('experiment_case_show')
     -#.page-blocks
     -#  = render('experiment_cases_show')
+    .page-blocks
+      = link_to('Эксперимент', user_cabinet_experiment_path(id: @resource.experiment_id))

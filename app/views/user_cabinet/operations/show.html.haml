@@ -1,9 +1,9 @@
-= render('layouts/template_parts/small_title', locals: { title: I18n.t('operation.show.title') })
+= render('layouts/template_parts/small_title', locals: { title: t('.title') })
 
 %section#article-page
   .container
-    = render('layouts/template_parts/large_title', locals: { title: I18n.t('operation.show.large_title'),
-    text: I18n.t('operation.show.title_text') })
+    = render('layouts/template_parts/large_title', locals: { title: t('.large_title'),
+    text: t('.title_text') })
 
     .row.contact-wrap
       -# Сообщения об ошибках
@@ -11,3 +11,6 @@
 
     .page-blocks
       = render('operation_show')
+
+    .page-blocks
+      = link_to('Шаги эксперимента', user_cabinet_experiment_experiment_case_path(id: @resource.experiment_case_id, experiment_id: @resource.experiment_case.id))
