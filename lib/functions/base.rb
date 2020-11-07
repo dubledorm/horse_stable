@@ -8,11 +8,11 @@ module Functions
     include ActiveModel::Model
     include ActiveModel::Serializers::JSON
 
-    attr_accessor :human_name, :human_description, :function_name
+    attr_accessor :human_name, :human_description, :do
 
-    validates :function_name, presence: true
+    validates :do, presence: true
 
-    SERVICE_FIELDS = %w[human_name human_description function_name].freeze
+    SERVICE_FIELDS = %w[human_name human_description do].freeze
 
 
     def initialize(hash_attributes = {})
@@ -47,7 +47,7 @@ module Functions
     def attributes
       { 'human_name' => self.human_name,
         'human_description' => self.human_description,
-        'function_name' => self.function_name
+        'do' => self.do
       }
     end
 

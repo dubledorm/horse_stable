@@ -73,7 +73,7 @@ module UserCabinet
     end
 
     def function_params
-      params.required("functions/#{@function.function_name}").permit(@function.short_attribute_names)
+      params.required("functions/#{@function.do}").permit(@function.short_attribute_names)
     end
 
     def menu_action_items

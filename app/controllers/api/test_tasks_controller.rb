@@ -3,7 +3,11 @@ module Api
 
     def update
       super do
-        @resource.update!(test_tasks_params.merge(state: 'completed'))
+        @resource.update!(state: 'completed',
+                          result_kod: params['status'],
+                          result_values_json: params['output']&.to_json,
+                          duration: params['duration'],
+                          result_message: params[:error_message])
       end
     end
 
@@ -21,12 +25,6 @@ module Api
       end
 
       render json: result, status: 200
-    end
-
-    private
-
-    def test_tasks_params
-      params.require(:test_task).permit(:result_kod, :result_values_json, :duration)
     end
   end
 end

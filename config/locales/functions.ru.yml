@@ -1,13 +1,20 @@
 ru:
   activemodel:
     attributes:
+      aliases:
+        _fields_selector_alias: &fields_selector
+          selector: Селектор
+          selector_name: Выбор по признаку
+          selector_value: Значение выбора
       functions/click:
-        selector: Селектор
+        <<: *fields_selector
         human_name: Функция
         human_description: Описание
         function_name: Имя
-        selector_name: Выбор по признаку
-        selector_value: Значение выбора
+      functions/validate:
+        <<: *fields_selector
+        attribute: Атрибут
+        value: Значение атрибута
     errors:
       aliases:
         _field_errors_alias: &fielderrors
@@ -28,3 +35,10 @@ ru:
               <<: *fielderrors
             selector_value:
               <<: *fielderrors
+        functions/validate:
+          attributes:
+            selector:
+              <<: *fielderrors
+            attribute:
+              <<: *fielderrors
+

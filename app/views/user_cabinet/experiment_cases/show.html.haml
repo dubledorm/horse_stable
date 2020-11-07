@@ -14,4 +14,7 @@
     -#.page-blocks
     -#  = render('experiment_cases_show')
     .page-blocks
-      = link_to('Эксперимент', user_cabinet_experiment_path(id: @resource.experiment_id))
+      = link_to(Experiment.model_name.human, user_cabinet_experiment_path(id: @resource.experiment_id))
+    .page-blocks
+      = link_to(t('.delete'), user_cabinet_experiment_experiment_case_path(experiment_id: @resource.experiment_id,
+      id: @resource.id), method: :delete, data: { confirm: 'Are you sure?' })

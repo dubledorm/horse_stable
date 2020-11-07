@@ -21,4 +21,23 @@ class ExperimentCase < ApplicationRecord
       result.merge({ "#{operation.number}" => operation.as_json })
     end.stringify_keys
   end
+
+  def attributes=(hash)
+    hash.each do |key, value|
+      if key.in?(Operation::OPERATION_TYPES)
+        operation_type = key
+        value.each do |operation_number, operation_hash|
+          operation = self.operations.build
+          operation.from_json({ operation_type: operation_type,
+                                number: operation_number,
+                                function_name: operation_hash['do'] }.to_json)
+          function = Functions::Factory.build!(operation_hash['do'])
+          function.attributes= operation_hash
+          operation.operation_json = function.as_json.to_json
+        end
+      else
+        send("#{key}=", value)
+      end
+    end
+  end
 end
