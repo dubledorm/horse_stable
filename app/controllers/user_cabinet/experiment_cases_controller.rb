@@ -2,6 +2,14 @@
 module UserCabinet
   class ExperimentCasesController < PrivateAreaController
 
+    def clone
+      get_resource
+      raise CanCan::AccessDenied unless can? :clone, @resource
+      experiment_case = @resource.clone
+      experiment_case.save!
+      redirect_to user_cabinet_experiment_path(id: params[:experiment_id])
+    end
+
     def new
       super do
         @resource = ExperimentCase.new

@@ -28,7 +28,11 @@ Rails.application.routes.draw do
     resource :user_cabinet, only: [:show, :update], controller: 'user_cabinet/users', as: :user_cabinet
     namespace :user_cabinet do
       resources :experiments, except: [:edit] do
-        resources :experiment_cases, except: [:index, :edit]
+        resources :experiment_cases, except: [:index, :edit] do
+          member do
+            post :clone
+          end
+        end
       end
 
       resources :experiment_cases, only: [] do

@@ -9,8 +9,22 @@ class ExperimentCase < ApplicationRecord
   validates :human_name, :number, presence: :true
   validates :number, uniqueness: { scope: [:experiment] }
 
+  def clone
+    attributes_hash = self.as_json
+    attributes_hash[:user_id] = self.user_id
+    attributes_hash[:experiment_id] = self.experiment_id
+    attributes_hash[:human_name] = self.human_name
+    attributes_hash[:human_description] = self.human_description
+    attributes_hash[:number] = ExperimentCase::NextCaseNumber.find(self.experiment_id)
+
+    experiment_case = ExperimentCase.new
+    experiment_case.from_json(attributes_hash.to_json)
+    experiment_case
+  end
+
   def as_json
-    { check: operations_as_json(:check),
+    { human_name: self.human_name,
+      check: operations_as_json(:check),
       do: operations_as_json(:do),
       next: operations_as_json(:next)
     }.stringify_keys
