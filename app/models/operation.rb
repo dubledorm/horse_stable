@@ -31,7 +31,11 @@ class Operation < ApplicationRecord
   scope :do, -> { where(operation_type: 'do').order(:number) }
   scope :next, -> { where(operation_type: 'next').order(:number) }
 
-  def as_json
+  def as_json(functions_translate: false)
+    if functions_translate
+      function = Functions::Factory.build!(function_name, JSON.parse(operation_json || '{}'))
+      return function.translate_attributes.stringify_keys
+    end
     JSON.parse(operation_json || '{}').stringify_keys
   end
 

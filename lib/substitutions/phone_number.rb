@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Substitutions
+  # noinspection SpellCheckingInspection
   class PhoneNumber < Base
     include ActiveModel::Model
 
@@ -16,7 +19,7 @@ module Substitutions
                       spaces_db_8: '8(DDD)DDD-DD-DD',
                       spaces_db_7: '+7(DDD)DDD-DD-DD',
                       free: ''
-    }
+    }.freeze
 
     attr_accessor :sequence, :format
     validates :sequence, inclusion: { in: %w(random list),
@@ -25,14 +28,18 @@ module Substitutions
                                       message: "%{value} is not a valid strict" }
 
 
-    def initialize(hash_attributes = {})
-      super(hash_attributes)
-      @sequence = 'random' unless @sequence.present?
-      @format = 'free' unless @format.present?
+    def initialize(*args)
+      super
+      @sequence ||= 'random'
+      @format ||= 'free'
     end
 
     def human_description
       'Возвращает телефонный номер. Параметры: '
+    end
+
+    def map_arguments
+      [:sequence, :format]
     end
 
     def calculate
@@ -47,7 +54,7 @@ module Substitutions
 
       case @format.to_sym
       when :free
-        phone_format = PHONE_FORMATS.select{ |key, value| key != :free }.values[Random.rand(PHONE_FORMATS.count - 1)]
+        phone_format = PHONE_FORMATS.select{ |key, _| key != :free }.values[Random.rand(PHONE_FORMATS.count - 1)]
       else
         phone_format = PHONE_FORMATS[@format.to_sym]
       end
@@ -59,7 +66,7 @@ module Substitutions
 
     def random
       prefix = PHONE_PREFIX[Random.rand(PHONE_PREFIX.count)]
-      number = (1..7).to_a.map{ |num| Random.rand(9) }.join('')
+      number = (1..7).to_a.map{ |_| Random.rand(9) }.join('')
       "#{prefix}#{number}".chars
     end
 

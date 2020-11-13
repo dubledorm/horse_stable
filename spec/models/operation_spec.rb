@@ -27,4 +27,14 @@ RSpec.describe Operation, type: :model do
   describe 'serializable' do
 
   end
+
+  describe 'translate_attributes' do
+    let!(:experiment_case) {FactoryGirl.create :experiment_case}
+    let!(:operation1) {FactoryGirl.create :operation, experiment_case: experiment_case, number: '1', operation_type: :check}
+
+
+
+    it { expect(operation1).to be_valid }
+
+  end
 end

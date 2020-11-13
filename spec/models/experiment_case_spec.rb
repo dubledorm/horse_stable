@@ -17,7 +17,7 @@ RSpec.describe ExperimentCase, type: :model do
   describe 'serialization' do
     let!(:empty_experiment_case) {FactoryGirl.create :experiment_case}
     let!(:experiment_case_with_operations) { FactoryGirl.create :experiment_case_with_operations}
-    let!(:empty_result) { { 'check' => {}, 'do' => {}, 'next' => {} } }
+    let!(:empty_result) { { 'check' => {}, 'do' => {}, 'next' => {}, 'human_name' => empty_experiment_case.human_name } }
     let!(:result) { { 'check' => { experiment_case_with_operations.operations[1].number.to_s => {},
                                          experiment_case_with_operations.operations[2].number.to_s => {},
                                          experiment_case_with_operations.operations[3].number.to_s => { 'do' => 'click',
@@ -25,7 +25,8 @@ RSpec.describe ExperimentCase, type: :model do
                                                                                                         'human_name' =>nil,
                                                                                                         'selector' => { "xpath" => "123" } } },
                             'do' => { experiment_case_with_operations.operations[0].number.to_s => {} },
-                            'next' => {} } }
+                            'next' => {},
+                            'human_name' => experiment_case_with_operations.human_name } }
 
     it { expect(empty_experiment_case.as_json).to eq(empty_result) }
     it { expect(JSON.parse(empty_experiment_case.as_json.to_json)).to eq(empty_result) }
