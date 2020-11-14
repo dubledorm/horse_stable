@@ -22,17 +22,17 @@ class ExperimentCase < ApplicationRecord
     experiment_case
   end
 
-  def as_json
+  def as_json(functions_translate: false)
     { human_name: self.human_name,
-      check: operations_as_json(:check),
-      do: operations_as_json(:do),
-      next: operations_as_json(:next)
+      check: operations_as_json(:check, functions_translate),
+      do: operations_as_json(:do, functions_translate),
+      next: operations_as_json(:next, functions_translate)
     }.stringify_keys
   end
 
-  def operations_as_json(operation_type)
+  def operations_as_json(operation_type, functions_translate = false)
     operations.where(operation_type: operation_type).order(:number).inject({}) do |result, operation|
-      result.merge({ "#{operation.number}" => operation.as_json })
+      result.merge({ "#{operation.number}" => operation.as_json(functions_translate: functions_translate) })
     end.stringify_keys
   end
 

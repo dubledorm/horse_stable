@@ -10,7 +10,7 @@ ru:
         <<: *fields_selector
         human_name: Функция
         human_description: Описание
-        function_name: Имя
+        do: Имя
       functions/validate:
         <<: *fields_selector
         attribute: Атрибут

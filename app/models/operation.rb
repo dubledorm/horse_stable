@@ -36,6 +36,7 @@ class Operation < ApplicationRecord
       function = Functions::Factory.build!(function_name, JSON.parse(operation_json || '{}'))
       return function.translate_attributes.stringify_keys
     end
+
     JSON.parse(operation_json || '{}').stringify_keys
   end
 

@@ -30,11 +30,22 @@ RSpec.describe Operation, type: :model do
 
   describe 'translate_attributes' do
     let!(:experiment_case) {FactoryGirl.create :experiment_case}
-    let!(:operation1) {FactoryGirl.create :operation, experiment_case: experiment_case, number: '1', operation_type: :check}
+    let!(:send_text) { Functions::SendText.new(selector_name: 'xpath',
+                                                     selector_value: 'xpath',
+                                                     value: 'Телефон -$phone_number(random, short_8)') }
+    let!(:operation1) {FactoryGirl.create :operation,
+                                          experiment_case: experiment_case,
+                                          number: '1',
+                                          operation_type: :check,
+                                          function_name: 'send_text',
+                                          operation_json: send_text.as_json.to_json}
 
 
 
     it { expect(operation1).to be_valid }
 
+    it 'only print' do
+      ap operation1.as_json(functions_translate: true)
+    end
   end
 end

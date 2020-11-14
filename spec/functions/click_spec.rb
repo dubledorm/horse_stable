@@ -4,20 +4,20 @@ RSpec.describe Functions::Click do
 
   context 'wrong_arguments' do
     it { expect(described_class.new({})).to_not be_valid }
-    it { expect(described_class.new(selector: { xpath: '//fieldset[17]/button[2]' }.to_json)).to_not be_valid }
-    it { expect(described_class.new(function_name: 'click')).to_not be_valid }
+    it { expect(described_class.new(selector: { xpath: '//fieldset[17]/button[2]' })).to_not be_valid }
+    it { expect(described_class.new(do: 'click')).to_not be_valid }
 
     it 'print only' do
-      function = described_class.new(function_name: 'click')
+      function = described_class.new(do: 'click')
       function.valid?
       ap function.errors.full_messages
     end
   end
 
   context 'truth arguments' do
-    let!(:select_attributes) { { selector: { xpath: '//fieldset[17]/button[2]' }.to_json, function_name: 'click' } }
-    let!(:selector_name_attributes) { { selector_name: 'xpath', selector_value: '//fieldset[17]/button[2]', function_name: 'click' } }
-    let!(:empty_value_attributes) { { selector_name: 'xpath', function_name: 'click' } }
+    let!(:select_attributes) { { selector: { xpath: '//fieldset[17]/button[2]' }, do: 'click' } }
+    let!(:selector_name_attributes) { { selector_name: 'xpath', selector_value: '//fieldset[17]/button[2]', do: 'click' } }
+    let!(:empty_value_attributes) { { selector_name: 'xpath', do: 'click' } }
     let!(:click) { described_class.new }
     let!(:click1) { described_class.new(selector_name_attributes) }
 
@@ -43,7 +43,7 @@ RSpec.describe Functions::Click do
   context 'add_value' do
     let!(:attr) { { human_name: 'Клик',
                           human_description: 'Описание',
-                          function_name: 'click',
+                          do: 'click',
                           selector_name: 'xpath'
                        } }
 
@@ -60,8 +60,8 @@ RSpec.describe Functions::Click do
   context 'to_json' do
     let!(:attr) { { human_name: 'Клик',
                     human_description: 'Описание',
-                    function_name: 'click',
-                    selector: { xpath: '//fieldset[17]/button[2]' }.to_json
+                    do: 'click',
+                    selector: { xpath: '//fieldset[17]/button[2]' }
     } }
 
     let!(:click) { described_class.new(attr) }
@@ -72,8 +72,8 @@ RSpec.describe Functions::Click do
   context 'from_json' do
     let!(:attr) { { human_name: 'Клик',
                           human_description: 'Описание',
-                          function_name: 'click',
-                          selector: { xpath: '//fieldset[17]/button[2]' }.to_json
+                          do: 'click',
+                          selector: { xpath: '//fieldset[17]/button[2]' }
                        } }
     let!(:click) { described_class.new }
 
@@ -91,6 +91,6 @@ RSpec.describe Functions::Click do
     it { expect(described_class.human_attribute_name('selector')).to eq('Селектор') }
     it { expect(described_class.human_attribute_name('human_name')).to eq('Функция') }
     it { expect(described_class.human_attribute_name('human_description')).to eq('Описание') }
-    it { expect(described_class.human_attribute_name('function_name')).to eq('Имя') }
+    it { expect(described_class.human_attribute_name('do')).to eq('Имя') }
   end
 end

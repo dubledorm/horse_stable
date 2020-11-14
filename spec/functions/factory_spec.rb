@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Functions::Factory do
-  let!(:click_arguments) { { selector: { xpath: '//fieldset[17]/button[2]' }.to_json } }
+  let!(:click_arguments) { { selector: { xpath: '//fieldset[17]/button[2]' } } }
   let!(:empty_arguments) { {} }
 
 
