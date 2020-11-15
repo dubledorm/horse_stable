@@ -89,7 +89,7 @@ module Functions
         raise ArgumentError, "Ошибка разбора аргументов функции #{m[:name]} с аргументами #{m[:args]}. Ошибка: #{fnc.errors.full_messages}" unless fnc.valid?
 
         # вычисляем и заменяем функцию в исходной строке
-        m[:prefix] + fnc.calculate
+        "#{m[:prefix]}#{fnc.calculate}"
       end
     end
   end

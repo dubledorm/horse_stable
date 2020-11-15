@@ -2,7 +2,8 @@ module Substitutions
   # noinspection RubyStringKeysInHashInspection
   class Factory
 
-    NAME_TO_CLASS = { 'phone_number' => Substitutions::PhoneNumber }.freeze
+    NAME_TO_CLASS = { 'phone_number' => Substitutions::PhoneNumber,
+                      'random_integer' => Substitutions::RandomInteger }.freeze
 
     class FunctionBuildError < StandardError; end
 
