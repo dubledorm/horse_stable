@@ -1,0 +1,13 @@
+%td
+  = locals[:experiment].id
+%td
+  = locals[:experiment].human_name
+%td
+  = locals[:experiment].human_description
+%td
+  = locals[:experiment].state
+%td
+  = locals[:experiment].created_at
+%td
+  = link_to user_cabinet_experiment_path(id: locals[:experiment].id) do
+    %i.fa.fa-edit.rc-fa-edit

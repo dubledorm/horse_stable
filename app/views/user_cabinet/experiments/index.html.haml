@@ -1,1 +1,18 @@
-= render('shared/show_index', locals: { object_class: Experiment })
+%table
+  %thead
+    %th
+      = Experiment.human_attribute_name(:id)
+    %th
+      = Experiment.human_attribute_name(:human_name)
+    %th
+      = Experiment.human_attribute_name(:human_description)
+    %th
+      = Experiment.human_attribute_name(:state)
+    %th
+      = Experiment.human_attribute_name(:created_at)
+    %th
+      = I18n.t('some_do')
+  %tbody
+    - Experiment.all.each do |experiment|
+      %tr
+        = render('one_experiment_show', locals: { experiment: experiment })
