@@ -13,6 +13,6 @@
     %th
       = I18n.t('some_do')
   %tbody
-    - Experiment.all.each do |experiment|
+    - @collection.each do |experiment|
       %tr
         = render('one_experiment_show', locals: { experiment: experiment })

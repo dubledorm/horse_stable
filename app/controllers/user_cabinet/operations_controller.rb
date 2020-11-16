@@ -31,6 +31,7 @@ module UserCabinet
     def function_update
       get_resource
       raise CanCan::AccessDenied unless can? :update, @resource
+
       @function = Functions::Factory.build!(@resource.function_name, JSON.parse(@resource.operation_json || '{}'))
       @function.attributes = function_params
       unless @function.valid?

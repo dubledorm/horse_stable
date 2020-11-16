@@ -5,8 +5,8 @@ class Ability
 
   def initialize(user)
 
-    can :read, :all
-    cannot :read, User
+ #   can :read, :all
+ #   cannot :read, User
 
     if user.nil?
       return

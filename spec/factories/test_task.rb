@@ -8,5 +8,6 @@ FactoryGirl.define do
                         }.to_json }
     state :new
     experiment
+    user
   end
 end

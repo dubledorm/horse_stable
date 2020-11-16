@@ -22,6 +22,8 @@ RSpec.describe User, type: :model do
     it { should have_many(:grades) }
     it { should have_many(:blogs) }
     it { should have_one(:user_parameter)}
+
+    it { should have_many(:test_tasks) }
   end
 
   describe 'cascade delete of services' do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_151608) do
+ActiveRecord::Schema.define(version: 2020_11_16_201039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,11 +233,13 @@ ActiveRecord::Schema.define(version: 2020_11_15_151608) do
     t.bigint "operation_id"
     t.string "result_message"
     t.bigint "experiment_id", null: false
+    t.bigint "user_id", null: false
     t.index ["experiment_id"], name: "index_test_tasks_on_experiment_id"
     t.index ["operation_id"], name: "index_test_tasks_on_operation_id"
     t.index ["result_kod"], name: "index_test_tasks_on_result_kod"
     t.index ["start_time"], name: "index_test_tasks_on_start_time"
     t.index ["state"], name: "index_test_tasks_on_state"
+    t.index ["user_id"], name: "index_test_tasks_on_user_id"
   end
 
   create_table "user_parameters", force: :cascade do |t|
@@ -278,5 +280,6 @@ ActiveRecord::Schema.define(version: 2020_11_15_151608) do
   add_foreign_key "pictures", "galleries"
   add_foreign_key "test_tasks", "experiments"
   add_foreign_key "test_tasks", "operations"
+  add_foreign_key "test_tasks", "users"
   add_foreign_key "user_parameters", "users"
 end

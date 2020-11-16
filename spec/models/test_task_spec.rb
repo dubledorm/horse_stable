@@ -8,5 +8,6 @@ RSpec.describe TestTask, type: :model do
     it { expect(test_task).to be_valid }
 
     it { should belong_to(:experiment) }
+    it { should belong_to(:user) }
   end
 end

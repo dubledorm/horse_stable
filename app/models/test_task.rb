@@ -16,6 +16,7 @@ class TestTask < ApplicationRecord
 
   belongs_to :operation, optional: true
   belongs_to :experiment
+  belongs_to :user
 
   scope :for_processing, -> {where(state: :new)}
 end

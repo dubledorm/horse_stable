@@ -19,6 +19,6 @@
     %th
       = I18n.t('some_do')
   %tbody
-    - TestTask.all.each do |test_task|
+    - @collection.each do |test_task|
       %tr
         = render('one_test_task_show', locals: { test_task: test_task })
