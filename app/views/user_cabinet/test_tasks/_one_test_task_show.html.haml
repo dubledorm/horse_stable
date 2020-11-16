@@ -1,0 +1,19 @@
+%td
+  = locals[:test_task].id
+%td
+  = locals[:test_task].experiment.human_name
+%td
+  = locals[:test_task].human_attribute_value(:state)
+%td
+  = locals[:test_task].created_at
+%td
+  = locals[:test_task].start_time
+%td
+  = locals[:test_task].duration
+%td
+  = locals[:test_task].human_attribute_value(:result_kod)
+%td
+  = locals[:test_task].result_values_json
+%td
+  = link_to user_cabinet_experiment_path(id: locals[:test_task].id) do
+    %i.fa.fa-edit.rc-fa-edit

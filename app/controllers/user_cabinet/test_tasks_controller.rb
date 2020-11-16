@@ -7,7 +7,8 @@ module UserCabinet
         experiment = Experiment.find(params.required(:test_task).required(:experiment_id))
         @resource = TestTask.create(test_setting_json: experiment.as_json(functions_translate: true).to_json,
                                     start_time: DateTime.now,
-                                    state: :new)
+                                    state: :new,
+                                    experiment: experiment)
         unless @resource.persisted?
           render 'errors/500'
           return

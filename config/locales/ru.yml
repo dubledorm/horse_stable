@@ -33,6 +33,9 @@ ru:
       tag:
         one: Тэг
         other: Тэги
+      test_task:
+        one: Задание
+        other: Задания
       service:
         one: Сервис
         other: Сервисы
@@ -149,13 +152,14 @@ ru:
       test_task:
         test_setting_json: Скрипт
         duration: Длительность выполнения
-        start_time: Время начала
-        result_kod: Результат
+        start_time: Запланированное время начала
+        result_kod: Результат выполнения
         result_values_json: Выходные значения
         state: Состояние
         created_at: Создан
         updated_at: Изменён
-
+        experiment: Тест
+        experiment_id: Тест Id
     errors:
       aliases:
         _field_errors_alias: &fielderrors

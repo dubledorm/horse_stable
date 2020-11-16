@@ -6,6 +6,7 @@ FactoryGirl.define do
                                  },
                                  next: {} }
                         }.to_json }
-    state 'new'
+    state :new
+    experiment
   end
 end

@@ -1,1 +1,24 @@
-= render('shared/show_index', locals: { object_class: TestTask })
+%table
+  %thead
+    %th
+      = TestTask.human_attribute_name(:id)
+    %th
+      = TestTask.human_attribute_name(:experiment)
+    %th
+      = TestTask.human_attribute_name(:state)
+    %th
+      = TestTask.human_attribute_name(:created_at)
+    %th
+      = TestTask.human_attribute_name(:start_time)
+    %th
+      = TestTask.human_attribute_name(:duration)
+    %th
+      = TestTask.human_attribute_name(:result_kod)
+    %th
+      = TestTask.human_attribute_name(:result_values_json)
+    %th
+      = I18n.t('some_do')
+  %tbody
+    - TestTask.all.each do |test_task|
+      %tr
+        = render('one_test_task_show', locals: { test_task: test_task })

@@ -7,5 +7,6 @@ RSpec.describe TestTask, type: :model do
     # Factories
     it { expect(test_task).to be_valid }
 
+    it { should belong_to(:experiment) }
   end
 end

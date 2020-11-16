@@ -2,6 +2,7 @@ class Experiment < ApplicationRecord
 
   belongs_to :user
   has_many :experiment_cases
+  has_many :test_tasks
 
   validates :state, :human_name, presence: :true
 

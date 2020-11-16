@@ -29,5 +29,11 @@ ru:
           quality: Качество
           interestingness: Интересность
           politeness: Вежливость
-
+      test_task:
+        state:
+          completed: Выполнен
+          new: Новый
+        result_kod:
+          processed: Выполнен успешно
+          interrupted: Прерван
 
