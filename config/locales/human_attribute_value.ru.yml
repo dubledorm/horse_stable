@@ -19,6 +19,9 @@ ru:
           active: Рабочая
           deleted: Удалена
           draft: Черновик
+      experiment:
+        state:
+          new: Новый
       grade_average:
         grade_type:
           quality: Качество

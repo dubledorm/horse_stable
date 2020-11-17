@@ -5,7 +5,7 @@
 %td
   = locals[:experiment].human_description
 %td
-  = locals[:experiment].state
+  = locals[:experiment].human_attribute_value(:state)
 %td
   = locals[:experiment].created_at
 %td

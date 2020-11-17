@@ -1,4 +1,5 @@
 class Experiment < ApplicationRecord
+  include HumanAttributeValue
 
   belongs_to :user
   has_many :experiment_cases
