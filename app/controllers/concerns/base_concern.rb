@@ -6,7 +6,7 @@ module BaseConcern
   end
 
   def get_collection
-    @collection = apply_scopes(get_resource_class).all
+    @collection = apply_scopes(get_resource_class).all.page params[:page]
   end
 
   def get_resource_class

@@ -22,3 +22,5 @@
     - @collection.each do |test_task|
       %tr
         = render('one_test_task_show', locals: { test_task: test_task })
+.row
+  = render('shared/pagination_block')

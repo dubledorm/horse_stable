@@ -103,3 +103,5 @@ gem 'elasticsearch-rails'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'react-rails'
+
+gem 'kaminari'
