@@ -34,6 +34,21 @@ a.btn-primary {
     margin-right: 8px;
 }
 
+input.btn.btn-search {
+    padding: 8px 20px;
+    margin-right: 8px;
+    text-align: center;
+    border: 1px solid #D0D7DD;
+    display: inline-block;
+    font-weight: 700;
+    border-radius: 4px;
+    color: $btn_primary_text_color;
+    margin-top: 10px;
+    height: 36px;
+    background-color: #EC5538;
+    background-image: linear-gradient(180deg, #EC5538, #EC5538);
+}
+
 
 a.btn-cancel {
     padding: 8px 20px;

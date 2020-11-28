@@ -1,18 +1,11 @@
-%table
-  %thead
-    %th
-      = Experiment.human_attribute_name(:id)
-    %th
-      = Experiment.human_attribute_name(:human_name)
-    %th
-      = Experiment.human_attribute_name(:human_description)
-    %th
-      = Experiment.human_attribute_name(:state)
-    %th
-      = Experiment.human_attribute_name(:created_at)
-    %th
-      = I18n.t('some_do')
-  %tbody
-    - @collection.each do |experiment|
-      %tr
-        = render('one_experiment_show', locals: { experiment: experiment })
+%section#blog
+  .container
+    .row.contact-wrap
+      -# Сообщения об ошибках
+      = render('shared/resource_alert_notice')
+    .row.filter-wrap
+      = render('filter')
+
+
+    .page-blocks
+      = render('index_table')

@@ -5,6 +5,7 @@ class TestTask < ApplicationRecord
 
   STATE_VALUES = %w[new started completed]
   RESULT_KOD_VALUES = %w[interrupted processed]
+  FIELD_NAME_VALUES_RELATIONS = { result_kod: RESULT_KOD_VALUES, state: STATE_VALUES }
 
 
   validates :test_setting_json, :state, presence: :true
@@ -18,5 +19,11 @@ class TestTask < ApplicationRecord
   belongs_to :experiment
   belongs_to :user
 
-  scope :for_processing, -> {where(state: :new)}
+  scope :for_processing, -> { where(state: :new) }
+  scope :result_kod, -> (result_kod){  where(result_kod: result_kod)}
+  scope :state, -> (state){  where(state: state)}
+
+  def self.options_for_select_type(field_name)
+    FIELD_NAME_VALUES_RELATIONS[field_name].map{|value| [human_attribute_value(field_name, value), value]}
+  end
 end

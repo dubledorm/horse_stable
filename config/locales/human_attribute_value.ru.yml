@@ -22,6 +22,8 @@ ru:
       experiment:
         state:
           new: Новый
+          draft: Черновик
+          locked: Заблокирован
       grade_average:
         grade_type:
           quality: Качество

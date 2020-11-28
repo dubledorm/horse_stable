@@ -1,0 +1,12 @@
+= form_with(url: user_cabinet_test_tasks_path, method: :get, name: 'filter-form', class: 'main-filter-form', local: true) do |f|
+  .col-md-2.form-group
+    = f.label(TestTask.human_attribute_name(:state))
+    = f.select(:state, TestTask.options_for_select_type(:state), { include_blank: true, selected: params[:state] }, class: 'form-control')
+
+  .col-md-3.form-group
+    = f.label(TestTask.human_attribute_name(:result_kod))
+    = f.select(:result_kod, TestTask.options_for_select_type(:result_kod), { include_blank: true, selected: params[:result_kod] }, class: 'form-control')
+
+  .pull-right
+    = f.submit I18n.t('search'), class: 'btn btn-search'
+    = link_to(I18n.t('reset'), user_cabinet_test_tasks_path, class: 'btn btn-cancel')

@@ -1,0 +1,14 @@
+= form_with(url: user_cabinet_experiments_path, method: :get, name: 'filter-form', class: 'main-filter-form', local: true) do |f|
+  .col-md-2.form-group
+    = f.label(Experiment.human_attribute_name(:human_name))
+    = f.text_field(:human_name, class: 'form-control', value: params[:human_name])
+  .col-md-2.form-group
+    = f.label(Experiment.human_attribute_name(:human_description))
+    = f.text_field(:human_description, class: 'form-control', value: params[:human_description])
+  .col-md-2.form-group
+    = f.label(Experiment.human_attribute_name(:state))
+    = f.select(:state, Experiment.options_for_select_type(:state), { include_blank: true, selected: params[:state] }, class: 'form-control')
+
+  .pull-right
+    = f.submit I18n.t('search'), class: 'btn btn-search'
+    = link_to(I18n.t('reset'), user_cabinet_experiments_path, class: 'btn btn-cancel')

@@ -3,11 +3,13 @@ module Api
 
     def update
       super do
+        test_task = params.require('test_task')
         @resource.update!(state: 'completed',
-                          result_kod: params['status'],
-                          result_values_json: params['output']&.to_json,
-                          duration: params['duration'],
-                          result_message: params[:error_message])
+                          result_kod: test_task.require('result_kod'),
+                          result_values_json: test_task['output']&.to_json,
+                          duration: test_task.require('statistic')['duration'],
+                          operation_id: test_task.require(:errors)[:operation_id],
+                          result_message: test_task.require(:errors)[:message] )
       end
     end
 

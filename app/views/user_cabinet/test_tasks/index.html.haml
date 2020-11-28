@@ -1,5 +1,12 @@
 %section#blog
   .container
+    .row.contact-wrap
+      -# Сообщения об ошибках
+      = render('shared/resource_alert_notice')
+    .row.filter-wrap
+      = render('filter')
+
+
     .page-blocks
       = render('index_table')
     .row

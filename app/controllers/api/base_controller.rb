@@ -16,7 +16,7 @@ class Api::BaseController < ActionController::API
   # ошибка в параметрах запроса
   def render_400(e)
     Rails.logger.error(e.message)
-    render json: { message: e.message }.to_json, status: :bad_request
+    render json: { message: e.message.encode("UTF-8") }.to_json, status: :bad_request
   end
 
   # внутрення ошибка сервера. не обработанная ошибка

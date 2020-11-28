@@ -1,6 +1,9 @@
 # encoding: utf-8
 module UserCabinet
   class ExperimentsController < PrivateAreaController
+    has_scope :human_name
+    has_scope :human_description
+    has_scope :state
 
     def new
       super do

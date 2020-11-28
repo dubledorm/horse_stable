@@ -1,6 +1,8 @@
 # encoding: utf-8
 module UserCabinet
   class TestTasksController < PrivateAreaController
+    has_scope :result_kod
+    has_scope :state
 
     def create
       super do
