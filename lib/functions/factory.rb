@@ -9,6 +9,7 @@ module Functions
                       # 'sleep' => Functions::Sleep,
                       'connect' => Functions::Connect,
                       'validate' => Functions::Validate,
+                      'write_variable_to_output' => Functions::WriteVariableToOutput,
                       # 'scroll' => Functions::Scroll
     }.freeze
 
