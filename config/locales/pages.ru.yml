@@ -1,4 +1,7 @@
 ru:
+  views:
+    pagination:
+      truncate: ...
   user_cabinet:
     operations:
       show:

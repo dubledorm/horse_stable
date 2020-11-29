@@ -43,6 +43,37 @@
   color: #FFFFFF;
 }
 
+// Пагинация
+ul.pagination{
+  float: none;
+}
+
+ul.pagination>li>a {
+  color: #EC5538;
+  background: transparent;
+}
+
+.pagination a:not(.disabled):hover {
+  background-color: #EC5538;
+  background-image: none ;
+}
+
+ul.pagination>li>span {
+  color: #EC5538;
+  border-radius: 5px;
+  font-size: 16px;
+  height: 32px;
+  width: 32px;
+  padding: 0;
+  display: inline-block;
+  text-align: center;
+  line-height: 32px;
+  border-radius: 50%;
+  margin: 0 5px;
+  border: none;
+  background-color: transparent;
+}
+
 
 // Галерея
 
