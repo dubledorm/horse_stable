@@ -6,7 +6,7 @@ module Api
         test_task = params.require('test_task')
         @resource.update!(state: 'completed',
                           result_kod: test_task.require('result_kod'),
-                          result_values_json: test_task['output']&.to_json,
+                          result_values_json: test_task['output_values']&.to_json,
                           duration: test_task.require('statistic')['duration'],
                           operation_id: test_task.require(:errors)[:operation_id],
                           result_message: test_task.require(:errors)[:message] )
