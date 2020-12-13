@@ -15,6 +15,11 @@ ru:
         <<: *fields_selector
         attribute: Атрибут
         value: Значение атрибута
+      functions/read_attribute:
+        <<: *fields_selector
+        attribute_name: Имя атрибута
+        save_as: Куда сохранить
+
     errors:
       aliases:
         _field_errors_alias: &fielderrors

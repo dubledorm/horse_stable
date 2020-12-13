@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :front do
+    get 'get_parameters/:name', to: 'functions#get_parameters', as: 'functions_get_parameters'
+  end
+
 #  authenticated(:user) do
 
     resource :user_profile, only: [:show, :update], controller: 'user_profile/users', as: :user_profile

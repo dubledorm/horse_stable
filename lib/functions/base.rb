@@ -35,13 +35,13 @@ module Functions
     end
 
     # Возможные значения атрибутов
-    def attribute_values
+    def self.attribute_values
       {}
     end
 
     # Порядок вывода атрибутов на форме
-    def attribute_orders
-      {}
+    def self.attribute_orders
+      []
     end
 
     # Если в значениях атрибутов используется функция, то перевести в значение функции
