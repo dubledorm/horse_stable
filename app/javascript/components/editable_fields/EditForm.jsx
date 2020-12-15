@@ -3,6 +3,12 @@ import PropTypes from "prop-types"
 import BtnCancel from "./BtnCancel"
 import BtnPrimary from "./BtnPrimary"
 
+function OptionItem(props) {
+    return (
+        <option value={props.value}>{props.name}</option>
+    )
+}
+
 
 
 class EditForm extends React.Component {
@@ -10,7 +16,7 @@ class EditForm extends React.Component {
         super(props);
         this.state = {local_value: this.props.start_value, error_message: ''};
 
-        this.onlocalChangeValue = this.onlocalChangeValue.bind(this);
+        // this.onlocalChangeValue = this.onlocalChangeValue.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
         this.onSubmitError = this.onSubmitError.bind(this);
@@ -49,22 +55,32 @@ class EditForm extends React.Component {
         this.props.onChangeMode(false);
     }
 
-    onlocalChangeValue(event){
-        alert(event.target.value);
-        this.setState({local_value: event.target.value});
-    }
+    // onlocalChangeValue(event){
+    //     this.setState({local_value: event.target.value});
+    // }
 
     componentDidMount() {
         this.input.current.focus();
     }
 
+
+
     createEditElement() {
        let element_type = this.props.edit_element_type;
        let field_name = this.props.resource_class +'['+this.props.field_name+']';
+       let listOptions = '';
+
+       if (this.props.values != null) {
+           listOptions = JSON.parse(this.props.values).map((item) => <OptionItem key={item[1]} value={item[1]} name={item[0]} selected={this.props.start_value}/>);
+       }
+
        let inputComponentTypes = {
             'string': <input type="text" name={field_name} className="form-control" defaultValue={this.props.start_value} ref={this.input} />,
             'text': <textarea name={field_name} className="form-control" defaultValue={this.props.start_value} ref={this.input} />,
-            'number': <input type="number" name={field_name} className="form-control" defaultValue={this.props.start_value} ref={this.input} />
+            'number': <input type="number" name={field_name} className="form-control" defaultValue={this.props.start_value} ref={this.input} />,
+            'drop_down_list': <select name={field_name} className="form-control" defaultValue={this.props.start_value} ref={this.input}>
+                {listOptions}
+            </select>
        };
 
        let result = inputComponentTypes[element_type];
@@ -110,7 +126,8 @@ EditForm.propTypes = {
     onChangeValue: PropTypes.func,
     onChangeMode: PropTypes.func,
     onToggleSpinner: PropTypes.func,
-    edit_element_type: PropTypes.string
+    edit_element_type: PropTypes.string,
+    values: PropTypes.string
 };
 
 export default EditForm

@@ -1,7 +1,8 @@
 .col-xs-12.col-md-8
   = rc_string_field(@resource, :number, user_cabinet_operation_path(id: @resource.id))
   = rc_string_field(@resource, :operation_type, user_cabinet_operation_path(id: @resource.id))
-  = rc_string_field(@resource, :function_name, user_cabinet_operation_path(id: @resource.id))
+  -#= rc_string_field(@resource, :function_name, user_cabinet_operation_path(id: @resource.id))
+  = rc_drop_down_list(@resource, :function_name, user_cabinet_operation_path(id: @resource.id), Functions::Factory.options_for_select)
 
-  - @function.short_attribute_names.each do |name|
-    = rc_string_field(@function, name, function_update_user_cabinet_operation_path(id: @resource.id))
+  -#- @function.short_attribute_names.each do |name|
+  -#  = rc_string_field(@function, name, function_update_user_cabinet_operation_path(id: @resource.id))
