@@ -23,6 +23,16 @@ module Functions
       super.reject{ |name| name == 'selector' }
     end
 
+    def self.attribute_values
+      super.merge( { selector_name: %w[xpath].sort })
+    end
+
+    def self.attribute_hints
+      super.merge({ 'selector_name' => self.i18n_translate_path('selector_name_hint'),
+                    'selector_value' => self.i18n_translate_path('selector_value_hint') })
+    end
+
+
     protected
 
     def attributes

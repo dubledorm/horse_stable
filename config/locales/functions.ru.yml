@@ -4,8 +4,10 @@ ru:
       aliases:
         _fields_selector_alias: &fields_selector
           selector: Селектор
-          selector_name: Выбор по признаку
-          selector_value: Значение выбора
+          selector_name: Признак выбора элемента на странице
+          selector_name_hint: Определяет по какому признаку выбирается элемент на HTML странице
+          selector_value: Значение
+          selector_value_hint: Значение признака
       functions/click:
         <<: *fields_selector
         human_name: Функция
@@ -18,7 +20,9 @@ ru:
       functions/read_attribute:
         <<: *fields_selector
         attribute_name: Имя атрибута
-        save_as: Куда сохранить
+        attribute_name_hint: Имя атрибута, значение которого хотим прочитать
+        save_as: Сохранить в
+        save_as_hint: Имя переменной в которую сохранить прочитанное значение атрибута
 
     errors:
       aliases:

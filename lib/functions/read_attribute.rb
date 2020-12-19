@@ -4,8 +4,8 @@ module Functions
     attr_accessor :attribute_name, :save_as
 
     def self.attribute_values
-      { attribute_name: %w[text]
-      }
+      super.merge({ attribute_name: %w[text value displayed enabled hash hover selected size style tag_name].sort
+                  })
     end
 
     # Порядок вывода атрибутов на форме
@@ -14,6 +14,11 @@ module Functions
        :attribute_name,
        :save_as
       ]
+    end
+
+    def self.attribute_hints
+      super.merge({ 'attribute_name' => self.i18n_translate_path('attribute_name_hint'),
+                    'save_as' => self.i18n_translate_path('save_as_hint') })
     end
 
     protected

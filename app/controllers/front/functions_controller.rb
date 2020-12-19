@@ -24,6 +24,10 @@ module Front
                                            .map{ |attribute| [attribute,
                                                               function.class.human_attribute_name(attribute)]}
                                            .flatten],
+                     attribute_hints: Hash[*function.short_attribute_names
+                                                 .map{ |attribute| [attribute,
+                                                                    function.class.attribute_hints[attribute]]}
+                                                 .flatten],
                      attribute_values: function.class.attribute_values,
                      attribute_orders: function.class.attribute_orders }
     end

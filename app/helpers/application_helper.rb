@@ -136,8 +136,4 @@ module ApplicationHelper
                                                                            values,
                                                                            read_only)
   end
-
-  def rc_function_editor
-    react_component 'functions/FunctionEditor', { function_names: Functions::Factory.options_for_select.to_json }
-  end
 end

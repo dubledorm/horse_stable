@@ -39,6 +39,11 @@ module Functions
       {}
     end
 
+    # Список подсказок для аттрибутов. Устанавливается hash {name: 'hint value'}
+    def self.attribute_hints
+      {}
+    end
+
     # Порядок вывода атрибутов на форме
     def self.attribute_orders
       []
@@ -68,6 +73,9 @@ module Functions
           .map{ |item| item.to_s.gsub('=', '') }
     end
 
+    def self.i18n_translate_path(name)
+      I18n.t("activemodel.attributes.#{self.name.underscore}.#{name}")
+    end
 
     private
 
