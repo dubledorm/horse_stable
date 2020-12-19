@@ -9,8 +9,10 @@ function CreateForEditMode(props) {
 
         listOptions.unshift(<option key={key} value=''></option>)
 
-        return <select name={props.fieldName} className="form-control"
-                       defaultValue={props.value}>
+        return <select name={props.fieldName}
+                       className="form-control"
+                       onChange={props.onChangeAttribute}
+                       value={props.value === undefined ? '' : props.value}>
             {listOptions}
         </select>
     }
@@ -18,7 +20,8 @@ function CreateForEditMode(props) {
         return <input type="text"
                       name={props.fieldName}
                       className="form-control"
-                      defaultValue={props.value}
+                      value={props.value === undefined ? '' : props.value}
+                      onChange={props.onChangeAttribute}
                       disabled={!props.edit_mode}/>;
     }
 }
@@ -30,8 +33,13 @@ function CreateForViewMode(props) {
 class FunctionField extends React.Component {
     constructor(props) {
         super(props);
+        this.onChangeValue = this.onChangeValue.bind(this);
     }
 
+
+    onChangeValue(e) {
+      this.props.onChangeAttribute(this.props.fieldName, e.target.value)
+    }
 
     render() {
         let context = '';
@@ -40,6 +48,7 @@ class FunctionField extends React.Component {
             context = <CreateForEditMode fieldValues={this.props.fieldValues}
                                          fieldName={this.props.fieldName}
                                          value={this.props.value}
+                                         onChangeAttribute={this.onChangeValue}
                                          edit_mode={this.props.edit_mode}/>;
         else
             context = <CreateForViewMode value={this.props.value}/>;
@@ -66,7 +75,8 @@ FunctionField.propTypes = {
     fieldValues: PropTypes.array,
     fieldHint: PropTypes.string,
     value: PropTypes.string,
-    edit_mode: PropTypes.bool
+    edit_mode: PropTypes.bool,
+    onChangeAttribute: PropTypes.func
 };
 
 export default FunctionField

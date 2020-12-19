@@ -32,7 +32,7 @@ module UserCabinet
       get_resource
       raise CanCan::AccessDenied unless can? :update, @resource
 
-      @function = Functions::Factory.build!(@resource.function_name, JSON.parse(@resource.operation_json || '{}'))
+      @function = Functions::Factory.build!(function_name)
       @function.attributes = function_params
       unless @function.valid?
         render json: @function.errors.full_messages.join(', '), status: :unprocessable_entity
@@ -40,6 +40,7 @@ module UserCabinet
       end
 
       @resource.operation_json = @function.to_json
+      @resource.function_name = function_name
       @resource.save!
       render json: attributes_mask_to_json(@function, function_params),  status: :ok
     end
@@ -73,8 +74,12 @@ module UserCabinet
       params.required(:operation).permit(:number, :operation_type, :function_name)
     end
 
+    def function_name
+      params.required('function_name')
+    end
+
     def function_params
-      params.required("functions/#{@function.do}").permit(@function.short_attribute_names)
+      params['params']&.permit(@function.short_attribute_names)
     end
 
     def menu_action_items

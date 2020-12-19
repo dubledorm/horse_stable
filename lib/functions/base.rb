@@ -24,6 +24,7 @@ module Functions
     end
 
     def attributes=(hash)
+      return unless hash
       hash.each do |key, value|
         send("#{key}=", value)
       end

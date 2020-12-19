@@ -19,7 +19,7 @@ module FunctionHelper
       read_only: read_only }
   end
 
-  def rc_function_editor(resource, url, read_only = false)
-    react_component 'functions/FunctionEditor', function_editor_options(resource, url, read_only)
+  def rc_function_editor(resource, read_only = false)
+    react_component 'functions/FunctionEditor', function_editor_options(resource, read_only)
   end
 end

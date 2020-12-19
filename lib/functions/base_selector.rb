@@ -5,6 +5,7 @@ module Functions
     validates :selector_name, :selector, presence: true
 
     def attributes=(hash)
+      return unless hash
       hash.each do |key, value|
         if key.to_s == 'selector'
           self.selector = value

@@ -41,6 +41,9 @@ class FunctionEditor extends React.Component {
         this.onToggleSpinner = this.onToggleSpinner.bind(this);
         this.onCancel = this.onCancel.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
+        this.onSubmitError = this.onSubmitError.bind(this);
+        this.onChangeFunctionAttribute = this.onChangeFunctionAttribute.bind(this);
         this.state = {
             function_name: props.start_value,
             function_attributes: JSON.parse(props.start_value_attributes),
@@ -48,21 +51,17 @@ class FunctionEditor extends React.Component {
             edit_mode: false,
             read_only: 'read_only' in props ? props.read_only : false,
             error_message: '',
-            fields_description: {},
-            current_values: {}
+            fields_description: {}
         }
     }
 
     componentDidMount() {
         if (this.props.start_value !== undefined && this.props.start_value !== null && this.props.start_value !== '') {
-            this.onChangeFunctionHandler(this.props.start_value);
+            this.getFieldsDecription(this.props.start_value);
         }
     }
 
-
-    onChangeFunctionHandler(function_name) {
-        this.setState({function_name: function_name});
-        // Запрос за параметрами функции
+    getFieldsDecription(function_name) {
         this.onToggleSpinner(true);
         $.ajax({
             type: "GET",
@@ -74,8 +73,16 @@ class FunctionEditor extends React.Component {
         });
     }
 
+    onChangeFunctionHandler(function_name) {
+        if (this.state.function_name !== function_name) {
+            this.setState({function_attributes: {}});
+        }
+        this.setState({function_name: function_name, error_message: ''});
+        // Запрос за параметрами функции
+        this.getFieldsDecription(function_name);
+    }
+
     onReadSuccess(data){
-        // alert(data.attributes["attribute_name"]);
         this.setState({ error_message: '' });
         // Запоминаем список полей
         this.setState({fields_description: data });
@@ -100,18 +107,53 @@ class FunctionEditor extends React.Component {
     }
 
     onCancel(){
-        this.setState({function_name: this.props.start_value});
+        this.setState({ function_name: this.props.start_value,
+            function_attributes: JSON.parse(this.props.start_value_attributes),
+            error_message: '' });
         this.onChangeModeHandler(false);
-        this.componentDidMount();
+        this.getFieldsDecription(this.props.start_value);
     }
 
     onSubmit() {
-        this.onChangeModeHandler(false);
+        this.setState({ error_message: '' });
+        this.onToggleSpinner(true);
+        let data = {};
+        data['function_name'] = this.state.function_name;
+        data['params'] = this.state.function_attributes;
+        $.ajax({
+            type: "PUT",
+            url: this.props.url_for_write_parameters,
+            dataType: "json",
+            data: data,
+            success: this.onSubmitSuccess,
+            error: this.onSubmitError
+        });
     }
+
+    onSubmitSuccess() {
+        this.onChangeModeHandler(false);
+        this.onToggleSpinner(false);
+    }
+
+    onSubmitError(error) {
+      this.onReadError(error);
+    }
+
+    onChangeFunctionAttribute(attribute_name, value) {
+        let function_attributes = {};
+        Object.assign(function_attributes, this.state.function_attributes);
+        function_attributes[attribute_name] = value;
+        this.setState({function_attributes: function_attributes });
+    }
+
 
     render() {
         let context = null;
         let context_bottom = '';
+        let error_message = '';
+        if (this.state.error_message) {
+            error_message = <div className="rc-field-error">{this.state.error_message}</div>
+        }
         if (this.state.edit_mode) {
             if (this.state.fields_description.attributes !== undefined) {
                 context_bottom = <div className='rc-form-buttons'>
@@ -132,6 +174,7 @@ class FunctionEditor extends React.Component {
                                   attributeValues={this.state.fields_description.attribute_values}
                                   attributeOrders={this.state.fields_description.attribute_orders}
                                   currentAttributeValues={this.state.function_attributes}
+                                  onChangeAttribute={this.onChangeFunctionAttribute}
                                   edit_mode={this.state.edit_mode}/>
                 </div>
                 {context_bottom}
@@ -158,6 +201,7 @@ class FunctionEditor extends React.Component {
                                     read_only={false}
                                     spinner={this.state.spinner} />
                         {context}
+                        {error_message}
                     </div>
                 </div>
             </React.Fragment>
