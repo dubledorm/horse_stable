@@ -3,6 +3,11 @@ import PropTypes from "prop-types"
 
 
 function CreateForEditMode(props) {
+    let value = props.value;
+
+    if (value === undefined || value == null) {
+        value = '';
+    }
     if (props.fieldValues !== undefined && props.fieldValues !== null && props.fieldValues.length > 0) {
         let key = 1;
         let listOptions = props.fieldValues.map((item) => <option key={key++} value={item}>{item}</option>);
@@ -12,7 +17,7 @@ function CreateForEditMode(props) {
         return <select name={props.fieldName}
                        className="form-control"
                        onChange={props.onChangeAttribute}
-                       value={props.value === undefined ? '' : props.value}>
+                       value={value}>
             {listOptions}
         </select>
     }
@@ -20,7 +25,7 @@ function CreateForEditMode(props) {
         return <input type="text"
                       name={props.fieldName}
                       className="form-control"
-                      value={props.value === undefined ? '' : props.value}
+                      value={value}
                       onChange={props.onChangeAttribute}
                       disabled={!props.edit_mode}/>;
     }

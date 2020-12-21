@@ -187,6 +187,7 @@ class FunctionEditor extends React.Component {
                 <div className="col-md-12 col-md-offset-1">
                   <FunctionFields attributes={this.state.fields_description.attributes}
                                   attributeHints={this.state.fields_description.attribute_hints}
+                                  attributeOrders={this.state.fields_description.attribute_orders}
                                   currentAttributeValues={this.state.function_attributes}/>
                 </div>
             </div>

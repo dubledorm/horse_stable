@@ -50,4 +50,8 @@ ru:
               <<: *fielderrors
             attribute:
               <<: *fielderrors
+            selector_name:
+              <<: *fielderrors
+            selector_value:
+              <<: *fielderrors
 
