@@ -1,5 +1,14 @@
 ru:
   activemodel:
+    models:
+      functions/click: Клик мышкой
+      functions/read_attribute: Прочитать атрибут элемента
+      functions/resolve_capcha: Решить капчу
+      functions/send_text: Ввести текст
+      functions/connect: Перейти по URL
+      functions/validate: Проверить
+      functions/write_variable_to_output: Вывести
+
     attributes:
       aliases:
         _fields_selector_alias: &fields_selector
@@ -16,14 +25,36 @@ ru:
       functions/validate:
         <<: *fields_selector
         attribute: Атрибут
+        attribute_hint: Имя атрибута, значение которого хотим проверить
         value: Значение атрибута
+        value_hint: Значение, которое должен иметь атрибут
       functions/read_attribute:
         <<: *fields_selector
         attribute_name: Имя атрибута
         attribute_name_hint: Имя атрибута, значение которого хотим прочитать
         save_as: Сохранить в
         save_as_hint: Имя переменной в которую сохранить прочитанное значение атрибута
-
+      functions/send_text:
+        <<: *fields_selector
+        value: Значение
+        value_hint: Значение, которое будет записано в поле ввода
+        value_from_storage: Из переменной
+        value_from_storage_hint: Значение может быть взято из указанной переменной
+        send_return: Нажать Enter
+        send_return_hint: После ввода значения нажать клавишу Enter
+      functions/connect:
+        value: Перейти по URL
+        value_hint: URL по которому совершить переход
+      functions/resolve_capcha:
+        storage_src_name: Переменная маршрута картинки
+        storage_src_name_hint: Имя переменной в которой сохранён маршрут до изображения капчи
+        save_result_as: Сохранить в
+        save_result_as_hint: Имя переменной, в которую сохранить результат расшифровки
+      functions/write_variable_to_output:
+        variable_name: Имя переменной
+        variable_name_hint: Имя переменной, которую хотим вывести за пределы теста
+        save_as: Переменная вывода
+        save_as_hint: С каким имененм переменная будет выведена
     errors:
       aliases:
         _field_errors_alias: &fielderrors
@@ -50,8 +81,49 @@ ru:
               <<: *fielderrors
             attribute:
               <<: *fielderrors
+            value:
+              <<: *fielderrors
             selector_name:
               <<: *fielderrors
             selector_value:
               <<: *fielderrors
-
+        functions/read_attribute:
+          attributes:
+            selector:
+              <<: *fielderrors
+            attribute_name:
+              <<: *fielderrors
+            save_as:
+              <<: *fielderrors
+            selector_name:
+              <<: *fielderrors
+            selector_value:
+              <<: *fielderrors
+        functions/send_text:
+          attributes:
+            selector:
+              <<: *fielderrors
+            value:
+              blank: Поле 'Значение' или 'Значение из переменной' должны быть заполнены
+            value_from_storage:
+              blank: Поле 'Значение' или 'Значение из переменной' должны быть заполнены
+            selector_name:
+              <<: *fielderrors
+            selector_value:
+              <<: *fielderrors
+        functions/connect:
+          attributes:
+            value:
+              <<: *fielderrors
+        functions/resolve_capcha:
+          attributes:
+            storage_src_name:
+              <<: *fielderrors
+            save_result_as:
+              <<: *fielderrors
+        functions/write_variable_to_output:
+          attributes:
+            variable_name:
+              <<: *fielderrors
+            save_as:
+              <<: *fielderrors

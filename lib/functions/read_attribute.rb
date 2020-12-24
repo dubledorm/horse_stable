@@ -2,6 +2,7 @@ module Functions
   class ReadAttribute < BaseSelector
 
     attr_accessor :attribute_name, :save_as
+    validates :attribute_name, :save_as, presence: true
 
     def self.attribute_values
       super.merge({ attribute_name: %w[text value displayed enabled hash hover selected size style tag_name].sort

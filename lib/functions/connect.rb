@@ -4,6 +4,10 @@ module Functions
     attr_accessor :value
     validates :value, presence: true
 
+    def self.attribute_hints
+      super.merge({ 'value' => self.i18n_translate_path('value_hint') })
+    end
+
     protected
 
     def attributes

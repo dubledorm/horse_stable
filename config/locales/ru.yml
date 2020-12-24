@@ -90,7 +90,7 @@ ru:
         <<: *timestamps
       experiment_case:
         human_name: Название
-        description: Описание
+        human_description: Описание
         user_id: Пользователь
         number: Номер
         experiment: Тест
