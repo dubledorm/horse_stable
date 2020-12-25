@@ -155,6 +155,7 @@ ru:
         start_time: Запланированное время начала
         result_kod: Результат выполнения
         result_values_json: Выходные значения
+        result_message: Сообщение
         state: Состояние
         created_at: Создан
         updated_at: Изменён

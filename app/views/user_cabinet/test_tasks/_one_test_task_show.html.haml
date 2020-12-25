@@ -15,5 +15,7 @@
 %td
   = locals[:test_task].result_values_json
 %td
+  = locals[:test_task].result_message
+%td
   = link_to user_cabinet_experiment_path(id: locals[:test_task].id) do
     %i.fa.fa-edit.rc-fa-edit

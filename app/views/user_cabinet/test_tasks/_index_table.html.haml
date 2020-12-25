@@ -17,6 +17,8 @@
     %th
       = TestTask.human_attribute_name(:result_values_json)
     %th
+      = TestTask.human_attribute_name(:result_message)
+    %th
       = I18n.t('some_do')
   %tbody
     - @collection.each do |test_task|

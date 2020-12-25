@@ -18,7 +18,7 @@ module Functions
     end
 
     def self.attribute_values
-      super.merge({ attribute: %w[visible].sort
+      super.merge({ attribute: %w[visible text value displayed enabled hash hover selected size style tag_name].sort
                   })
     end
 
