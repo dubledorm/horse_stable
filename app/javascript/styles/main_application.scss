@@ -77,3 +77,38 @@ a.btn-cancel {
         color: $a_color;
     }
 }
+
+/* Разделительные блоки */
+%base_separated_block {
+    border-bottom: 1px solid gray;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.last_test_task {
+    @extend %base_separated_block;
+}
+
+.test_task_list {
+    @extend %base_separated_block;
+}
+
+.control_buttons {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.experiment_cases_show {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+/* TestTask */
+.success_test_task {
+    color: green;
+}
+
+.failed_test_task {
+    color: red;
+}

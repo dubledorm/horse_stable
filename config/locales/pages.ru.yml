@@ -12,6 +12,15 @@ ru:
         title: Операция
         large_title: Простая операция
         title_text: "Выберите тип операции, функцию и параметры функции"
+    experiments:
+      show:
+        add_experiment_case: Добавить
+      run_experiment:
+        run: Выполнить сейчас
+      last_test_task:
+        last_test_task: Последний результат
+      test_task_list:
+        test_task_list: История запусков
     experiment_cases:
       show:
         delete: Удалить этот шаг

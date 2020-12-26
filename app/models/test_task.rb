@@ -20,10 +20,19 @@ class TestTask < ApplicationRecord
   belongs_to :user
 
   scope :for_processing, -> { where(state: :new) }
-  scope :result_kod, -> (result_kod){  where(result_kod: result_kod)}
-  scope :state, -> (state){  where(state: state)}
+  scope :result_kod, ->(result_kod) {  where(result_kod: result_kod)}
+  scope :state, ->(state) { where(state: state) }
+  scope :experiment_name, ->(name) { joins(:experiment).where('experiments.human_name LIKE ?', "%#{name}%") }
+  scope :by_user_id, ->(user_id) { where(user_id: user_id) }
+  scope :descendant_sort, ->(*) { order(id: :desc) }
 
   def self.options_for_select_type(field_name)
     FIELD_NAME_VALUES_RELATIONS[field_name].map{|value| [human_attribute_value(field_name, value), value]}
+  end
+
+  def success?
+    return true if result_kod == 'processed'
+
+    false
   end
 end

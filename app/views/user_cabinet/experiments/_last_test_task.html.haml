@@ -1,0 +1,29 @@
+%h4
+  = t('.last_test_task')
+.row
+  .col-xs-6.col-md-6
+    = TestTask.human_attribute_name(:start_time) + ':'
+  .col-xs-6.col-md-6
+    = @last_test_task&.start_time
+.row
+  .col-xs-6.col-md-6
+    = TestTask.human_attribute_name(:result_kod) + ':'
+  .col-xs-6.col-md-6
+    = show_result_code(@last_test_task)
+.row
+  .col-xs-12.col-md-12
+    = TestTask.human_attribute_name(:result_values_json) + ':'
+.row
+  .col-xs-12.col-md-12
+    - JSON.parse(@last_test_task&.result_values_json)&.each do |key, value|
+      %b
+        .col-xs-5.col-md-5.col-xs-offset-1.col-md-offset-1
+          = key + ':'
+        .col-xs-6.col-md-6
+          = value
+- unless @last_test_task&.result_message.blank?
+  .row
+    .col-xs-12.col-md-12
+      = TestTask.human_attribute_name(:result_message) + ':'
+    .col-xs-11.col-md-11.col-xs-offset-1.col-md-offset-1.failed_test_task
+      = @last_test_task&.result_message

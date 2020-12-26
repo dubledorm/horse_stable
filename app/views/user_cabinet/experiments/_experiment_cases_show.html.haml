@@ -1,26 +1,25 @@
-%div
-  %table
-    %tr
-      %th
-        = ExperimentCase.human_attribute_name(:number)
-      %th
-        = ExperimentCase.human_attribute_name(:human_name)
-      %th
-        = ExperimentCase.human_attribute_name(:human_description)
-      %th
+.row
+  .col-xs-2.col-md-2
+    %b
+      = ExperimentCase.human_attribute_name(:number)
+  .col-xs-10.col-md-4
+    %b
+      = Experiment.human_attribute_name(:human_name)
+  .hidden-xs.col-md-4
+    %b
+      = Experiment.human_attribute_name(:human_description)
 
-
-    - @resource.experiment_cases.order(:number).each do |record|
-      %tr
-        %td
-          = record.number
-        %td
-          = record.human_name
-        %td
-          = record.human_description
-        %td
-          = link_to user_cabinet_experiment_experiment_case_path(experiment_id: record.experiment_id, id: record.id) do
-            %i.fa.fa-edit.rc-fa-edit
-        %td
-          = link_to clone_user_cabinet_experiment_experiment_case_path(experiment_id: record.experiment_id, id: record.id), method: :post do
-            %i.fa.fa-clone
+- @resource.experiment_cases.order(:number).each do |record|
+  .row
+    .col-xs-2.col-md-2
+      = record.number
+    .col-xs-10.col-md-4
+      = record.human_name
+    .hidden-xs.col-md-4
+      = record.human_description
+    .col-xs-3.col-xs-offset-6.col-md-1.col-md-offset-0
+      = link_to user_cabinet_experiment_experiment_case_path(experiment_id: record.experiment_id, id: record.id) do
+        %i.fa.fa-edit.rc-fa-edit
+    .col-xs-3.col-md-1
+      = link_to clone_user_cabinet_experiment_experiment_case_path(experiment_id: record.experiment_id, id: record.id), method: :post do
+        %i.fa.fa-clone

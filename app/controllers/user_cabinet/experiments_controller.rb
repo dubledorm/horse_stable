@@ -5,6 +5,13 @@ module UserCabinet
     has_scope :human_description
     has_scope :state
 
+    def show
+      super do
+        @last_test_task = @resource.last_test_task(current_user.id)
+        @last_task_list = @resource.last_test_tasks(current_user.id, 5)
+      end
+    end
+
     def new
       super do
         @resource = Experiment.new

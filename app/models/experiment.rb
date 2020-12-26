@@ -1,5 +1,6 @@
 class Experiment < ApplicationRecord
   include HumanAttributeValue
+  include ExperimentJsonConcern
 
   STATE_VALUES = %w[new draft locked]
   FIELD_NAME_VALUES_RELATIONS = { state: STATE_VALUES }
@@ -12,24 +13,20 @@ class Experiment < ApplicationRecord
   validates :state, inclusion: { in: STATE_VALUES,
                                  message: "Поле state может содержать значения: #{STATE_VALUES.map{ |item| item.to_s }.join(', ')}. %{value} это не корректное значение" }
 
-  scope :human_name, -> (human_name){  where('human_name LIKE ?', "%#{human_name}%")}
-  scope :human_description, -> (human_description){  where('human_description LIKE ?', "%#{human_description}%")}
-  scope :state, -> (state){  where(state: state)}
-
-  def as_json(functions_translate: false)
-    { human_name: human_name,
-      human_description: human_description,
-      **experiment_cases_hash(functions_translate)
-    }.stringify_keys
-  end
-
-  def experiment_cases_hash(functions_translate = false)
-    experiment_cases.order(:number).inject({}) do |result, experiment_case|
-      result.merge({ "#{experiment_case.number}".to_sym => experiment_case.as_json(functions_translate: functions_translate) })
-    end
-  end
+  scope :human_name, -> (human_name){  where('human_name LIKE ?', "%#{human_name}%") }
+  scope :human_description, -> (human_description){ where('human_description LIKE ?', "%#{human_description}%") }
+  scope :state, -> (state){ where(state: state) }
+  scope :by_user_id, -> (user_id){ where(user_id: user_id) }
 
   def self.options_for_select_type(field_name)
     FIELD_NAME_VALUES_RELATIONS[field_name].map{|value| [human_attribute_value(field_name, value), value]}
+  end
+
+  def last_test_task(user_id)
+    self.test_tasks.by_user_id(user_id).state(:completed).descendant_sort.first
+  end
+
+  def last_test_tasks(user_id, count)
+    self.test_tasks.by_user_id(user_id).state(:completed).descendant_sort.limit(count)
   end
 end

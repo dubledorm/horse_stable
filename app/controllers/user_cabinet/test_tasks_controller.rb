@@ -3,6 +3,8 @@ module UserCabinet
   class TestTasksController < PrivateAreaController
     has_scope :result_kod
     has_scope :state
+    has_scope :experiment_name
+    has_scope :descendant_sort, default: nil, allow_blank: true
 
     def create
       super do
@@ -19,6 +21,7 @@ module UserCabinet
         redirect_to user_cabinet_experiment_path(id: experiment.id)
       end
     end
+
 
     private
 
