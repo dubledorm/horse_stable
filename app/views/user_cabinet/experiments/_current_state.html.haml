@@ -1,23 +1,10 @@
 %h4
   = t('.current_state')
 
-%h3
-  = t('.query')
-- @query_task_list.each do |test_task|
-  .row
-    .col-xs-6.col-md-6
-    .col-xs-6.col-md-6
-      = test_task.start_time
-%h3
-  = t('.started')
-- if @started_task_list.any?
-  - @started_task_list.each do |test_task|
-    .row
-      .col-xs-6.col-md-6
-      .col-xs-6.col-md-6
-        = test_task.start_time
-- else
-  .row
-    .col-xs-6.col-md-6
-    .col-xs-6.col-md-6
-      = t('.not_started')
+= react_component('experiments/ExperimentCurrentState',
+{ experiment_id: @resource.id,
+ user_id: current_user.id,
+ url: front_experiment_current_state_path,
+ query_title: t('.query'),
+ started_title: t('.started'),
+ not_started_title: t('.not_started')})

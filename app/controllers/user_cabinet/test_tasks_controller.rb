@@ -18,7 +18,7 @@ module UserCabinet
           render 'errors/500'
           return
         end
-        redirect_to user_cabinet_experiment_path(id: experiment.id)
+        render json: {}, nothing: true, status: 200
       end
     end
 

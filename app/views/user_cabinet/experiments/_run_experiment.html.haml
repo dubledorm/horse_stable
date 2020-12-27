@@ -1,4 +1,4 @@
-= form_with(model: TestTask, local: true, url: user_cabinet_test_tasks_path) do |f|
+= form_with(model: TestTask, local: false, url: user_cabinet_test_tasks_path) do |f|
   = f.hidden_field(:experiment_id, value: @resource.id)
   %button.btn.btn-primary.btn-lg{:name => "submit", :required => "required", :type => "submit"}
     = t('.run')
