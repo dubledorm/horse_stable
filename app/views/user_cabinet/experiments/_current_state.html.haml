@@ -1,0 +1,23 @@
+%h4
+  = t('.current_state')
+
+%h3
+  = t('.query')
+- @query_task_list.each do |test_task|
+  .row
+    .col-xs-6.col-md-6
+    .col-xs-6.col-md-6
+      = test_task.start_time
+%h3
+  = t('.started')
+- if @started_task_list.any?
+  - @started_task_list.each do |test_task|
+    .row
+      .col-xs-6.col-md-6
+      .col-xs-6.col-md-6
+        = test_task.start_time
+- else
+  .row
+    .col-xs-6.col-md-6
+    .col-xs-6.col-md-6
+      = t('.not_started')

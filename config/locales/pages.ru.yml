@@ -21,6 +21,11 @@ ru:
         last_test_task: Последний результат
       test_task_list:
         test_task_list: История запусков
+      current_state:
+        current_state: Состояние запуска
+        query: В очереди/плане
+        started: Запущены
+        not_started: нет запущеннных
     experiment_cases:
       show:
         delete: Удалить этот шаг

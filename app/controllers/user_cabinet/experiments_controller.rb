@@ -9,6 +9,8 @@ module UserCabinet
       super do
         @last_test_task = @resource.last_test_task(current_user.id)
         @last_task_list = @resource.last_test_tasks(current_user.id, 5)
+        @started_task_list = @resource.test_tasks.state(:started).limit(5)
+        @query_task_list = @resource.test_tasks.state(:new).limit(5)
       end
     end
 
