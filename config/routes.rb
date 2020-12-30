@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     post '/users/auth/create_user_and_service', to: 'omniauth_callbacks#create_user_and_service', as: :create_user_and_service
   end
 
+  #  mount ActionCable.server => '/cable'
+
   namespace :api do
     resources :test_tasks, only: [:update] do
       collection do

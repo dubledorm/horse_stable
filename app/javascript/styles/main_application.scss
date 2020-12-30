@@ -104,6 +104,13 @@ a.btn-cancel {
     padding-bottom: 5px;
 }
 
+.experiment_current_state .ws_success {
+    color: green;
+}
+.experiment_current_state .ws_failed {
+    color: darkorange;
+}
+
 /* TestTask */
 .success_test_task {
     color: green;

@@ -1,10 +1,8 @@
-%h4
-  = t('.current_state')
-
 = react_component('experiments/ExperimentCurrentState',
 { experiment_id: @resource.id,
  user_id: current_user.id,
  url: front_experiment_current_state_path,
+ main_title: t('.current_state'),
  query_title: t('.query'),
  started_title: t('.started'),
  not_started_title: t('.not_started')})

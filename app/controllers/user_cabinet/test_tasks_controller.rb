@@ -18,6 +18,7 @@ module UserCabinet
           render 'errors/500'
           return
         end
+        ExperimentChannel.broadcast_to 'ExperimentChannel', { experiment_id: @resource.experiment_id }
         render json: {}, nothing: true, status: 200
       end
     end

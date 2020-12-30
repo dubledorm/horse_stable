@@ -323,6 +323,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    redis (4.2.5)
     request_store (1.5.0)
       rack (>= 1.4)
     responders (3.0.0)
@@ -484,6 +485,7 @@ DEPENDENCIES
   rails (~> 6.0.0.rc1)
   rails-controller-testing
   react-rails
+  redis (~> 4.0)
   rolify
   rspec-rails (~> 4.0.0.rc1)
   rubocop-rails
