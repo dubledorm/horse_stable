@@ -1,16 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
-import Spinner from "../editable_fields/Spinner";
 import consumer from '../../channels/consumer';
+import ExperimentBlockWrap from "./ExperimentBlockWrap";
+import { TwoStringWrap } from "./ExperimentFunctions"
+import { TestTaskShort } from "./ExperimentFunctions";
 
-function TestTaskShort(props) {
-  return <div className={'row'}>
-           <div className={'col-xs-6 col-md-6'}></div>
-           <div className={'col-xs-6 col-md-6'}>
-             {props.start_time}
-           </div>
-  </div>
-}
 
 class ExperimentCurrentState extends React.Component {
   constructor(props) {
@@ -86,35 +80,26 @@ class ExperimentCurrentState extends React.Component {
 
 
   render () {
-    let query_content = '';
-    let started_content = '';
+    let query_content = this.state.query_task_list.map((test_task) => <TestTaskShort key={test_task.id} id={test_task.id} start_time={test_task.start_time}/>);
+    let started_content = this.state.current_task_list.map((test_task) => <TestTaskShort key={test_task.id} id={test_task.id} start_time={test_task.start_time}/>);
 
-    if (this.state.state == 'read') {
-      query_content = <Spinner />;
-      started_content = <Spinner />;
+    if (query_content.length == 0) {
+      query_content = <TestTaskShort start_time={'0'}/>;
     }
-    else {
-      query_content = this.state.query_task_list.map((test_task) => <TestTaskShort key={test_task.id} start_time={test_task.start_time}/>);
-      started_content = this.state.current_task_list.map((test_task) => <TestTaskShort key={test_task.id} start_time={test_task.start_time}/>);
-      if (started_content.length == 0) {
-        started_content = <TestTaskShort start_time={this.props.not_started_title}/>;
-      }
+
+    if (started_content.length == 0) {
+      started_content = <TestTaskShort start_time={this.props.not_started_title}/>;
     }
 
     return (
-      <div className={'experiment_current_state'}>
-        <h4>
-          {this.props.main_title}
-        </h4>
-        <h3>
-          {this.props.query_title}
-          {query_content}
-        </h3>
-        <h3>
-          {this.props.started_title}
-          {started_content}
-        </h3>
-      </div>
+        <ExperimentBlockWrap title_class_name={'experiment_current_state'} title={this.props.main_title} spinner={this.state.state == 'read'}>
+          <TwoStringWrap title={this.props.query_title}>
+            {query_content}
+          </TwoStringWrap>
+          <TwoStringWrap title={this.props.started_title}>
+            {started_content}
+          </TwoStringWrap>
+        </ExperimentBlockWrap>
     );
   }
 }

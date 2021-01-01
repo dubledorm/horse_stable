@@ -8,6 +8,19 @@ module Front
                      query_tasks: by_state_and_user(experiment, :new) }
     end
 
+    # Возвращает последний результат эксперимента
+    def experiment_last_result
+      experiment = get_experiment
+      last_test_task = experiment.last_test_task(params.required(:user_id))
+      render json: { id: last_test_task&.id,
+                     start_time: last_test_task&.start_time&.to_s,
+                     result_kod: last_test_task&.result_kod,
+                     translated_result_kod: last_test_task&.human_attribute_value(:result_kod),
+                     result_values_json: last_test_task&.result_values_json ? JSON.parse(last_test_task.result_values_json) : {},
+                     result_message: last_test_task&.result_message,
+                     duration: last_test_task&.duration }
+    end
+
     private
 
     def get_experiment

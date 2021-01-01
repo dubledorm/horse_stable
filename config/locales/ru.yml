@@ -150,6 +150,7 @@ ru:
         updated_at: Изменён
 
       test_task:
+        id: Ид-р
         test_setting_json: Скрипт
         duration: Длительность выполнения
         start_time: Запланированное время начала

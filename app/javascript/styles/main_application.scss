@@ -111,6 +111,15 @@ a.btn-cancel {
     color: darkorange;
 }
 
+.experiment_block_wrap h4 {
+    display: inline-block;
+}
+
+.experiment_block_wrap .rc-spinner {
+    display: inline;
+    margin-left: 10px;
+}
+
 /* TestTask */
 .success_test_task {
     color: green;

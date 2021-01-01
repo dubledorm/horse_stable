@@ -82,4 +82,81 @@ RSpec.describe Front::ExperimentsController, type: :request do
       it { expect(response).to have_http_status(404) }
     end
   end
+
+  describe 'experiment_last_result#' do
+    let!(:user1) { FactoryGirl.create :user }
+
+
+    context 'when TestTask does not exist' do
+      let(:experiment) { FactoryGirl.create :experiment }
+      let(:subject) { get(front_experiment_last_result_path, params: { id: experiment.id, user_id: user1.id }) }
+
+      before :each do
+        subject
+      end
+
+      it { expect(response).to have_http_status(200) }
+      it {
+        expect(JSON.parse(response.body)).to eq('duration' => nil,
+                                                'id' => nil,
+                                                'result_kod' => nil,
+                                                'translated_result_kod' => nil,
+                                                'result_message' => nil,
+                                                'result_values_json' => {},
+                                                'start_time' => nil)
+      }
+    end
+
+    context 'when TestTask exists' do
+      let!(:user2) { FactoryGirl.create :user }
+      let!(:experiment) { FactoryGirl.create :experiment, user: user2 }
+      let!(:test_task1) do
+        FactoryGirl.create :test_task, state: 'completed',
+                           experiment: experiment,
+                           user: user1,
+                           start_time: Time.now - 1.minute
+      end
+      let!(:test_task3) do
+        FactoryGirl.create :test_task, state: 'new',
+                           experiment: experiment,
+                           user: user2,
+                           start_time: Time.now + 1.minute
+      end
+      let!(:test_task4) do
+        FactoryGirl.create :test_task, state: 'completed',
+                           experiment: experiment,
+                           user: user2,
+                           start_time: Time.now - 11.minute
+      end
+      let!(:test_task2) do
+        FactoryGirl.create :test_task, state: 'completed',
+                           experiment: experiment,
+                           user: user2,
+                           start_time: Time.now - 10.minute,
+                           duration: 10,
+                           result_kod: 'processed'
+      end
+
+      let(:subject) do
+        get(front_experiment_last_result_path, params: { id: experiment.id,
+                                                         user_id: user2.id })
+      end
+
+      before :each do
+        subject
+      end
+
+      it { expect(response).to have_http_status(200) }
+      it {
+        expect(JSON.parse(response.body)).to eq('duration' => 10,
+                                                'id' => test_task2.id,
+                                                'result_kod' => 'processed',
+                                                'translated_result_kod' => 'Выполнен успешно',
+                                                'result_message' => nil,
+                                                'result_values_json' => {},
+                                                'start_time' => test_task2.start_time.to_s)
+      }
+    end
+
+  end
 end
