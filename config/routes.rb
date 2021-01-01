@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     get 'get_parameters/:name', to: 'functions#get_parameters', as: 'functions_get_parameters'
     get 'experiment_current_state', to: 'experiments#experiment_current_state', as: 'experiment_current_state'
     get 'experiment_last_result', to: 'experiments#experiment_last_result', as: 'experiment_last_result'
+    get 'experiment_history_list', to: 'experiments#experiment_history_list', as: 'experiment_history_list'
   end
 
 #  authenticated(:user) do

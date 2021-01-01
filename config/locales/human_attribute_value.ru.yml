@@ -38,6 +38,7 @@ ru:
         state:
           completed: Выполнен
           new: Новый
+          started: Запущен
         result_kod:
           processed: Выполнен успешно
           interrupted: Прерван

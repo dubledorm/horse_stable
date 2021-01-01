@@ -21,6 +21,12 @@ module Front
                      duration: last_test_task&.duration }
     end
 
+    # Возвращает списиок последних задач в очереди
+    def experiment_history_list
+      experiment = get_experiment
+      render json: { history_list: by_user(experiment) }
+    end
+
     private
 
     def get_experiment
@@ -32,6 +38,19 @@ module Front
         .test_tasks.state(state)
         .by_user_id(params.required(:user_id))
         .map { |test_task| { id: test_task.id, start_time: test_task.start_time.to_s } }
+    end
+
+    def by_user(experiment)
+      experiment
+        .test_tasks
+        .by_user_id(params.required(:user_id))
+        .descendant_sort.limit(5)
+        .map do |test_task| { id: test_task.id,
+                              start_time: test_task.start_time.to_s,
+                              state: test_task.human_attribute_value(:state),
+                              result_kod: test_task.result_kod,
+                              translated_result_kod: test_task.human_attribute_value(:result_kod) }
+        end
     end
   end
 end

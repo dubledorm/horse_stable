@@ -35,7 +35,6 @@ class ExperimentCurrentState extends React.Component {
 
   OnWebSocketDisconnected() {
     this.setState({ws_state: 'disconnected'});
-    // alert('disconnected-2222222')
   }
 
   componentDidMount() {

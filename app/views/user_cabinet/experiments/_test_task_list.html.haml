@@ -1,8 +1,6 @@
-%h4
-  = t('.test_task_list')
-- @last_task_list.each do |test_task|
-  .row
-    .col-xs-6.col-md-6
-      = test_task.start_time
-    .col-xs-6.col-md-6
-      = show_result_code(test_task)
+= react_component('experiments/ExperimentHistory',
+{ experiment_id: @resource.id,
+ user_id: current_user.id,
+ url: front_experiment_history_list_path,
+ main_title: t('.test_task_list') })
+
