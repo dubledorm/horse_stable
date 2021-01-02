@@ -8,18 +8,23 @@
   .hidden-xs.col-md-4
     %b
       = Experiment.human_attribute_name(:human_description)
+= react_component('experiments/ExperimentOperation',
+{ experiment_id: @resource.id,
+ user_id: current_user.id,
+ url: front_experiment_last_result_path})
 
-- @resource.experiment_cases.order(:number).each do |record|
-  .row
-    .col-xs-2.col-md-2
-      = record.number
-    .col-xs-10.col-md-4
-      = record.human_name
-    .hidden-xs.col-md-4
-      = record.human_description
-    .col-xs-3.col-xs-offset-6.col-md-1.col-md-offset-0
-      = link_to user_cabinet_experiment_experiment_case_path(experiment_id: record.experiment_id, id: record.id) do
-        %i.fa.fa-edit.rc-fa-edit
-    .col-xs-3.col-md-1
-      = link_to clone_user_cabinet_experiment_experiment_case_path(experiment_id: record.experiment_id, id: record.id), method: :post do
-        %i.fa.fa-clone
+#experiment_cases_body
+  - @resource.experiment_cases.order(:number).each do |record|
+    .row{id: "experiment_case_row_#{record.number}"}
+      .col-xs-2.col-md-2
+        = record.number
+      .col-xs-10.col-md-4
+        = record.human_name
+      .hidden-xs.col-md-4
+        = record.human_description
+      .col-xs-3.col-xs-offset-6.col-md-1.col-md-offset-0
+        = link_to user_cabinet_experiment_experiment_case_path(experiment_id: record.experiment_id, id: record.id) do
+          %i.fa.fa-edit.rc-fa-edit
+      .col-xs-3.col-md-1
+        = link_to clone_user_cabinet_experiment_experiment_case_path(experiment_id: record.experiment_id, id: record.id), method: :post do
+          %i.fa.fa-clone

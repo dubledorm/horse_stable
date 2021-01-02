@@ -25,9 +25,9 @@ RSpec.describe Experiment, type: :model do
     let!(:user1) { FactoryGirl.create :user }
     let!(:user2) { FactoryGirl.create :user }
     let!(:experiment) { FactoryGirl.create :experiment }
-    let!(:test_task1) { FactoryGirl.create :test_task, user: user1, experiment: experiment }
-    let!(:test_task2) { FactoryGirl.create :test_task, user: user1, experiment: experiment }
-    let!(:test_task3) { FactoryGirl.create :test_task, user: user2, experiment: experiment }
+    let!(:test_task1) { FactoryGirl.create :test_task, state: 'completed', user: user1, experiment: experiment }
+    let!(:test_task2) { FactoryGirl.create :test_task, state: 'completed', user: user1, experiment: experiment }
+    let!(:test_task3) { FactoryGirl.create :test_task, state: 'completed', user: user2, experiment: experiment }
 
     it { expect(experiment.last_test_task(user1)).to eq(test_task2) }
   end

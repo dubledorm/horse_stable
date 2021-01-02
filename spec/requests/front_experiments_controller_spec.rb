@@ -107,6 +107,41 @@ RSpec.describe Front::ExperimentsController, type: :request do
       }
     end
 
+    context 'when TestTask interrupted' do
+      let(:operation) { FactoryGirl.create :operation }
+
+      let!(:test_task) do
+        FactoryGirl.create :test_task, state: 'completed',
+                           experiment: operation.experiment_case.experiment,
+                           result_kod: 'interrupted',
+                           state: 'completed',
+                           duration: 10,
+                           operation_id: operation.id,
+                           user: operation.experiment_case.experiment.user,
+                           start_time: Time.now - 1.minute
+      end
+
+      let(:subject) do
+        get(front_experiment_last_result_path, params: { id: operation.experiment_case.experiment_id,
+                                                         user_id: operation.experiment_case.experiment.user_id })
+      end
+
+      before :each do
+        subject
+      end
+
+      it { expect(response).to have_http_status(200) }
+      it {
+        expect(JSON.parse(response.body)).to eq('duration' => 10,
+                                                'id' => test_task.id,
+                                                'result_kod' => 'interrupted',
+                                                'translated_result_kod' => 'Прерван',
+                                                'result_message' => nil,
+                                                'result_values_json' => {},
+                                                'start_time' => test_task.start_time.to_s)
+      }
+    end
+
     context 'when TestTask exists' do
       let!(:user2) { FactoryGirl.create :user }
       let!(:experiment) { FactoryGirl.create :experiment, user: user2 }
