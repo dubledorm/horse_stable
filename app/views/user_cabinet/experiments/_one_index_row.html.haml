@@ -1,0 +1,32 @@
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = Experiment.human_attribute_name(:id) + ':'
+.col-xs-6.col-md-1
+  = locals[:id]
+
+.col-xs-12.hidden-md.hidden-lg
+  %b
+    = Experiment.human_attribute_name(:human_name) + ':'
+.col-xs-12.col-md-3
+  = locals[:human_name]
+
+.hidden-xs.col-sm-12.hidden-md.hidden-lg
+  %b
+    = Experiment.human_attribute_name(:human_description) + ':'
+.hidden-xs.col-sm-12.col-md-5
+  = locals[:human_description]
+
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = Experiment.human_attribute_name(:state) + ':'
+.col-xs-8.col-md-1
+  = locals[:state]
+
+.hidden-xs.col-sm-4.hidden-md.hidden-lg
+  %b
+    = Experiment.human_attribute_name(:created_at) + ':'
+.hidden-xs.col-sm-8.col-md-1
+  = locals[:created_at]
+
+.col-xs-12.col-md-1.center
+  = locals[:do]

@@ -1,18 +1,16 @@
-%table
-  %thead
-    %th
-      = Experiment.human_attribute_name(:id)
-    %th
-      = Experiment.human_attribute_name(:human_name)
-    %th
-      = Experiment.human_attribute_name(:human_description)
-    %th
-      = Experiment.human_attribute_name(:state)
-    %th
-      = Experiment.human_attribute_name(:created_at)
-    %th
-      = I18n.t('some_do')
-  %tbody
-    - @collection.each do |experiment|
-      %tr
-        = render('one_experiment_show', locals: { experiment: experiment })
+.row.table_header.hidden-xs.hidden-sm
+  %b
+    = render('one_index_row', locals: { id: Experiment.human_attribute_name(:id),
+     human_name: Experiment.human_attribute_name(:human_name),
+     human_description: Experiment.human_attribute_name(:human_description),
+     state: Experiment.human_attribute_name(:state),
+     created_at: Experiment.human_attribute_name(:created_at),
+     do: I18n.t('some_do') })
+- @collection.each do |experiment|
+  .row.table_row
+    = render('one_index_row', locals: { id: experiment.id,
+     human_name: experiment.human_name,
+     human_description: experiment.human_description,
+     state: experiment.human_attribute_value(:state),
+     created_at: experiment.created_at,
+     do: link_to(user_cabinet_experiment_path(id: experiment.id)) do content_tag(:i, '', class: 'fa fa-edit rc-fa-edit') end })

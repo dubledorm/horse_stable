@@ -1,8 +1,11 @@
 = form_with(url: user_cabinet_experiments_path, method: :get, name: 'filter-form', class: 'main-filter-form', local: true) do |f|
-  .col-md-2.form-group
+  .col-md-1.form-group
+    = f.label(Experiment.human_attribute_name(:id))
+    = f.text_field(:id, class: 'form-control', value: params[:id])
+  .col-md-3.form-group
     = f.label(Experiment.human_attribute_name(:human_name))
     = f.text_field(:human_name, class: 'form-control', value: params[:human_name])
-  .col-md-2.form-group
+  .col-md-5.form-group
     = f.label(Experiment.human_attribute_name(:human_description))
     = f.text_field(:human_description, class: 'form-control', value: params[:human_description])
   .col-md-2.form-group

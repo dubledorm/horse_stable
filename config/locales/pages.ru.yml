@@ -16,6 +16,8 @@ ru:
         large_title: Простая операция
         title_text: "Выберите тип операции, функцию и параметры функции"
     experiments:
+      index:
+        tests: Тесты
       show:
         add_experiment_case: Добавить
       run_experiment:
