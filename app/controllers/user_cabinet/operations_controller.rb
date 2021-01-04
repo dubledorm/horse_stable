@@ -1,6 +1,8 @@
 # encoding: utf-8
+
 module UserCabinet
   class OperationsController < PrivateAreaController
+    add_breadcrumb Experiment.model_name.human(count: 3), :user_cabinet_experiments_path, only: [:show]
 
     def new
       super do
@@ -14,6 +16,12 @@ module UserCabinet
       super do
         @function = Functions::Factory.build!(@resource.function_name)
         @function.attributes = JSON.parse(@resource.operation_json) if @resource.operation_json
+        add_breadcrumb @resource.experiment.human_name,
+                       user_cabinet_experiment_path(id: @resource.experiment.id)
+        add_breadcrumb @resource.experiment_case.human_name,
+                       user_cabinet_experiment_experiment_case_path(id: @resource.experiment_case_id,
+                                                                    experiment_id: @resource.experiment.id)
+
       end
     end
 

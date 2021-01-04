@@ -2,8 +2,8 @@
 
 %section#experiment-page
   .container
-    = render('layouts/template_parts/large_title', locals: { title: I18n.t('experiment.show.large_title'),
-    text: I18n.t('experiment.show.title_text') })
+    %ol.breadcrumb
+      = render_breadcrumbs tag: :li, separator: ''
 
     .row.contact-wrap
       -# Сообщения об ошибках
@@ -19,7 +19,7 @@
           = link_to new_user_cabinet_experiment_experiment_case_path(experiment_id: @resource.id), class: 'btn btn-success btn-lg' do
             %i.fa.fa-plus-square
             = t('.add_experiment_case')
-      .col-xs-12.col-md-6
+      .col-xs-10.col-md-6
         .row.current_state
           = render('current_state')
         .row.last_test_task

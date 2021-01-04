@@ -115,6 +115,7 @@ ru:
         number: Номер
         operation_type: Тип операции
         function_name: Функция
+        operation_json: Команды(json)
         <<: *timestamps
       service:
         user: Пользователь

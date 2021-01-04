@@ -1,18 +1,24 @@
 = render('layouts/template_parts/small_title', locals: { title: t('.title') })
 
-%section#article-page
+%section#experiment-case-page
   .container
-    = render('layouts/template_parts/large_title', locals: { title: t('.large_title'),
-    text: t('.title_text') })
+    %ol.breadcrumb
+      = render_breadcrumbs tag: :li, separator: ''
 
     .row.contact-wrap
       -# Сообщения об ошибках
       = render('shared/resource_alert_notice')
 
     .page-blocks
-      = render('experiment_case_show')
-    .page-blocks
-      = link_to(Experiment.model_name.human, user_cabinet_experiment_path(id: @resource.experiment_id))
-    .page-blocks
-      = link_to(t('.delete'), user_cabinet_experiment_experiment_case_path(experiment_id: @resource.experiment_id,
-      id: @resource.id), method: :delete, data: { confirm: 'Are you sure?' })
+      .col-xs-12.col-md-8
+        = render('experiment_case_show')
+      .col-xs-12.col-md-4.center
+        .row
+          = link_to(user_cabinet_experiment_path(id: @resource.experiment_id), class: 'btn btn-success btn-lg') do
+            %i.fa.fa-arrow-circle-up
+              = t('.return_to_test')
+        .row
+          = link_to(user_cabinet_experiment_experiment_case_path(experiment_id: @resource.experiment_id,
+        id: @resource.id), method: :delete, data: { confirm: t('.sure') }, class: 'btn btn-primary btn-lg') do
+            %i.fa.fa-minus-square
+              = t('.delete')

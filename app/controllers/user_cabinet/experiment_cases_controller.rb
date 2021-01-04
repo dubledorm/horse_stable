@@ -1,6 +1,15 @@
 # encoding: utf-8
+
 module UserCabinet
   class ExperimentCasesController < PrivateAreaController
+    add_breadcrumb Experiment.model_name.human(count: 3), :user_cabinet_experiments_path, only: [:show]
+
+    def show
+      super do
+        experiment = @resource.experiment
+        add_breadcrumb experiment.human_name, user_cabinet_experiment_path(id: experiment.id)
+      end
+    end
 
     def clone
       get_resource

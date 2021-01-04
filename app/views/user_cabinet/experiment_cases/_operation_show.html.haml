@@ -1,8 +1,14 @@
-= locals[:operation].id
-= locals[:operation].number
-= locals[:operation].function_name
-= locals[:operation].operation_json
-= link_to user_cabinet_operation_path(id: locals[:operation].id) do
-  %i.fa.fa-edit.rc-fa-edit
-= link_to user_cabinet_operation_path(id: locals[:operation].id), method: :delete, data: { confirm: 'Are you sure?' } do
-  %i.fa.fa-minus-square
+.row
+  .col-xs-3.col-md-2
+    = locals[:operation].id
+  .col-xs-3.col-md-1
+    = locals[:operation].number
+  .col-xs-4.col-md-3
+    = locals[:operation].function_name
+  .hidden-xs.col-md-5
+    - JSON.parse(locals[:operation].operation_json || '{}').each do |item|
+      .row
+        = item
+  .col-xs-2.col-md-1
+    = link_to user_cabinet_operation_path(id: locals[:operation].id) do
+      %i.fa.fa-edit.rc-fa-edit

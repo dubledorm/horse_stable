@@ -1,0 +1,14 @@
+.row
+  .col-xs-3.col-md-2
+    %b
+      = Operation.human_attribute_name(:id)
+  .col-xs-3.col-md-1
+    %b
+      = Operation.human_attribute_name(:number)
+  .col-xs-4.col-md-3
+    %b
+      = Operation.human_attribute_name(:function_name)
+  .hidden-xs.col-md-5
+    %b
+      = Operation.human_attribute_name(:operation_json)
+

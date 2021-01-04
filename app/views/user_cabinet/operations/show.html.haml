@@ -1,16 +1,27 @@
 = render('layouts/template_parts/small_title', locals: { title: t('.title') })
 
-%section#article-page
+%section#operation-page
   .container
-    = render('layouts/template_parts/large_title', locals: { title: t('.large_title'),
-    text: t('.title_text') })
+    %ol.breadcrumb
+      = render_breadcrumbs tag: :li, separator: ''
 
     .row.contact-wrap
       -# Сообщения об ошибках
       = render('shared/resource_alert_notice')
 
     .page-blocks
-      = render('operation_show')
+      .col-xs-12.col-md-8
+        = render('operation_show')
 
-    .page-blocks
-      = link_to('Шаги эксперимента', user_cabinet_experiment_experiment_case_path(id: @resource.experiment_case_id, experiment_id: @resource.experiment_case.id))
+      .col-xs-12.col-md-4.center
+        .row
+          = link_to(user_cabinet_experiment_experiment_case_path(id: @resource.experiment_case_id,
+           experiment_id: @resource.experiment.id),
+           class: 'btn btn-success btn-lg') do
+            %i.fa.fa-arrow-circle-up
+              = t('.return_to_operation')
+        .row
+          = link_to(user_cabinet_operation_path(id: @resource.id), method: :delete, data: { confirm: t('.sure') }, class: 'btn btn-primary btn-lg') do
+            %i.fa.fa-minus-square
+              = t('.delete')
+

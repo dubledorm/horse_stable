@@ -5,6 +5,9 @@ module UserCabinet
     has_scope :human_description
     has_scope :state
 
+    add_breadcrumb Experiment.model_name.human(count: 3), :user_cabinet_experiments_path
+
+
     def show
       super do
         @last_test_task = @resource.last_test_task(current_user.id)
