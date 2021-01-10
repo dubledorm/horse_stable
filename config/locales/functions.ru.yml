@@ -8,6 +8,8 @@ ru:
       functions/connect: Перейти по URL
       functions/validate: Проверить
       functions/write_variable_to_output: Вывести
+      functions/sleep: Задержка
+      functions/select_click: Выбрать из списка
 
     attributes:
       aliases:
@@ -17,6 +19,12 @@ ru:
           selector_name_hint: Определяет по какому признаку выбирается элемент на HTML странице
           selector_value: Значение
           selector_value_hint: Значение признака
+      functions/select_click:
+        <<: *fields_selector
+        option_text: Текст в теге option
+        option_text_hint: Будет выбрана строка выпадающего списка(option), где это значение присутствует как подстрока
+        option_value: Значение в теге option
+        option_value_hint: Будет выбрана строка выпадающего списка(option), где в поле value стоит это значение
       functions/click:
         <<: *fields_selector
         human_name: Функция
@@ -45,6 +53,9 @@ ru:
       functions/connect:
         value: Перейти по URL
         value_hint: URL по которому совершить переход
+      functions/sleep:
+        value: Значение в сек.
+        value_hint: По умолчанию 3 сек.
       functions/resolve_capcha:
         storage_src_name: Переменная маршрута картинки
         storage_src_name_hint: Имя переменной в которой сохранён маршрут до изображения капчи
@@ -87,6 +98,19 @@ ru:
               <<: *fielderrors
             selector_value:
               <<: *fielderrors
+        functions/select_click:
+          attributes:
+            selector:
+              <<: *fielderrors
+            selector_name:
+              <<: *fielderrors
+            selector_value:
+              <<: *fielderrors
+            option_text:
+              blank: Поле 'Текст в теге options' или 'Значение в теге options' должны быть заполнены
+            option_value:
+              blank: Поле 'Значение в теге options' или 'Текст в теге options' должны быть заполнены
+
         functions/read_attribute:
           attributes:
             selector:

@@ -12,6 +12,6 @@
     = f.label(Experiment.human_attribute_name(:state))
     = f.select(:state, Experiment.options_for_select_type(:state), { include_blank: true, selected: params[:state] }, class: 'form-control')
 
-  .pull-right
+  .pull-left
     = f.submit I18n.t('search'), class: 'btn btn-search'
     = link_to(I18n.t('reset'), user_cabinet_experiments_path, class: 'btn btn-cancel')

@@ -1,282 +1,129 @@
 # README
 
-Заготовка для разработки
-
-Функцинальные возможности:
-
-* User - аутентификация через Device, с подтверждением почтового аккаунта.
-
-* Аутентификация через социальные сети с использованием модуля omniauth. Сейчас работает аутентификация через VK, GitHub, FaceBook
-
-* Раздача прав доступа через cancan. Настройка на изменение собственных объектов и просмотр всех остальных кроме User. User просматривает только создатель.
-
-* Настройка routes на различный набор маршрутов при аутентификации пользователя и без неё
-
-* Подключен active_store
-
-* Модели Gallery + Picture с сохранением картинок в active_store
-
-* Тэгирование объектов. Модель Tag и концерн taggable_concern
-
-* Категории объектов. Концерн CategoryConcern
-
-* Модель Blog для построения любых текстовых заметок
-
-* Модель Article для постороения списка товаров и услуг
-
-* Подключен ElasticSearch для организации полнотекстового поиска. Настроены модели Blog и Article
-
-* Выставление оценок и оставление отзывов о любом объекте. Модели Grade, GradeAverage (усреднённая оценка по разным пользователям)
-grade_concern для подключения к объектам возможности выставлять оценки
-
-* ActiveAdmin для управления и администрирования
-
-* Базовый контроллер ApplicationController. Обрабатывает основные критические ошибки, предоставляет CRUD.
-
-* Контроллер Grade для расчёта средних значений по оценкам объектов
-
-* Контроллер Article, предоставлет CRUD
-
-* Контроллеры Gallery, Picture, User
-
-* HomeController - root страница для не аутентифицированного доступа
-
-* SecretController - root страница после аутентификации
-
-* React, подключен react-rails. Пример компонента в javascript/components
-
-## Devise
-  Сгенерированы контроллеры, но оставлены пустыми.
-  
-  Подключен только registrations_controller. В нём переопределён метод after_update_path_for. Чтобы после
-  редактирования профиля пользователя переходить в профиль пользователя, а не на главную страницу.
-
-## React
-Для создание нового компонента проще использовать генератор 
-  rails g react:component HelloWorld greeting:string
-
-The generator also accepts options:
-
-  --es6: use class ComponentName extends React.Component
-  
-  --coffee: use CoffeeScript
-  
-  Пример react компонента находится в _javascript/components/editable_fields_
-  
-  Пример его использования в _views/articles/show/article_show.html.haml_
-  
-### JQuery.ajax  
-  Запросы, передаваемые через ajax должны быть подписаны csrf токеном.
-  Для того, тобы это происходило, надо вызвать вот такой скрипт. 
-  Важно, что он должен вызываться после загрузки JQuery
-  
-    `$.ajaxSetup({   
-          headers: {       
-           'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')           
-       }       
-    });`
-
-
-  Пример написания динамических форм с использованием jQuery можно посмотртеть в 
-  
-   _assets/javascripts/block_content_form.js_
-   
-   его используют партиалы:
-   
-   _views/articles/show/number_block.html.haml_
-
-   _views/articles/show/string_block.html.haml_
-
-   _views/articles/show/text_area_block.html.haml_
-   
-   и чтобы всё это работало нужен также 
-   
-   _views/articles/update.js.erb_
-   
-   
-   Сейчас рабочая версия использует react компоненты.
-   Если их заменить на указанные выше хелперы, то будет работать без react
-
-
-   
-## GradeAverage и Grade
-Подробно описаны в исходниках.
-
-К модели, на которую хотим выставлять оценки подключить концерн GradeConcern
-
-Типы оценок выставить под требования в массие GRADE_TYPES в GradeConstConcern.
-Для того, чтобы типы оценок выводить в нужной локали нужно выставить в файле human_attribute_value.ru.yml 
-их соответствия.
-
-## Tag
-Тэги также имеют типы.
-
-Для использования тэгов для пометки объектов используются тэги с типом ordinal
-
-Также тэги могут быть использованы для группировки объектов по каким-либо признакам. Например по категориям.
-Список типов надо отредактировать под требования в массиве Tags::TAG_TYPES. Тип ordinal надо в массиве оставить.
-
-Для подключения тэгирования к любой модели нужно подключить к ней концерн TaggableConcern
-
-## CategoryConcern
- Реализация возможности использования тегов для группировки объектов по категориям реализована в CategoryConcern
- Для использования его с объектом необходимо подключать его в паре с TaggableConcern.
- 
- Основное отличие от работы с тегами, что категории add_category и delete_category не создают и не удаляют сам tag, 
- в отличии от add_tag и delete_tag, а только добавляют и удаляют связи.
-
-## Article
-Модель для описания представляемого товара или услуги
-Типы Article устанавливаются в массиве ARTICLE_TYPES и сейчас имеют два типа - услуга и товар
-Для их локализованного вывода надо использовать human_attribute_value(:article_type)
-
-Article имеет состояние. 
-Список состояний, при необходимости, нужно актуализовать в массиве ARTICLE_STATES. 
-Сейчас состояния: 
-
-* активно
-* удалено
-* черновик
-
-Для их локализованного вывода надо использовать human_attribute_value(:state)
-
-Позволяет устанавливать аттрибуты:
-* min/max количество
-* min/max возраст участсников
-* продолжительность
-
-Подключен поиск по русскому тексту через ElasticSearch по полям name, main_description, short_description
-Поиск настроен на максимальное совпадение с введённой строкой
-Для поиска надо использовать Article.search(строка для поиска)
-
-Может иметь одну основную картинку main_image
-Также, можно подключить gallery, содержащую дополнительные картинки.
-
-Если требуется выставлять оценки на Article, то подключите к модели 
-include GradeConcern
-
-## Sproket и натягивание шаблона
-
-Если шаблон специально не адаптирован под Webpacker, то быстрее использовать Sproket
-Порядок действий примерно следующий:
-* Берём чистый мастер без добавления туда JQuery или Bootstrap. У шаблона их версия может отличаться.
-* Всю директорию шаблона копируем в app\assets без изменений. Т. е. вместе с картинками и java скриптами.
-* В файл assets/stylesheets/application.css добавляем зависимости, а именно, указываем путь к 
-директории шаблона. Маршрут относительно директории assets/stylesheets
-Например:
-
-      *= require_tree .   
-      *= require_tree ../corlate_assets  
-      *= require_self
-  
-* Ф файл application.html.erb присоединяем эти стили через хелпер
- 
-      <%= stylesheet_link_tag 'application', media: "all" %>
- 
- Этого достаточно. Все завсимости указываются в файле application.css, сюда не надо копировать все
- \<link href="css/ из файла шаблона
- 
-* В файл assets/config/manifest.js добавляем две ссылки на директории со стилями и js
-
-      //= link_directory ../corlate_assets/css .css
-      //= link_directory ../corlate_assets/js .js
-
- _возможно это не обязательно._
- 
-
-* Все java скрипты, указанные в шаблоне, подключаются к нужным view 
-(в первую очередь к application.html.erb) через хелпер
-
-      <%= javascript_include_tag('js/jquery.js') %>
-
-* Также, все java скрипты надо добавить в файл config/initializers/assets.rb в массив Rails.application.config.assets.precompile
-
-Например:
-
-    Rails.application.config.assets.precompile += %w( js/jquery.js js/bootstrap.min.js js/jquery.prettyPhoto.js js/owl.carousel.min.js js/jquery.isotope.min.js js/main.js)
-
-* Во view все img заменяем на image_tag
-
-* Все ссылки во view на статические ресурсы типа url('image.png') дополняем asset_url, т. е. получится
-
-      url(<%= asset_url('image.png') %>)
-* Шрифты. Если в шаблоне есть шрифты, обычно это font-awesome, то надо поменять маршруты к шрифтам в файлах css.
-Для этого, переименовываем файл в scss и заменяем все ссылки вида 
-
-      url('../fonts/fontawesome-webfont.eot?v=4.0.3') 
-
-на
-
-      font-url('../fonts/fontawesome-webfont.eot?v=4.0.3');      
-
-* Картинки в файлах css. Если в файлах css встречаются ссылки на статические ресурсы вида:
-
-      url(../images/partner-bg.png);
-      
-то, файл переименовываем в scss, а все url заменяем на image-url
-
-      image-url('../images/partner-bg.png');      
-      
-* Не забыть перед проверкой выполнить bundle exec rails assets:precompile.
-
-## WebPacker
-
-### Подключение картинок
-
-* Весь статический медиа контент кладём в папку images. Можно разбить её на подпапки.
-
-* Для формирования правильных URL из view нужно использовать хелпер asset_pack_path
-
-Например:
-
-    <link rel="shortcut icon" type="image/x-icon" href="<% asset_pack_path 'media/images/favicon.ico' %>" />
-
-
-При этом, префикс маршрута media/ надо добавлять в ручную.
-
-* Для вывода картинок использовать хелпер image_pack_tag
-Например:
-
-      <%= image_pack_tag 'media/images/libra/libra-logo1.png', title: 'Libra',  alt: 'Libra' %>
-
-Правильный маршрут до картинки можно найтив файле manifest.json
-
-
-### Подключение css
-
-* Сам файл со стилями кладём в папку javascript/styles. Можно в ней сделать вложенные папки для структурированного представления
-
-* В файл application.js добавляет строчку для включения этого стиля в процесс компиляции
-
-Например: 
-
-    import('../styles/libra/css/reset');
-    import('../styles/libra/css/bootstrap');
+##Развёртывание через docker-compose
+### Общее
+* В файле docker-compose.yml подключаем БД и redis
+* Рядом с файлом docker-compose.yml кладём файл файл .env В нём прописываем переменные окружения типа паролей и прочего. Этот файл не сохраняем в git
+* Для инициализации БД рядом кладём файл init.sql. Он автоматически запускается при разворачивании postgres. Выполняется один раз. В нём имеет смысл определить пользователя и создать БД
+* Дальнейшая инициализация приложения выполняется через rake db:migration и rake db:seed
+* Важно - переменные окружения, объявленнные в файле .env должны явно определяться в docker-compose.yml следующим образом:
+
+
+    DATABASE_URL: ${DATABASE_URL}
+* База данных хранится на локальном диске хоста. Делается это через подключенный том db_data
+
+### Пример файла docker-compose.yml
     
-При этом, расширение файла не указываем.
+    version: '3.4'
+    
+    services:
+    horse_stable:
+    build:
+    context: ./horse_stable
+    dockerfile: Dockerfile
+    image: selenium_horse_stable
+    depends_on:
+    - redis
+    - database
+    ports:
+    - "3000:3000"
+    volumes:
+    - /var/log/simple_project:/app/log
+    
+        environment:
+          RAILS_ENV: 'production'
+          RACK_ENV: 'production'
+          RAILS_SERVE_STATIC_FILES: 'true'
+          REDIS_URL: 'redis://redis:6379/1'
+          DATABASE_URL: ${DATABASE_URL}
+    
+    database:
+    image: postgres:12.1
+    volumes:
+    - db_data:/var/lib/postgresql/data
+    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    
+    redis:
+      image: redis:5.0.7
+    
+    
+    volumes:
+    db_data:
+    
 
-* Можно включать css, scss, sass
+### Пример init.sql
 
-* В файл view, например application.html.erb, подключаем эти файлы с использованием хелперов stylesheet_pack_tag
+    CREATE USER horse_stable_prod;
+    ALTER USER horse_stable_prod WITH SUPERUSER;
+    CREATE DATABASE horse_stable_production;
 
-Например: 
+### Пример файла .env
+    SECRET_KEY_BASE=8b56cec9a10d0cf5423c191503a70f434f6371a81f2409959d696a3ff2313b63d0ae46ae0632a088dc28709a2dec833dab6ca224e32118201e4a3b3ab4ef717d
+    DATABASE_URL=postgres://horse_stable_prod@database/horse_stable_production
+    SENDMAIL_USERNAME=user_name
+    SENDMAIL_PASSWORD=password
 
-    <%= stylesheet_pack_tag 'libra/css/reset', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-* Чтобы проверить, что файлы нормально подключены можно запустить компиляцию:
+## Порядок действий при развёртывании системы на новом хосте.
+Предполагаем, что на хосте совсем ничего нет
 
-      bundle exec rails assets:precompile
+* Завести нового пользователя и выдать ему права на sudo. Инструкция здесь: https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
+* Установить docker (не устанавливается на серверах vps. только vds). Инструкция здесь: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+* Установить docker-compose. Инструкция здесь: https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04-ru
+* Создать отдельную папку под проект. Скопировать в неё docker-compose.yml, init.sql, .env. Исправить параметры в последних двух файлах.
+Для docker-compose.yml приходится отключать секцию build для horse-stable и оставлять только image. Иначе пытается собирать проект.
+  Команда для копирования:
+  
 
-Если всё хорошо, то процесс не выдаст ошибок
+    scp docker-compose.yml  azirumga@92.63.193.31:/home/azirumga/selenium/docker-compose.yml
+* Собрать на компе с исходниками образ. Например через docker-compose
 
-### Маршруты к медиа ресурсам в файлах css
 
-* Если в файлах стилей встречаются маршруты вида url('маршрут'), то их, при необходимости, надо модифицировать
+    docker-compose build
+* Записать образ в файл
 
-Никаких хелперов добавлять не надо. Просто сам маршрут до требуемого объекта должен быть относительным и строиться от 
-места, где лежит сам файл стиля.
 
-Например:
+    docker save -o selenium_horse_stable.tar selenium_horse_stable
+* Скопировать файл на собираемую машину через scp. Здесь развернуть его командой:
 
-    background: url('../../images/libra/slider/slider-shadow.png') no-repeat scroll center top transparent;
+
+    sudo docker load -i selenium_horse_stable.tar
+* Теперь запускаем приложение с помощью команды:
+
+
+    sudo docker-compose up -d
+* Должны запуститься база данных, редис и приложение. В этот момент должен быть выполнен init.sql и создаться пользователь и БД.
+Можно проверить это, подключившись черех psql
+
+
+    azirumga@dubledorm2:~/selenium$ sudo docker-compose exec database psql -U postgres
+    psql (12.1 (Debian 12.1-1.pgdg100+1))
+    Type "help" for help.
+    
+    postgres=# \l
+    List of databases
+    Name           |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   
+    -------------------------+----------+----------+------------+------------+-----------------------
+    horse_stable_production | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+    postgres                | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+    template0               | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+    |          |          |            |            | postgres=CTc/postgres
+    template1               | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+    |          |          |            |            | postgres=CTc/postgres
+    (4 rows)
+    
+    postgres=# \du
+    List of roles
+    Role name     |                         Attributes                         | Member of
+    -------------------+------------------------------------------------------------+-----------
+    horse_stable_prod | Superuser                                                  | {}
+    postgres          | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+
+* Далее выполняем команды:
+
+
+    sudo docker-compose exec horse_stable bundle exec rake db:migrate
+    sudo docker-compose exec horse_stable bundle exec rake db:seed
+
      

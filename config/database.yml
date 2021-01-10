@@ -86,6 +86,9 @@ test:
 #
 production:
   <<: *default
-  database: horse_stable_production
-  username: portal
-  password: <%= ENV['HORSE_STABLE_DATABASE_PASSWORD'] %>
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+  url: <%= ENV['DATABASE_URL'] %>
+#  database: horse_stable_production
+#  host: <%#= ENV['HORSE_STABLE_DATABASE_HOST'] %>
+#  username: <%#= ENV['HORSE_STABLE_DATABASE_USERNAME'] %>
+#  password: <%#= ENV['HORSE_STABLE_DATABASE_PASSWORD'] %>

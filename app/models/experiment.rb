@@ -6,8 +6,8 @@ class Experiment < ApplicationRecord
   FIELD_NAME_VALUES_RELATIONS = { state: STATE_VALUES }
 
   belongs_to :user
-  has_many :experiment_cases
-  has_many :test_tasks
+  has_many :experiment_cases, dependent: :destroy
+  has_many :test_tasks, dependent: :destroy
 
   validates :state, :human_name, presence: :true
   validates :state, inclusion: { in: STATE_VALUES,

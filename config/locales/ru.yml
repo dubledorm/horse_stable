@@ -17,8 +17,8 @@ ru:
         one: Категория
         other: Категории
       experiment_case:
-        one: Тестовый шаг
-        other: Тестовые шаги
+        one: Шаг теста
+        other: Шаги теста
       experiment:
         one: Тест
         other: Тесты

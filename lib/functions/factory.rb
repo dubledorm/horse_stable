@@ -2,14 +2,15 @@ module Functions
   class Factory
 
     NAME_TO_CLASS = { 'click' => Functions::Click,
-                      # 'byebug' => Functions::ByeBug,
+                      'byebug' => Functions::ByeBug,
                       'read_attribute' => Functions::ReadAttribute,
                       'resolve_capcha' => Functions::ResolveCapcha,
                       'send_text' => Functions::SendText,
-                      # 'sleep' => Functions::Sleep,
+                      'sleep' => Functions::Sleep,
                       'connect' => Functions::Connect,
                       'validate' => Functions::Validate,
                       'write_variable_to_output' => Functions::WriteVariableToOutput,
+                      'select_click' => Functions::SelectClick
                       # 'scroll' => Functions::Scroll
     }.freeze
 

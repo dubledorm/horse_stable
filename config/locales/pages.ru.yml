@@ -18,8 +18,12 @@ ru:
     experiments:
       index:
         tests: Тесты
+        new: Создать новый
       show:
+        return_to_tests: Вернуться к списку
+        delete: Удалить этот тест
         add_experiment_case: Добавить
+        sure: Подтвердите удаление теста. При этом, также будут удалены все результаты тестирования.
       run_experiment:
         run: Выполнить сейчас
       last_test_task:
@@ -32,6 +36,10 @@ ru:
         started: Запущены
         not_started: нет запущеннных
     experiment_cases:
+      form_new:
+        hint_number: Номер определяет порядок выполнения шагов теста
+        hint_name: Кратко назовите основную цель шага тестирования
+        hint_description: Описание, если нужно
       show:
         delete: Удалить этот шаг
         title: Шаг теста

@@ -7,6 +7,8 @@
       = render('shared/resource_alert_notice')
     .row.filter-wrap
       = render('filter')
+      .pull-right
+        = link_to(t('.new'),new_user_cabinet_experiment_path, class: 'btn btn-success')
 
 
     .page-blocks

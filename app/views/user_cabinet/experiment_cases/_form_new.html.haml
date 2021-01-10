@@ -4,17 +4,17 @@
       = f.label(:number)
       = f.text_field(:number, class: 'form-control')
       .field_hint
-        Номер по порядку
+        = t('.hint_number')
     .form-group.required
       = f.label(:human_name)
       = f.text_field(:human_name, class: 'form-control')
       .field_hint
-        Название теста
+        = t('.hint_name')
     .form-group
       = f.label(:human_description)
       = f.text_area(:human_description, class: 'form-control')
       .field_hint
-        Описание теста
+        = t('.hint_description')
 
     .form-group
       %button.btn.btn-primary.btn-lg{:name => "submit", :required => "required", :type => "submit"}

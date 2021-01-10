@@ -4,7 +4,7 @@ class ExperimentCase < ApplicationRecord
 
   belongs_to :user
   belongs_to :experiment
-  has_many :operations
+  has_many :operations, dependent: :destroy
 
   validates :human_name, :number, presence: :true
   validates :number, uniqueness: { scope: [:experiment] }

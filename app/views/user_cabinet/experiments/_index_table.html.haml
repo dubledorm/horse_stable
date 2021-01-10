@@ -7,10 +7,11 @@
      created_at: Experiment.human_attribute_name(:created_at),
      do: I18n.t('some_do') })
 - @collection.each do |experiment|
+  - edit_btn = link_to(user_cabinet_experiment_path(id: experiment.id)) do content_tag(:i, '', class: 'fa fa-edit rc-fa-edit') end
   .row.table_row
     = render('one_index_row', locals: { id: experiment.id,
      human_name: experiment.human_name,
      human_description: experiment.human_description,
      state: experiment.human_attribute_value(:state),
      created_at: experiment.created_at,
-     do: link_to(user_cabinet_experiment_path(id: experiment.id)) do content_tag(:i, '', class: 'fa fa-edit rc-fa-edit') end })
+     do: edit_btn })

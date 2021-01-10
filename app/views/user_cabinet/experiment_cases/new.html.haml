@@ -1,10 +1,7 @@
-= render('layouts/template_parts/small_title', locals: { title: I18n.t('forms.experiment_case_new.title') })
+= render('layouts/template_parts/small_title', locals: { title: ExperimentCase.model_name.human })
 
 %section#contact-page
   .container
-    = render('layouts/template_parts/large_title', locals: { title: I18n.t('forms.experiment_case_new.large_title'),
-    text: I18n.t('forms.experiment_case_new.title_text') })
-
     .row.contact-wrap
       -# Сообщения об ошибках
       = render('shared/resource_alert_notice')
