@@ -65,10 +65,9 @@ class ExperimentOperation extends React.Component {
     }
 
     onReadSuccess(data){
-        if (this.state.state.experiment_case_id != null) {
-            if (this.state.state.experiment_case_id != data.experiment_case_id) {
-                $('#experiment_case_row_' + this.state.state.experiment_case_id).removeClass('failed_experiment_case');
-            }
+        let element = $('.failed_experiment_case').first()
+        if (element != null) {
+            element.removeClass('failed_experiment_case');
         }
 
         this.setState({ state: 'listen',

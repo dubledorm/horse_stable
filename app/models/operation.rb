@@ -34,10 +34,12 @@ class Operation < ApplicationRecord
   def as_json(functions_translate: false)
     if functions_translate
       function = Functions::Factory.build!(function_name, JSON.parse(operation_json || '{}'))
-      return function.translate_attributes.stringify_keys
+      result_hash = function.translate_attributes
+    else
+      result_hash = JSON.parse(operation_json || '{}')
     end
-
-    JSON.parse(operation_json || '{}').stringify_keys
+    { operation_id: self.id,
+      operation_json: result_hash.stringify_keys }
   end
 
   def self.options_for_select_type

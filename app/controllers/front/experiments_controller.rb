@@ -18,6 +18,7 @@ module Front
                      translated_result_kod: last_test_task&.human_attribute_value(:result_kod),
                      result_values_json: last_test_task&.result_values_json ? JSON.parse(last_test_task.result_values_json) : {},
                      result_message: last_test_task&.result_message,
+                     experiment_case_id: last_test_task_experiment_case(last_test_task),
                      duration: last_test_task&.duration }
     end
 
@@ -28,6 +29,12 @@ module Front
     end
 
     private
+
+    def last_test_task_experiment_case(last_test_task)
+      return unless last_test_task
+      return unless last_test_task.result_kod == 'interrupted'
+      return last_test_task.operation&.experiment_case_id
+    end
 
     def get_experiment
       Experiment.find(params.required(:id))
