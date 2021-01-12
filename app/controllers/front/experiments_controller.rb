@@ -11,10 +11,18 @@ module Front
     # Возвращает последний результат эксперимента
     def experiment_last_result
       experiment = get_experiment
+      url_screen_shot = ''
+      url_screen_shot_preview = ''
       last_test_task = experiment.last_test_task(params.required(:user_id))
+      if last_test_task&.failed_screen_shot&.attached?
+        url_screen_shot = url_for(last_test_task.failed_screen_shot)
+        url_screen_shot_preview = url_for(last_test_task.failed_screen_shot.variant(resize_to_limit: [600, 600]))
+      end
       render json: { id: last_test_task&.id,
                      start_time: last_test_task&.start_time&.to_s,
                      result_kod: last_test_task&.result_kod,
+                     url_screen_shot: url_screen_shot,
+                     url_screen_shot_preview: url_screen_shot_preview,
                      translated_result_kod: last_test_task&.human_attribute_value(:result_kod),
                      result_values_json: last_test_task&.result_values_json ? JSON.parse(last_test_task.result_values_json) : {},
                      result_message: last_test_task&.result_message,

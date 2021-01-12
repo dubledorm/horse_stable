@@ -8,3 +8,12 @@
  result_kod_title: TestTask.human_attribute_name(:result_kod),
  result_values_title: TestTask.human_attribute_name(:result_values_json),
  message_title: TestTask.human_attribute_name(:result_message) })
+
+-# - if @last_test_task&.failed_screen_shot&.attached?
+-#   .col-xs-12.col-sm-12.col-md-12.single-work
+-#     .recent-work-wrap
+-#       = cover_image(@last_test_task.failed_screen_shot)
+-#       .overlay
+-#         .recent-work-inner
+-#           = link_to url_for(@last_test_task.failed_screen_shot), rel: 'prettyPhoto', class: 'preview' do
+-#             %i.fa.fa-plus

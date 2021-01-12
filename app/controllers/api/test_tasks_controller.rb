@@ -10,6 +10,13 @@ module Api
                           duration: test_task.require('statistic')['duration'],
                           operation_id: test_task.require(:errors)[:operation_id],
                           result_message: test_task.require(:errors)[:message] )
+        if test_task.require(:errors)[:failed_screen_shot].present?
+          Tempfile.create(['', 'png'], binmode: true) do |f|
+            f << Base64.decode64(test_task.require(:errors)[:failed_screen_shot])
+            f.rewind
+            @resource.failed_screen_shot.attach(io: f, filename: 'file.png')
+          end
+        end
         ExperimentChannel.broadcast_to 'ExperimentChannel', { experiment_id: @resource.experiment_id }
       end
     end

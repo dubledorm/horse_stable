@@ -7,6 +7,7 @@ module UserCabinet
     def show
       super do
         experiment = @resource.experiment
+        @last_test_task = experiment.last_test_task(current_user.id)
         add_breadcrumb experiment.human_name, user_cabinet_experiment_path(id: experiment.id)
       end
     end

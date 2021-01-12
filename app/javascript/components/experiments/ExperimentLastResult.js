@@ -51,7 +51,15 @@ class ExperimentLastResult extends React.Component {
         this.state = { state: 'read',
             ws_state: 'disconnected',
             error_message: '',
-            last_result: { test_task_id: '', start_time: '', result_kod: '', translated_result_kod: '', result_values: {}, error_message: '', duration: '' } };
+            last_result: { test_task_id: '',
+                start_time: '',
+                result_kod: '',
+                translated_result_kod: '',
+                result_values: {},
+                error_message: '',
+                duration: '',
+                url_screen_shot: '',
+                url_screen_shot_preview: '' } };
     }
 
     onWebSocketConnection() {
@@ -106,7 +114,9 @@ class ExperimentLastResult extends React.Component {
                 translated_result_kod: data.translated_result_kod,
                 result_values: data.result_values_json,
                 error_message: data.result_message,
-                duration: data.duration }});
+                duration: data.duration,
+                url_screen_shot: data.url_screen_shot,
+                url_screen_shot_preview: data.url_screen_shot_preview }});
     }
 
     onReadError(error){
@@ -119,6 +129,23 @@ class ExperimentLastResult extends React.Component {
 
     render () {
         let error_content ='';
+        let screen_shot_content = ''
+
+        if (this.state.last_result.url_screen_shot_preview != '') {
+            screen_shot_content =
+                <div className={'col-xs-12 col-sm-12 col-md-12 single-work'}>
+                    <div className={'recent-work-wrap'}>
+                        <div className={'cover_image'} style={{ backgroundImage: 'url(' + this.state.last_result.url_screen_shot_preview +')'} }></div>
+                        <div className={'overlay'}>
+                            <div className={'recent-work-inner'}>
+                                <a rel={'prettyPhoto'} className={'preview'} href={this.state.last_result.url_screen_shot}>
+                                    <i className={'fa fa-plus'}/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        }
 
         if (this.state.last_result.error_message.length > 0) {
             error_content =
@@ -138,6 +165,7 @@ class ExperimentLastResult extends React.Component {
                     <ResultValues values={this.state.last_result.result_values}/>
                 </TwoStringWrap>
                 {error_content}
+                {screen_shot_content}
             </ExperimentBlockWrap>
         );
     }

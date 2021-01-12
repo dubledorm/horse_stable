@@ -19,6 +19,8 @@ class TestTask < ApplicationRecord
   belongs_to :experiment
   belongs_to :user
 
+  has_one_attached :failed_screen_shot # Скрин со сбойной операцией
+
   scope :for_processing, -> { where(state: :new) }
   scope :result_kod, ->(result_kod) {  where(result_kod: result_kod)}
   scope :state, ->(state) { where(state: state) }
