@@ -9,6 +9,7 @@ module Api
                           result_values_json: test_task['output_values']&.to_json,
                           duration: test_task.require('statistic')['duration'],
                           operation_id: test_task.require(:errors)[:operation_id],
+                          finished_time: Time.now,
                           result_message: test_task.require(:errors)[:message] )
         if test_task.require(:errors)[:failed_screen_shot].present?
           Tempfile.create(['', 'png'], binmode: true) do |f|
@@ -30,7 +31,7 @@ module Api
         result = { job_status: :job,
                    job_id: task.id,
                    test: JSON.parse(task.test_setting_json).symbolize_keys }
-        task.update!(state: 'started')
+        task.update!(state: 'started', start_time: Time.now)
         ExperimentChannel.broadcast_to 'ExperimentChannel', { experiment_id: task.experiment_id }
       else
         result = { job_status: :idle }.to_json

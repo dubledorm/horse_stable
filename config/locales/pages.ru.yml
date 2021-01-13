@@ -2,6 +2,11 @@ ru:
   views:
     pagination:
       truncate: ...
+  layouts:
+    template_parts:
+      nav_bar:
+        reports: Отчёты
+        by_test_tasks: По заданиям
   user_cabinet:
     operations:
       show:
@@ -35,6 +40,11 @@ ru:
         query: В очереди/плане
         started: Запущены
         not_started: нет запущеннных
+    test_tasks:
+      show:
+        return_to_test_tasks: Возврат к заданиям
+        delete: Удалить это задание
+        sure: Подтвердите удаление этого задания
     experiment_cases:
       form_new:
         hint_number: Номер определяет порядок выполнения шагов теста

@@ -1,0 +1,51 @@
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = TestTask.human_attribute_name(:id) + ':'
+.col-xs-6.col-md-1
+  = locals[:id]
+
+.col-xs-12.hidden-md.hidden-lg
+  %b
+    = TestTask.human_attribute_name(:experiment) + ':'
+.col-xs-12.col-md-1
+  = locals[:experiment]
+
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = TestTask.human_attribute_name(:state) + ':'
+.col-xs-8.col-md-1
+  = locals[:state]
+
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = TestTask.human_attribute_name(:start_time) + ':'
+.col-xs-8.col-md-2
+  = locals[:start_time]
+
+.col-xs-12.hidden-md.hidden-lg
+  %b
+    = TestTask.human_attribute_name(:duration) + ':'
+.col-xs-12.col-md-1
+  = locals[:duration]
+
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = TestTask.human_attribute_name(:result_kod) + ':'
+.col-xs-8.col-md-1
+  = locals[:result_kod]
+
+.hidden-xs.col-sm-12.hidden-md.hidden-lg
+  %b
+    = TestTask.human_attribute_name(:result_values_json) + ':'
+.hidden-xs.col-sm-12.col-md-2
+  = locals[:result_values_json]
+
+.hidden-xs.col-sm-12.hidden-md.hidden-lg
+  %b
+    = TestTask.human_attribute_name(:result_message) + ':'
+.hidden-xs.col-sm-12.col-md-2
+  = locals[:result_message]
+
+
+.col-xs-12.col-md-1.center
+  = locals[:do]

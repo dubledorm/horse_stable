@@ -154,7 +154,7 @@ ru:
         id: Ид-р
         test_setting_json: Скрипт
         duration: Длительность выполнения
-        start_time: Запланированное время начала
+        start_time: Реальное время начала
         result_kod: Результат выполнения
         result_values_json: Выходные значения
         result_message: Сообщение
@@ -163,6 +163,8 @@ ru:
         updated_at: Изменён
         experiment: Тест
         experiment_id: Тест Id
+        finished_time: Время завершения
+        plan_start_time: Запланированное время начала
     errors:
       aliases:
         _field_errors_alias: &fielderrors

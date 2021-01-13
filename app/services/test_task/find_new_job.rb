@@ -2,7 +2,7 @@ class TestTask
   class FindNewJob
 
     def self.find
-      TestTask.for_processing.order(created_at: :desc).first
+      TestTask.for_processing.where('plan_start_time < ?', Time.now).order(plan_start_time: :asc).first
     end
   end
 end

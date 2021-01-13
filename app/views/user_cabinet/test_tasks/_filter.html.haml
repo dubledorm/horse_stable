@@ -1,6 +1,10 @@
 = form_with(url: user_cabinet_test_tasks_path, method: :get, name: 'filter-form', class: 'main-filter-form', local: true) do |f|
+  .col-md-1.form-group
+    = f.label(TestTask.human_attribute_name(:id))
+    = f.text_field(:id, class: 'form-control', value: params[:id])
+
   .col-md-3.form-group
-    = f.label(Experiment.human_attribute_name(:human_name))
+    = f.label(TestTask.human_attribute_name(:experiment))
     = f.text_field(:experiment_name, class: 'form-control', value: params[:experiment_name])
 
   .col-md-2.form-group

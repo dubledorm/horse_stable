@@ -1,0 +1,78 @@
+.row
+  .col-md-4
+    %b
+      = TestTask.human_attribute_name(:id) + ':'
+  .col-md-8
+    = @resource.id
+
+.row
+  .col-md-4
+    %b
+      = TestTask.human_attribute_name(:experiment) + ':'
+  .col-md-8
+    = @resource.experiment.human_name
+
+.row
+  .col-md-4
+    %b
+      = TestTask.human_attribute_name(:state) + ':'
+  .col-md-8
+    = @resource.human_attribute_value(:state)
+
+.row
+  .col-md-4
+    %b
+      = TestTask.human_attribute_name(:plan_start_time) + ':'
+  .col-md-8
+    = @resource.plan_start_time
+
+.row
+  .col-md-4
+    %b
+      = TestTask.human_attribute_name(:start_time) + ':'
+  .col-md-8
+    = @resource.start_time
+
+.row
+  .col-md-4
+    %b
+      = TestTask.human_attribute_name(:finished_time) + ':'
+  .col-md-8
+    = @resource.finished_time
+
+.row
+  .col-md-4
+    %b
+      = TestTask.human_attribute_name(:duration) + ':'
+  .col-md-8
+    = @resource.duration
+
+.row
+  .col-md-4
+    %b
+      = TestTask.human_attribute_name(:result_kod) + ':'
+  .col-md-8
+    = @resource.human_attribute_value(:result_kod)
+
+.row
+  .col-md-12
+    %b
+      = TestTask.human_attribute_name(:result_values_json) + ':'
+  .col-md-12
+    = @resource.result_values_json
+
+.row
+  .col-md-12
+    %b
+      = TestTask.human_attribute_name(:result_message) + ':'
+  .col-md-12
+    = @resource.result_message
+
+- if @resource.failed_screen_shot&.attached?
+  .col-xs-12.col-sm-12.col-md-12.single-work
+    .recent-work-wrap
+      = cover_image(@resource.failed_screen_shot)
+      .overlay
+        .recent-work-inner
+          = link_to url_for(@resource.failed_screen_shot), rel: 'prettyPhoto', class: 'preview' do
+            %i.fa.fa-plus

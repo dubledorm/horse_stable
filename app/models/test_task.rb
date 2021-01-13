@@ -26,7 +26,8 @@ class TestTask < ApplicationRecord
   scope :state, ->(state) { where(state: state) }
   scope :experiment_name, ->(name) { joins(:experiment).where('experiments.human_name LIKE ?', "%#{name}%") }
   scope :by_user_id, ->(user_id) { where(user_id: user_id) }
-  scope :descendant_sort, ->(*) { order(id: :desc) }
+  scope :descendant_sort, ->(*) { order(finished_time: :desc, id: :desc) }
+  scope :by_id, ->(id) { where(id: id) }
 
   def self.options_for_select_type(field_name)
     FIELD_NAME_VALUES_RELATIONS[field_name].map{|value| [human_attribute_value(field_name, value), value]}

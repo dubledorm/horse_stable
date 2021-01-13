@@ -5,12 +5,16 @@ module UserCabinet
     has_scope :state
     has_scope :experiment_name
     has_scope :descendant_sort, default: nil, allow_blank: true
+    has_scope :by_id, as: :id
+
+    add_breadcrumb TestTask.model_name.human(count: 3), :user_cabinet_test_tasks_path, only: :show
+
 
     def create
       super do
         experiment = Experiment.find(params.required(:test_task).required(:experiment_id))
         @resource = TestTask.create(test_setting_json: experiment.as_json(functions_translate: true).to_json,
-                                    start_time: DateTime.now,
+                                    plan_start_time: DateTime.now,
                                     state: :new,
                                     experiment: experiment,
                                     user: current_user)
@@ -23,7 +27,14 @@ module UserCabinet
       end
     end
 
-
+    def destroy
+      super do
+        ActiveRecord::Base.transaction do
+          @resource.destroy!
+        end
+        redirect_to user_cabinet_test_tasks_path
+      end
+    end
     private
 
     def test_task_params
