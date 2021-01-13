@@ -29,6 +29,8 @@ RUN apk add --update --no-cache \
       tzdata \
       yarn
 
+RUN apk add imagemagick
+
 # Настройка переменных окружения для production
 ENV RAILS_ENV=production \
     RACK_ENV=production \
@@ -59,7 +61,7 @@ ENV TZ=Europe/Moscow
 EXPOSE 3000
 
 # Volume для лога
-VOLUME ["/app/log"]
+VOLUME ["/app/log", "/app/storage"]
 
 #CMD ["bin/rails", "console"]
 
