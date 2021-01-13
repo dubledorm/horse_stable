@@ -16,7 +16,12 @@ class User < ApplicationRecord
   has_many :blogs, dependent: :destroy
   has_one :user_parameter, dependent: :destroy
 
-  has_many :test_tasks
+  has_many :test_tasks, dependent: :destroy
+  has_many :experiments, dependent: :destroy
+  has_many :experiment_cases, dependent: :destroy
+
+  has_many :owner_tags, dependent: :destroy, class_name: 'Tag'
+
 
 
   has_one_attached :avatar

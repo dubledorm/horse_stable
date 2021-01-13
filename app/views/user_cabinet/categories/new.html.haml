@@ -1,0 +1,12 @@
+= render('layouts/template_parts/small_title', locals: { title: t('.category') })
+
+%section#contact-page
+  .container
+    = render('layouts/template_parts/large_title', locals: { title: t('.large_title'),
+    text: t('.title_text') })
+
+    .row.contact-wrap
+      -# Сообщения об ошибках
+      = render('shared/resource_alert_notice')
+
+    = render 'form_new'

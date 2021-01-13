@@ -25,12 +25,12 @@ module TaggableConcern
     tags.ordinal.pluck(:title).join(', ')
   end
 
-  def add_tag(tag_name, tag_title = nil)
+  def add_tag(tag_name, owner_user_id, tag_title = nil)
     tag = Tag.ordinal.find_by_name(tag_name)
     if tag
       self.tags << tag unless self.has_tag?(tag_name)
     else
-      self.tags.create!(name: tag_name, tag_type: 'ordinal', title: tag_title)
+      self.tags.create!(name: tag_name, tag_type: 'ordinal', title: tag_title, user_id: owner_user_id)
     end
   end
 

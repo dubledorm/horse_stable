@@ -1,0 +1,13 @@
+.row.table_header.hidden-xs.hidden-sm
+  %b
+    = render('one_index_row', locals: { id: Tag.human_attribute_name(:id),
+     title: Tag.human_attribute_name(:title),
+     do: I18n.t('some_do') })
+
+- @collection.each do |category|
+  - delete_btn = link_to(user_cabinet_category_path(id: category.id), method: :delete, data: { confirm: t('.sure') }) do content_tag(:i, '', class: 'fa fa-minus fa-minus-square') end
+  .row.table_row
+    = render('one_index_row', locals: { id: category.id,
+     title: category.title,
+     do: delete_btn })
+

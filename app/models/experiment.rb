@@ -1,6 +1,8 @@
 class Experiment < ApplicationRecord
   include HumanAttributeValue
   include ExperimentJsonConcern
+  include TaggableConcern
+  include CategoryConcern
 
   STATE_VALUES = %w[new draft locked]
   FIELD_NAME_VALUES_RELATIONS = { state: STATE_VALUES }

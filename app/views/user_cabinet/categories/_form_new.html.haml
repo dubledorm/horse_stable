@@ -1,0 +1,8 @@
+= form_with(model: @resource, local: true, url: user_cabinet_categories_path) do |f|
+  .col-md-5.col-md-offset-1
+    .form-group.required
+      = f.label(:title)
+      = f.text_field(:title, class: 'form-control')
+    .form-group
+      %button.btn.btn-primary.btn-lg{:name => "submit", :required => "required", :type => "submit"}
+        = I18n.t('forms.article_new.create')

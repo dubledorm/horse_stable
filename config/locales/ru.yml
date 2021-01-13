@@ -144,6 +144,7 @@ ru:
         categories: Категории
         main_description: О себе
       tag:
+        id: Ид-р
         name: Имя
         tag_type: Тип
         title: Название

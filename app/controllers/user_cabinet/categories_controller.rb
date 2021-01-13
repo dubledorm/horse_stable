@@ -1,25 +1,42 @@
 # encoding: utf-8
 
 module UserCabinet
-  class CategoriesController < PrivateUserController
+  class CategoriesController < PrivateAreaController
 
-    def update
+    def new
       super do
-        presenter = UserCategoryPresenter.new.from_json_string(user_categories_params[:categories])
-        ActiveRecord::Base.transaction do
-          @resource.clear_categories
-          presenter.categories.each do |category|
-            @resource.add_category(category[:name])
-          end
-        end
-
-        render json: presenter.to_json,  status: :ok
+        @resource = Tag.new
       end
     end
 
-    def user_categories_params
-      params.required(:user).permit(:categories)
+    def create
+      super do
+        @resource = Tag.create(categories_params.merge!(tag_type: 'ordinal',
+                                                        user: current_user,
+                                                        name: categories_params[:title]))
+        unless @resource.persisted?
+          render :new
+          return
+        end
+        redirect_to user_cabinet_categories_path
+      end
     end
 
+    def destroy
+      super do
+        ActiveRecord::Base.transaction do
+          @resource.destroy!
+        end
+        redirect_to user_cabinet_categories_path
+      end
+    end
+
+    def categories_params
+      params.required(:tag).permit(:title)
+    end
+
+    def get_resource_class
+      Tag
+    end
   end
 end

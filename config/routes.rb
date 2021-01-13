@@ -54,7 +54,7 @@ Rails.application.routes.draw do
 
       resources :test_tasks
       resources :galleries
-      resource :category, only: :update
+      resources :categories
       resources :articles
     end
 

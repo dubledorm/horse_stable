@@ -15,15 +15,17 @@ class Tag < ApplicationRecord
   TAG_TYPES = %w(ordinal category).freeze
 
   has_many :tags_on_objects, dependent: :destroy
-  has_many :users, through: :tags_on_objects, source: :taggable, source_type: 'User'
+  has_many :tag_users, through: :tags_on_objects, source: :taggable, source_type: 'User', class_name: 'User'
   has_many :blogs, through: :tags_on_objects, source: :taggable, source_type: 'Blog'
 
+  belongs_to :user
+
   validates :name, :tag_type, presence: true
-  validates :name, uniqueness: { scope: :tag_type }
+  validates :name, uniqueness: { scope: [:user_id, :tag_type] }
   validates :tag_type, inclusion: { in: TAG_TYPES }
 
   scope :by_tag_type, ->(tag_type){ where(tag_type: tag_type) }
   scope :ordinal, ->{ where(tag_type: 'ordinal') }
   scope :category, ->{ where(tag_type: 'category') }
-  scope :by_user, ->(user_id){ joins(:users).where( users: { id: user_id })}
+  scope :by_tag_user, ->(user_id){ joins(:tag_users).where( users: { id: user_id })}
 end
