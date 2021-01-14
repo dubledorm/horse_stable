@@ -13,25 +13,25 @@ class Blog < ApplicationRecord
   validates :post_type, :state, :title, presence: true
   validates :post_type, inclusion: { in: BLOG_TYPES }
   validates :state, inclusion: { in: BLOG_STATES }
-
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
-
-  mappings do
-    indexes :title,  type: 'text', analyzer: 'russian'
-    indexes :content, type: 'text', analyzer: 'russian'
-  end
-
-  def self.search(query)
-    __elasticsearch__.search(
-        {
-            query: {
-                multi_match: {
-                    query: query,
-                    fields: ['title', 'content']
-                }
-            }
-        }
-    )
-  end
+  #
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
+  #
+  # mappings do
+  #   indexes :title,  type: 'text', analyzer: 'russian'
+  #   indexes :content, type: 'text', analyzer: 'russian'
+  # end
+  #
+  # def self.search(query)
+  #   __elasticsearch__.search(
+  #       {
+  #           query: {
+  #               multi_match: {
+  #                   query: query,
+  #                   fields: ['title', 'content']
+  #               }
+  #           }
+  #       }
+  #   )
+  # end
 end
