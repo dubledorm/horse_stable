@@ -22,10 +22,12 @@ class TestTask < ApplicationRecord
   has_one_attached :failed_screen_shot # Скрин со сбойной операцией
 
   scope :for_processing, -> { where(state: :new) }
+  scope :completed, -> { where(state: :completed) }
   scope :result_kod, ->(result_kod) {  where(result_kod: result_kod)}
   scope :state, ->(state) { where(state: state) }
   scope :experiment_name, ->(name) { joins(:experiment).where('experiments.human_name LIKE ?', "%#{name}%") }
   scope :by_user_id, ->(user_id) { where(user_id: user_id) }
+  scope :descendant_by_id_sort, ->(*) { order(id: :desc) }
   scope :descendant_sort, ->(*) { order(finished_time: :desc, id: :desc) }
   scope :by_id, ->(id) { where(id: id) }
 

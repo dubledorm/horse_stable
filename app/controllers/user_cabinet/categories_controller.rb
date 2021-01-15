@@ -2,6 +2,7 @@
 
 module UserCabinet
   class CategoriesController < PrivateAreaController
+    add_breadcrumb I18n.t('categories'), :user_cabinet_categories_path, only: [:show]
 
     def new
       super do
@@ -19,6 +20,17 @@ module UserCabinet
           return
         end
         redirect_to user_cabinet_categories_path
+      end
+    end
+
+    def update
+      super do
+        @resource.update(categories_params)
+        if @resource.errors.count == 0
+          render json: attributes_mask_to_json(@resource, categories_params),  status: :ok
+        else
+          render json: @resource.errors.full_messages.join(', '), status: :unprocessable_entity
+        end
       end
     end
 

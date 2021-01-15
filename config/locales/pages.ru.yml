@@ -24,10 +24,13 @@ ru:
         large_title: Простая операция
         title_text: "Выберите тип операции, функцию и параметры функции"
     categories:
+      show:
+        sure: Подтвердите удаление категории
+        return_to_categories: Возврат к списку
+        category: Категория
+        delete: Удалить категорию
       index:
         new: Создать новую
-      index_table:
-        sure: Подтвердите удаление категории
       new:
         category: Категория
         large_title: Создать категорию

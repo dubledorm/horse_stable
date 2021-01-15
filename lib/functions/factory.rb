@@ -10,7 +10,8 @@ module Functions
                       'connect' => Functions::Connect,
                       'validate' => Functions::Validate,
                       'write_variable_to_output' => Functions::WriteVariableToOutput,
-                      'select_click' => Functions::SelectClick
+                      'select_click' => Functions::SelectClick,
+                      'wait_element' => Functions::WaitElement
                       # 'scroll' => Functions::Scroll
     }.freeze
 

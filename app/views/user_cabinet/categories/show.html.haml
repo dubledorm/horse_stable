@@ -1,0 +1,24 @@
+= render('layouts/template_parts/small_title', locals: { title: t('.category') })
+
+%section#test-task-page
+  .container
+    %ol.breadcrumb
+      = render_breadcrumbs tag: :li, separator: ''
+
+    .row.contact-wrap
+      -# Сообщения об ошибках
+      = render('shared/resource_alert_notice')
+
+    .page-blocks
+      .col-xs-12.col-md-8
+        .category_show
+          = render('category_show')
+      .col-xs-10.col-md-4
+        .row
+          = link_to(user_cabinet_test_tasks_path, class: 'btn btn-success btn-lg') do
+            %i.fa.fa-arrow-circle-up
+              = t('.return_to_categories')
+        .row
+          = link_to(user_cabinet_category_path(id: @resource.id), class: 'btn btn-primary btn-lg', method: :delete, data: { confirm: t('.sure') }) do
+            %i.fa.fa-minus.fa-minus-square
+              = t('.delete')

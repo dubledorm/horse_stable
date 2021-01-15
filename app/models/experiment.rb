@@ -26,7 +26,7 @@ class Experiment < ApplicationRecord
   end
 
   def last_test_task(user_id)
-    self.test_tasks.by_user_id(user_id).state(:completed).descendant_sort.first
+    self.test_tasks.by_user_id(user_id).completed.descendant_sort.first
   end
 
   def last_test_tasks(user_id, count)

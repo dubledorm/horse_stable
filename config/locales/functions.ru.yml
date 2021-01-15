@@ -10,6 +10,7 @@ ru:
       functions/write_variable_to_output: Вывести
       functions/sleep: Задержка
       functions/select_click: Выбрать из списка
+      functions/wait_element: Ждать появления элемента
 
     attributes:
       aliases:
@@ -61,6 +62,10 @@ ru:
         storage_src_name_hint: Имя переменной в которой сохранён маршрут до изображения капчи
         save_result_as: Сохранить в
         save_result_as_hint: Имя переменной, в которую сохранить результат расшифровки
+      functions/wait_element:
+        <<: *fields_selector
+        delay: Время ожидания (сек)
+        delay_hint: Время в сек, в течение которого ждать появления элемента
       functions/write_variable_to_output:
         variable_name: Имя переменной
         variable_name_hint: Имя переменной, которую хотим вывести за пределы теста
@@ -145,6 +150,11 @@ ru:
               <<: *fielderrors
             save_result_as:
               <<: *fielderrors
+        functions/wait_element:
+          attributes:
+            delay:
+              <<: *fielderrors
+              not_a_number: Должно быть числом
         functions/write_variable_to_output:
           attributes:
             variable_name:

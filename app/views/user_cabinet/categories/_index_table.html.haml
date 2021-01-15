@@ -5,9 +5,9 @@
      do: I18n.t('some_do') })
 
 - @collection.each do |category|
-  - delete_btn = link_to(user_cabinet_category_path(id: category.id), method: :delete, data: { confirm: t('.sure') }) do content_tag(:i, '', class: 'fa fa-minus fa-minus-square') end
+  - edit_btn = link_to(user_cabinet_category_path(id: category.id)) do content_tag(:i, '', class: 'fa fa-edit rc-fa-edit') end
   .row.table_row
     = render('one_index_row', locals: { id: category.id,
      title: category.title,
-     do: delete_btn })
+     do: edit_btn })
 
