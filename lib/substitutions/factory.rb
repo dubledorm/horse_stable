@@ -3,7 +3,9 @@ module Substitutions
   class Factory
 
     NAME_TO_CLASS = { 'phone_number' => Substitutions::PhoneNumber,
-                      'random_integer' => Substitutions::RandomInteger }.freeze
+                      'random_integer' => Substitutions::RandomInteger,
+                      'calculate' => Substitutions::Calculate,
+                      'variable' => Substitutions::Variable}.freeze
 
     class FunctionBuildError < StandardError; end
 

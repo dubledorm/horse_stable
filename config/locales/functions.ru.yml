@@ -67,15 +67,20 @@ ru:
         delay: Время ожидания (сек)
         delay_hint: Время в сек, в течение которого ждать появления элемента
       functions/write_variable_to_output:
-        variable_name: Имя переменной
-        variable_name_hint: Имя переменной, которую хотим вывести за пределы теста
+        variable_name: Строка для вывода
+        variable_name_hint: Строка может содержать функции
         save_as: Переменная вывода
         save_as_hint: С каким имененм переменная будет выведена
     errors:
       aliases:
         _field_errors_alias: &fielderrors
           blank: Должно быть заполнено
-
+          not_a_number: Должно быть числом
+          required: Должно быть заполнено
+          taken: Значение уже используется
+          greater_than: Должно быть больше 0
+          not_an_integer: Должно быть целым числом
+          less_than_or_equal_to: Превышает верхнее разрешённое значение
       models:
         functions/click:
           attributes:
@@ -115,7 +120,6 @@ ru:
               blank: Поле 'Текст в теге options' или 'Значение в теге options' должны быть заполнены
             option_value:
               blank: Поле 'Значение в теге options' или 'Текст в теге options' должны быть заполнены
-
         functions/read_attribute:
           attributes:
             selector:
@@ -160,4 +164,10 @@ ru:
             variable_name:
               <<: *fielderrors
             save_as:
+              <<: *fielderrors
+        substitutions/calculate:
+          attributes:
+            operation:
+              <<: *fielderrors
+            parameters:
               <<: *fielderrors

@@ -147,7 +147,7 @@ class ExperimentLastResult extends React.Component {
                 </div>
         }
 
-        if (this.state.last_result.error_message.length > 0) {
+        if (this.state.last_result.error_message != null && this.state.last_result.error_message.length > 0) {
             error_content =
                 <TwoStringWrap title={this.props.message_title}>
                     <div className={'col-xs-11 col-md-11 col-xs-offset-1 col-md-offset-1 failed_test_task'}>
