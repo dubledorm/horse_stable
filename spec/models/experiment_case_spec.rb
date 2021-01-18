@@ -18,13 +18,15 @@ RSpec.describe ExperimentCase, type: :model do
     let!(:empty_experiment_case) {FactoryGirl.create :experiment_case}
     let!(:experiment_case_with_operations) { FactoryGirl.create :experiment_case_with_operations}
     let!(:empty_result) { { 'check' => {}, 'do' => {}, 'next' => {}, 'human_name' => empty_experiment_case.human_name } }
-    let!(:result) { { 'check' => { experiment_case_with_operations.operations[1].number.to_s => {},
-                                         experiment_case_with_operations.operations[2].number.to_s => {},
-                                         experiment_case_with_operations.operations[3].number.to_s => { 'do' => 'click',
-                                                                                                        'human_description' => nil,
-                                                                                                        'human_name' =>nil,
-                                                                                                        'selector' => { "xpath" => "123" } } },
-                            'do' => { experiment_case_with_operations.operations[0].number.to_s => {} },
+    let!(:result) { { 'check' => { experiment_case_with_operations.operations[1].number.to_s => { 'operation_id' => experiment_case_with_operations.operations[1].id, 'operation_json' => {} },
+                                         experiment_case_with_operations.operations[2].number.to_s => { 'operation_id' => experiment_case_with_operations.operations[2].id, 'operation_json' => {} },
+                                         experiment_case_with_operations.operations[3].number.to_s => { 'operation_id' => experiment_case_with_operations.operations[3].id,
+                                                                                                        'operation_json' => { 'do' => 'click',
+                                                                                                                          'human_description' => nil,
+                                                                                                                          'human_name' =>nil,
+                                                                                                                          'selector' => { "xpath" => "123" }
+                                                                                                        } } },
+                            'do' => { experiment_case_with_operations.operations[0].number.to_s => {'operation_id' => experiment_case_with_operations.operations[0].id, 'operation_json' => {}} },
                             'next' => {},
                             'human_name' => experiment_case_with_operations.human_name } }
 

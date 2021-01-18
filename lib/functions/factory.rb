@@ -11,8 +11,9 @@ module Functions
                       'validate' => Functions::Validate,
                       'write_variable_to_output' => Functions::WriteVariableToOutput,
                       'select_click' => Functions::SelectClick,
-                      'wait_element' => Functions::WaitElement
-                      # 'scroll' => Functions::Scroll
+                      'wait_element' => Functions::WaitElement,
+                      'scroll' => Functions::Scroll,
+                      'sub_script' => Functions::SubScript
     }.freeze
 
     class FunctionBuildError < StandardError; end;

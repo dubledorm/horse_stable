@@ -11,6 +11,7 @@ ru:
       functions/sleep: Задержка
       functions/select_click: Выбрать из списка
       functions/wait_element: Ждать появления элемента
+      functions/scroll: Прокрутить
 
     attributes:
       aliases:
@@ -54,6 +55,11 @@ ru:
       functions/connect:
         value: Перейти по URL
         value_hint: URL по которому совершить переход
+      functions/scroll:
+        value: Расстояние
+        value_hint: На сколько точек прокрутить
+        direction: Направление
+        direction_hint: В какую сторону крутить
       functions/sleep:
         value: Значение в сек.
         value_hint: По умолчанию 3 сек.
@@ -107,6 +113,12 @@ ru:
             selector_name:
               <<: *fielderrors
             selector_value:
+              <<: *fielderrors
+        functions/scroll:
+          attributes:
+            value:
+              <<: *fielderrors
+            direction:
               <<: *fielderrors
         functions/select_click:
           attributes:
