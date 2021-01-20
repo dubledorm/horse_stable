@@ -9,6 +9,7 @@ class Experiment < ApplicationRecord
 
   belongs_to :user
   has_many :experiment_cases, dependent: :destroy
+  has_many :operations, through: :experiment_cases
   has_many :test_tasks, dependent: :destroy
 
   validates :state, :human_name, presence: :true

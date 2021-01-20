@@ -25,7 +25,27 @@ RSpec.describe Operation, type: :model do
   end
 
   describe 'serializable' do
+    context 'simple operation' do
+      let!(:operation) {FactoryGirl.create :operation}
+      let(:result) { { "#{operation.number}" => { "operation_id" => operation.id,
+                                                  "operation_json" => { "human_name" => nil,
+                                                                        "human_description" => nil,
+                                                                        "do" => "click",
+                                                                        "selector" => nil
+                                                  }
+      } } }
 
+      it 'only print' do
+        ap operation.as_json(functions_translate: true)
+      end
+
+      it { expect(operation.as_json(functions_translate: true)).to eq(result) }
+    end
+
+    context 'sub_script' do
+      let(:experiment_with_operations) { FactoryGirl.create :experiment_with_operations }
+      let(:result) {{}}
+    end
   end
 
   describe 'translate_attributes' do

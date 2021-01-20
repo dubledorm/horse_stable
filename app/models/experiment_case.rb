@@ -32,7 +32,7 @@ class ExperimentCase < ApplicationRecord
 
   def operations_as_json(operation_type, functions_translate = false)
     operations.where(operation_type: operation_type).order(:number).inject({}) do |result, operation|
-      result.merge({ "#{operation.number}" => operation.as_json(functions_translate: functions_translate) })
+      result.merge(operation.as_json(functions_translate: functions_translate))
     end.stringify_keys
   end
 

@@ -38,8 +38,9 @@ class Operation < ApplicationRecord
     else
       result_hash = JSON.parse(operation_json || '{}')
     end
-    { 'operation_id' => self.id,
-      'operation_json' => result_hash.stringify_keys }
+    { "#{self.number}" => { 'operation_id' => self.id,
+                            'operation_json' => result_hash.stringify_keys }
+    }
   end
 
   def self.options_for_select_type

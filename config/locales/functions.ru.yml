@@ -12,6 +12,7 @@ ru:
       functions/select_click: Выбрать из списка
       functions/wait_element: Ждать появления элемента
       functions/scroll: Прокрутить
+      functions/sub_script: Вызвать тест
 
     attributes:
       aliases:
@@ -52,6 +53,8 @@ ru:
         value_from_storage_hint: Значение может быть взято из указанной переменной
         send_return: Нажать Enter
         send_return_hint: После ввода значения нажать клавишу Enter
+      functions/sub_script:
+        script_id: Ид-р теста
       functions/connect:
         value: Перейти по URL
         value_hint: URL по которому совершить переход
@@ -155,6 +158,12 @@ ru:
             selector_name:
               <<: *fielderrors
             selector_value:
+              <<: *fielderrors
+        functions/sub_script:
+          attributes:
+            do:
+              <<: *fielderrors
+            script_id:
               <<: *fielderrors
         functions/connect:
           attributes:

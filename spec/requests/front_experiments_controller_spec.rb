@@ -98,12 +98,15 @@ RSpec.describe Front::ExperimentsController, type: :request do
       it { expect(response).to have_http_status(200) }
       it {
         expect(JSON.parse(response.body)).to eq('duration' => nil,
+                                                'experiment_case_id' => nil,
                                                 'id' => nil,
                                                 'result_kod' => nil,
                                                 'translated_result_kod' => nil,
                                                 'result_message' => nil,
                                                 'result_values_json' => {},
-                                                'start_time' => nil)
+                                                'start_time' => nil,
+                                                'url_screen_shot' => '',
+                                                'url_screen_shot_preview' => '')
       }
     end
 
@@ -133,12 +136,15 @@ RSpec.describe Front::ExperimentsController, type: :request do
       it { expect(response).to have_http_status(200) }
       it {
         expect(JSON.parse(response.body)).to eq('duration' => 10,
+                                                'experiment_case_id' => operation.experiment_case_id,
                                                 'id' => test_task.id,
                                                 'result_kod' => 'interrupted',
                                                 'translated_result_kod' => 'Прерван',
                                                 'result_message' => nil,
                                                 'result_values_json' => {},
-                                                'start_time' => test_task.start_time.to_s)
+                                                'start_time' => test_task.start_time.to_s,
+                                                'url_screen_shot' => '',
+                                                'url_screen_shot_preview' => '')
       }
     end
 
@@ -184,12 +190,15 @@ RSpec.describe Front::ExperimentsController, type: :request do
       it { expect(response).to have_http_status(200) }
       it {
         expect(JSON.parse(response.body)).to eq('duration' => 10,
+                                                'experiment_case_id' => nil,
                                                 'id' => test_task2.id,
                                                 'result_kod' => 'processed',
                                                 'translated_result_kod' => 'Выполнен успешно',
                                                 'result_message' => nil,
                                                 'result_values_json' => {},
-                                                'start_time' => test_task2.start_time.to_s)
+                                                'start_time' => test_task2.start_time.to_s,
+                                                'url_screen_shot' => '',
+                                                'url_screen_shot_preview' => '')
       }
     end
 

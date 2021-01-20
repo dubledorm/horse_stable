@@ -4,4 +4,8 @@ FactoryGirl.define do
     state :new
     user
   end
+
+  factory :experiment_with_operations, parent: :experiment do
+    experiment_cases { [FactoryGirl.create(:experiment_case_with_operations)] }
+  end
 end
