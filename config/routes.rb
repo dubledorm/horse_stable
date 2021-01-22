@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       resources :galleries
       resources :categories
       resources :articles
+      resources :some_files
     end
 
 

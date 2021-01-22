@@ -36,6 +36,9 @@ ru:
       test_task:
         one: Задание
         other: Задания
+      some_file:
+        one: Файл
+        other: Файлы
       service:
         one: Сервис
         other: Сервисы
@@ -87,6 +90,12 @@ ru:
         human_description: Описание
         user_id: Пользователь
         state: Состояние
+        <<: *timestamps
+      some_file:
+        name: Название
+        description: Описание
+        user_id: Пользователь
+        file: Файл
         <<: *timestamps
       experiment_case:
         human_name: Название

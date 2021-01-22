@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_201939) do
+ActiveRecord::Schema.define(version: 2021_01_21_203014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,6 +205,15 @@ ActiveRecord::Schema.define(version: 2021_01_13_201939) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "some_files", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_some_files_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "tag_type", null: false
     t.string "name", null: false
@@ -282,6 +291,7 @@ ActiveRecord::Schema.define(version: 2021_01_13_201939) do
   add_foreign_key "experiments", "users"
   add_foreign_key "grades", "users"
   add_foreign_key "pictures", "galleries"
+  add_foreign_key "some_files", "users"
   add_foreign_key "tags", "users"
   add_foreign_key "test_tasks", "experiments"
   add_foreign_key "test_tasks", "operations"

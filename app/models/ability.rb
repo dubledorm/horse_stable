@@ -14,6 +14,7 @@ class Ability
 
     can :manage, User, id: user.id
 
+    can :manage, SomeFile, user_id: user.id
     can :manage, Tag, user_id: user.id
     can :manage, TestTask, user_id: user.id
     can :manage, Operation, { experiment_case: {user_id: user.id} }

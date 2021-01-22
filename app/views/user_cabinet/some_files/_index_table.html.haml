@@ -1,0 +1,15 @@
+.row.table_header.hidden-xs.hidden-sm
+  %b
+    = render('one_index_row', locals: { id: SomeFile.human_attribute_name(:id),
+     name: SomeFile.human_attribute_name(:name),
+     description: SomeFile.human_attribute_name(:description),
+     do: I18n.t('some_do') })
+
+- @collection.each do |some_file|
+  - edit_btn = link_to(user_cabinet_some_file_path(id: some_file.id)) do content_tag(:i, '', class: 'fa fa-edit rc-fa-edit') end
+  .row.table_row
+    = render('one_index_row', locals: { id: some_file.id,
+     name: some_file.name,
+     description: some_file.description,
+     do: edit_btn })
+

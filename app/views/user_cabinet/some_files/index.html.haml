@@ -1,0 +1,15 @@
+%section#tags
+  .container
+    .row.contact-wrap
+      -# Сообщения об ошибках
+      = render('shared/resource_alert_notice')
+    .row.filter-wrap
+      = render('filter')
+      .pull-right
+        = link_to(t('.new'),new_user_cabinet_some_file_path, class: 'btn btn-success')
+
+
+    .page-blocks
+      = render('index_table')
+
+    = render('shared/pagination_block')

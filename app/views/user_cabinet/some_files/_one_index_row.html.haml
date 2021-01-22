@@ -1,0 +1,20 @@
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = SomeFile.human_attribute_name(:id) + ':'
+.col-xs-6.col-md-1
+  = locals[:id]
+
+.col-xs-12.hidden-md.hidden-lg
+  %b
+    = SomeFile.human_attribute_name(:name) + ':'
+.col-xs-12.col-md-4
+  = locals[:name]
+
+.col-xs-12.hidden-md.hidden-lg
+  %b
+    = SomeFile.human_attribute_name(:description) + ':'
+.col-xs-12.col-md-5
+  = locals[:description]
+
+.col-xs-12.col-md-1.center
+  = locals[:do]
