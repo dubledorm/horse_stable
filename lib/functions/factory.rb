@@ -13,7 +13,8 @@ module Functions
                       'select_click' => Functions::SelectClick,
                       'wait_element' => Functions::WaitElement,
                       'scroll' => Functions::Scroll,
-                      'sub_script' => Functions::SubScript
+                      'sub_script' => Functions::SubScript,
+                      'load_file' => Functions::LoadFile
     }.freeze
 
     class FunctionBuildError < StandardError; end;

@@ -51,6 +51,8 @@ module UserCabinet
       @resource.function_name = function_name
       @resource.save!
       render json: attributes_mask_to_json(@function, function_params),  status: :ok
+    rescue StandardError => e
+      render json: e.message, status: :unprocessable_entity
     end
 
     def update

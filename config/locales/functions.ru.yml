@@ -13,6 +13,7 @@ ru:
       functions/wait_element: Ждать появления элемента
       functions/scroll: Прокрутить
       functions/sub_script: Вызвать тест
+      functions/load_file: Загрузить файл
 
     attributes:
       aliases:
@@ -22,6 +23,10 @@ ru:
           selector_name_hint: Определяет по какому признаку выбирается элемент на HTML странице
           selector_value: Значение
           selector_value_hint: Значение признака
+      functions/load_file:
+        <<: *fields_selector
+        file_id: Ид-р файла
+        file_id_hint: Идентификатор файла, который хотим загрузить
       functions/select_click:
         <<: *fields_selector
         option_text: Текст в теге option
@@ -91,6 +96,24 @@ ru:
           not_an_integer: Должно быть целым числом
           less_than_or_equal_to: Превышает верхнее разрешённое значение
       models:
+        functions/load_file:
+          attributes:
+            selector:
+              <<: *fielderrors
+            human_name:
+              <<: *fielderrors
+            human_description:
+              <<: *fielderrors
+            function_name:
+              <<: *fielderrors
+            selector_name:
+              <<: *fielderrors
+            selector_value:
+              <<: *fielderrors
+            file_id:
+              <<: *fielderrors
+            file_url:
+              <<: *fielderrors
         functions/click:
           attributes:
             selector:
