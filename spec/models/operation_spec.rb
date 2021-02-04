@@ -27,13 +27,19 @@ RSpec.describe Operation, type: :model do
   describe 'serializable' do
     context 'simple operation' do
       let!(:operation) {FactoryGirl.create :operation}
-      let(:result) { { "#{operation.number}" => { "operation_id" => operation.id,
-                                                  "operation_json" => { "human_name" => nil,
-                                                                        "human_description" => nil,
-                                                                        "do" => "click",
-                                                                        "selector" => nil
-                                                  }
-      } } }
+      let(:result) { { "id" => operation.id,
+                       "created_at" => operation.created_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
+                       "updated_at" => operation.updated_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
+                       'function_name' => operation.function_name,
+                       'number' => operation.number,
+                       'experiment_case_id' => operation.experiment_case_id,
+                       'operation_type' => operation.operation_type,
+                       "operation_json" => { "human_name" => nil,
+                                            "human_description" => nil,
+                                            "do" => "click",
+                                            "selector" => nil
+                      }
+      } }
 
       it 'only print' do
         ap operation.as_json(functions_translate: true)
@@ -46,6 +52,49 @@ RSpec.describe Operation, type: :model do
       let(:experiment_with_operations) { FactoryGirl.create :experiment_with_operations }
       let(:result) {{}}
     end
+
+    context 'delete_ids' do
+      let!(:operation) {FactoryGirl.create :operation}
+
+      it { expect(operation.as_json['id']).to_not eq(nil) }
+      it { expect(operation.as_json(delete_ids: true)['id']).to eq(nil) }
+    end
+
+    context 'operation_json' do
+      let!(:operation) {FactoryGirl.create :operation_with_function}
+      let(:result) { { "id" => operation.id,
+                       "created_at" => operation.created_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
+                       "updated_at" => operation.updated_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
+                       'function_name' => 'click',
+                       'number' => operation.number,
+                       'experiment_case_id' => operation.experiment_case_id,
+                       'operation_type' => operation.operation_type,
+                       "operation_json" => { "human_name" => nil,
+                                             "human_description" => nil,
+                                             "do" => "click",
+                                             "selector" => { "xpath" => "//fieldset[17]/button[2]" }
+                       }
+      } }
+
+      it 'only print' do
+        ap operation.as_json(functions_translate: true)
+      end
+
+      it { expect(operation.as_json['operation_json']).to eq(result['operation_json']) }
+      it { expect(JSON.parse(operation.to_json)['operation_json']).to eq(result['operation_json']) }
+    end
+  end
+
+  describe 'deserialization' do
+    let!(:operation) { FactoryGirl.create :operation }
+    let!(:operation_as_json) { operation.as_json }
+    let(:operation1) { Operation.new }
+
+    before :each do
+      operation1.from_json(operation_as_json.to_json)
+    end
+
+    it { expect(operation1.as_json).to eq(operation_as_json) }
   end
 
   describe 'translate_attributes' do

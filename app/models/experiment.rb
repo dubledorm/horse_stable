@@ -22,6 +22,20 @@ class Experiment < ApplicationRecord
   scope :by_user_id, ->(user_id) { where(user_id: user_id) }
   scope :by_id, ->(id) { where(id: id) }
 
+  def attributes=(hash)
+    hash.each do |key, value|
+      if key == 'experiment_cases'
+        # Обрабатываем массив experiment_cases
+        value.each do |experiment_case|
+          new_experiment_case = self.experiment_cases.build
+          new_experiment_case.from_json(experiment_case.to_json)
+        end
+      else
+        send("#{key}=", value)
+      end
+    end
+  end
+
   def self.options_for_select_type(field_name)
     FIELD_NAME_VALUES_RELATIONS[field_name].map{|value| [human_attribute_value(field_name, value), value]}
   end

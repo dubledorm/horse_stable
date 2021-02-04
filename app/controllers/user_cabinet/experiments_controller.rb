@@ -56,6 +56,14 @@ module UserCabinet
       end
     end
 
+    def clone
+      get_resource
+      raise CanCan::AccessDenied unless can? :clone, @resource
+      experiment = @resource.clone
+      experiment.human_name = "#{experiment.human_name} (#{I18n.t('this_is_the_copy')})"
+      experiment.save!
+      redirect_to user_cabinet_experiments_path
+    end
     private
 
     def experiment_params

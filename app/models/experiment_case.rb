@@ -10,44 +10,45 @@ class ExperimentCase < ApplicationRecord
   validates :number, uniqueness: { scope: [:experiment] }
 
   def clone
-    attributes_hash = self.as_json
-    attributes_hash[:user_id] = self.user_id
-    attributes_hash[:experiment_id] = self.experiment_id
-    attributes_hash[:human_name] = self.human_name
-    attributes_hash[:human_description] = self.human_description
-    attributes_hash[:number] = ExperimentCase::NextCaseNumber.find(self.experiment_id)
-
+    attributes_hash = self.as_json(delete_ids: true)
+    attributes_hash['id'] = nil
+    attributes_hash['number'] = ExperimentCase::NextCaseNumber.find(self.experiment_id)
+    %w[check do next].each do |section_name|
+      attributes_hash[section_name].each{|operation| operation['id'] = nil}
+    end
     experiment_case = ExperimentCase.new
-    experiment_case.from_json(attributes_hash.to_json)
+    experiment_case.attributes = attributes_hash
     experiment_case
+
   end
 
-  def as_json(functions_translate: false)
-    { human_name: self.human_name,
-      check: operations_as_json(:check, functions_translate),
-      do: operations_as_json(:do, functions_translate),
-      next: operations_as_json(:next, functions_translate)
-    }.stringify_keys
+  def as_json(functions_translate: false, delete_ids: false)
+    result_hash = super.merge({ check: operations_as_json(:check, functions_translate, delete_ids),
+                                do: operations_as_json(:do, functions_translate, delete_ids),
+                                next: operations_as_json(:next, functions_translate, delete_ids)
+                              }.stringify_keys)
+    result_hash.delete('id') if delete_ids
+    result_hash
   end
 
-  def operations_as_json(operation_type, functions_translate = false)
-    operations.where(operation_type: operation_type).order(:number).inject({}) do |result, operation|
-      result.merge(operation.as_json(functions_translate: functions_translate))
-    end.stringify_keys
+  def from_json(json)
+    hash = JSON.parse(json)
+    self.attributes = hash
+  end
+
+  def operations_as_json(operation_type, functions_translate = false, delete_ids = false)
+    operations.where(operation_type: operation_type).order(:number).inject([]) do |result, operation|
+      result << operation.as_json(functions_translate: functions_translate, delete_ids: delete_ids).stringify_keys
+    end
   end
 
   def attributes=(hash)
     hash.each do |key, value|
       if key.in?(Operation::OPERATION_TYPES)
-        operation_type = key
-        value.each do |operation_number, operation_hash|
-          operation = self.operations.build
-          operation.from_json({ operation_type: operation_type,
-                                number: operation_number,
-                                function_name: operation_hash['do'] }.to_json)
-          function = Functions::Factory.build!(operation_hash['do'])
-          function.attributes= operation_hash
-          operation.operation_json = function.as_json.to_json
+        # Обрабатываем массив операций
+        value.each do |operation|
+          new_operation = self.operations.build
+          new_operation.from_json(operation.to_json)
         end
       else
         send("#{key}=", value)
