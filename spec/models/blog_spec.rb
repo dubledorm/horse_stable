@@ -17,23 +17,24 @@ RSpec.describe Blog, type: :model do
     it { should belong_to(:user) }
   end
 
-  describe 'search' do
-    let!(:blog1) {FactoryGirl.create :blog, title: 'Первый блог', content: 'Это первое содержимое'}
-    let!(:blog2) {FactoryGirl.create :blog, title: 'Второй блог', content: 'Это второе содержимое'}
-    let!(:blog3) {FactoryGirl.create :blog, title: '3', content: 'блоги блоги'}
-    let!(:blog4) {FactoryGirl.create :blog, title: '4', content: 'Заметка на русском языке'}
-    let!(:blog5) {FactoryGirl.create :blog, title: '5', content: 'Заметки'}
-
-    before :each do
-      Blog.import(force: true)
-      sleep(3)
-    end
-
-    it { expect(Blog.search('первый').records.count).to eq(1) }
-    it { expect(Blog.search('Блог').records.count).to eq(3) }
-    it { expect(Blog.search('блоги').records.count).to eq(3) }
-    it { expect(Blog.search('заметка').records.count).to eq(2) }
-    it { expect(Blog.search('заметка язык').records.count).to eq(2) }
-
-  end
+  # Надо раскомментирровать тесты ниже, если мы включаем в Blog работу с elasticsearch
+  # describe 'search' do
+  #   let!(:blog1) {FactoryGirl.create :blog, title: 'Первый блог', content: 'Это первое содержимое'}
+  #   let!(:blog2) {FactoryGirl.create :blog, title: 'Второй блог', content: 'Это второе содержимое'}
+  #   let!(:blog3) {FactoryGirl.create :blog, title: '3', content: 'блоги блоги'}
+  #   let!(:blog4) {FactoryGirl.create :blog, title: '4', content: 'Заметка на русском языке'}
+  #   let!(:blog5) {FactoryGirl.create :blog, title: '5', content: 'Заметки'}
+  #
+  #   before :each do
+  #     Blog.import(force: true)
+  #     sleep(3)
+  #   end
+  #
+  #   it { expect(Blog.search('первый').records.count).to eq(1) }
+  #   it { expect(Blog.search('Блог').records.count).to eq(3) }
+  #   it { expect(Blog.search('блоги').records.count).to eq(3) }
+  #   it { expect(Blog.search('заметка').records.count).to eq(2) }
+  #   it { expect(Blog.search('заметка язык').records.count).to eq(2) }
+  #
+  # end
 end

@@ -49,26 +49,26 @@ RSpec.describe User, type: :model do
     it { expect(Tag.count).to eq(2) }
     it { expect(user1.tags.count).to eq(1) }
     it { expect(User.by_tag('tag1').count).to eq(2) }
-    it { expect{ user1.add_tag('tag3').to change(Tag, :count).by(1) }}
-    it { expect{ user1.add_tag('tag3').to change(user1.tags, :count).by(1) }}
+    it { expect{ user1.add_tag('tag3', user1.id).id.to change(Tag, :count).by(1) }}
+    it { expect{ user1.add_tag('tag3', user1.id).to change(user1.tags, :count).by(1) }}
 
-    it { expect{ user1.add_tag('tag2').to change(Tag, :count).by(0) }}
-    it { expect{ user1.add_tag('tag2').to change(user1.tags, :count).by(1) }}
+    it { expect{ user1.add_tag('tag2', user1.id).to change(Tag, :count).by(0) }}
+    it { expect{ user1.add_tag('tag2', user1.id).to change(user1.tags, :count).by(1) }}
 
-    it { expect{ user1.add_tag('tag1').to change(Tag, :count).by(0) }}
-    it { expect{ user1.add_tag('tag1').to change(user1.tags, :count).by(0) }}
+    it { expect{ user1.add_tag('tag1', user1.id).to change(Tag, :count).by(0) }}
+    it { expect{ user1.add_tag('tag1', user1.id).to change(user1.tags, :count).by(0) }}
 
     it 'should return all tags by name' do
-      user1.add_tag('tag4')
-      user1.add_tag('tag5')
+      user1.add_tag('tag4', user1.id)
+      user1.add_tag('tag5', user1.id)
       ap(user1.tags_names)
 
       expect(user1.tags_names).to eq('tag1, tag4, tag5')
     end
 
     it 'should return all tags by title' do
-      user1.add_tag('tag4', 'Тэг 4')
-      user1.add_tag('tag5', 'Тэг 5')
+      user1.add_tag('tag4', user1.id, 'Тэг 4')
+      user1.add_tag('tag5', user1.id, 'Тэг 5')
       ap(user1.tags_titles)
 
       expect(user1.tags_titles).to eq(', Тэг 4, Тэг 5')
