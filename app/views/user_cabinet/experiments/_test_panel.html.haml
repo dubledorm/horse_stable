@@ -1,0 +1,16 @@
+.col-xs-12.col-md-6
+  .experiment_cases_show
+    = render('experiment_cases_show')
+  .row.control_buttons.center
+    = link_to new_user_cabinet_experiment_experiment_case_path(experiment_id: @resource.id), class: 'btn btn-success btn-lg' do
+      %i.fa.fa-plus-square
+      = t('.add_experiment_case')
+.col-xs-10.col-md-6
+  .row.current_state
+    = render('current_state')
+  .row.last_test_task
+    = render('last_test_task')
+  .row.test_task_list
+    = render('test_task_list')
+  .row.control_buttons.center
+    = render('run_experiment')

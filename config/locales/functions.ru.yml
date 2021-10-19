@@ -14,6 +14,7 @@ ru:
       functions/scroll: Прокрутить
       functions/sub_script: Вызвать тест
       functions/load_file: Загрузить файл
+      functions/alert_control: Системное предупреждение (alert)
 
     attributes:
       aliases:
@@ -85,6 +86,9 @@ ru:
         variable_name_hint: Строка может содержать функции
         save_as: Переменная вывода
         save_as_hint: С каким имененм переменная будет выведена
+      functions/alert_control:
+        value: Действие
+        value_hint: Что сделать - принять или отказаться
     errors:
       aliases:
         _field_errors_alias: &fielderrors

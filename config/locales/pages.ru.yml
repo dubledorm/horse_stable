@@ -52,8 +52,9 @@ ru:
       show:
         return_to_tests: Вернуться к списку
         delete: Удалить этот тест
-        add_experiment_case: Добавить
         sure: Подтвердите удаление теста. При этом, также будут удалены все результаты тестирования.
+      test_panel:
+        add_experiment_case: Добавить
       run_experiment:
         run: Выполнить сейчас
       last_test_task:

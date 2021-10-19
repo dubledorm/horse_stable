@@ -14,7 +14,8 @@ module Functions
                       'wait_element' => Functions::WaitElement,
                       'scroll' => Functions::Scroll,
                       'sub_script' => Functions::SubScript,
-                      'load_file' => Functions::LoadFile
+                      'load_file' => Functions::LoadFile,
+                      'alert_control' => Functions::AlertControl
     }.freeze
 
     class FunctionBuildError < StandardError; end;
