@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       resources :experiments, except: [:edit] do
         member do
           post :clone
+          patch :update_categories
         end
         resources :experiment_cases, except: [:index, :edit] do
           member do

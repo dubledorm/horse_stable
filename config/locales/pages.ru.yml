@@ -53,6 +53,12 @@ ru:
         return_to_tests: Вернуться к списку
         delete: Удалить этот тест
         sure: Подтвердите удаление теста. При этом, также будут удалены все результаты тестирования.
+      category_list:
+        title: Категории
+      tags_list:
+        title: Тэги
+      variable_list:
+        title: Список переменных
       test_panel:
         add_experiment_case: Добавить
       run_experiment:

@@ -5,6 +5,7 @@ module UserCabinet
     has_scope :human_description
     has_scope :state
     has_scope :by_id, as: :id
+    has_scope :by_category, as: :category
 
     add_breadcrumb Experiment.model_name.human(count: 3), :user_cabinet_experiments_path
 
@@ -47,6 +48,26 @@ module UserCabinet
       end
     end
 
+    def update_categories
+      get_resource
+      raise CanCan::AccessDenied unless can? :update_categories, @resource
+
+      new_categories = ExperimentCategoryPresenter.new.from_json_string(experiment_params[:categories]).categories
+      old_categories = ExperimentCategoryPresenter.new.from_experiment(@resource).categories
+
+      (old_categories - new_categories).each do |category|
+        @resource.delete_category(category[:name])
+      end
+
+      (new_categories - old_categories).each do |category|
+        @resource.add_category(category[:name])
+      end
+
+      render json: ExperimentCategoryPresenter.new.from_experiment(@resource).to_json,  status: :ok
+    rescue StandardError => e
+      render json: e.message, status: :unprocessable_entity
+    end
+
     def destroy
       super do
         ActiveRecord::Base.transaction do
@@ -67,7 +88,7 @@ module UserCabinet
     private
 
     def experiment_params
-      params.required(:experiment).permit(:human_name, :human_description)
+      params.required(:experiment).permit(:human_name, :human_description, :categories)
     end
 
     def menu_action_items

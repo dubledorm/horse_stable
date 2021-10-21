@@ -12,7 +12,7 @@ module UserCabinet
 
     def create
       super do
-        @resource = Tag.create(categories_params.merge!(tag_type: 'ordinal',
+        @resource = Tag.create(categories_params.merge!(tag_type: 'category',
                                                         user: current_user,
                                                         name: categories_params[:title]))
         unless @resource.persisted?
