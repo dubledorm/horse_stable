@@ -59,6 +59,9 @@ ru:
         value_from_storage_hint: Значение может быть взято из указанной переменной
         send_return: Нажать Enter
         send_return_hint: После ввода значения нажать клавишу Enter
+        symbols_per_second: Скорость ввода(символов в минуту)
+        symbols_per_second_hint: Иногда, если на поле ввода 'висит' js обработчик, то при быстром вводе символы могут теряться.
+          Этим полем можно задать скорость ввода. По умолчанию 0 - нет ограничений.
       functions/sub_script:
         script_id: Ид-р теста
       functions/connect:
@@ -96,7 +99,8 @@ ru:
           not_a_number: Должно быть числом
           required: Должно быть заполнено
           taken: Значение уже используется
-          greater_than: Должно быть больше 0
+          greater_than: Должно быть больше %{count}
+          greater_than_or_equal_to: Должно быть больше или равно %{count}
           not_an_integer: Должно быть целым числом
           less_than_or_equal_to: Превышает верхнее разрешённое значение
       models:
@@ -185,6 +189,8 @@ ru:
             selector_name:
               <<: *fielderrors
             selector_value:
+              <<: *fielderrors
+            symbols_per_second:
               <<: *fielderrors
         functions/sub_script:
           attributes:
