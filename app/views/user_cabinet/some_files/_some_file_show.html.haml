@@ -2,4 +2,4 @@
 = rc_text_field(@resource, :description, user_cabinet_some_file_path(id: @resource.id))
 .image
   - if @resource.file.attached?
-    = link_to('Afqk', rails_blob_path(@resource.file, disposition: "attachment"))
+    = link_to(I18n.t('file'), rails_blob_path(@resource.file, disposition: "attachment"))
