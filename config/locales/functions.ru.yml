@@ -15,6 +15,7 @@ ru:
       functions/sub_script: Вызвать тест
       functions/load_file: Загрузить файл
       functions/alert_control: Системное предупреждение (alert)
+      functions/set_variable: Установить значение переменной
 
     attributes:
       aliases:
@@ -88,7 +89,15 @@ ru:
         variable_name: Строка для вывода
         variable_name_hint: Строка может содержать функции
         save_as: Переменная вывода
-        save_as_hint: С каким имененм переменная будет выведена
+        save_as_hint: С каким именем переменная будет выведена
+      functions/set_variable:
+        variable_name: Имя переменной
+        variable_name_hint: По этому имени переменную можно в дальнейшем использовать
+        value: Значение переменной
+        value_hint: Строка может содержать функции
+        storage_output: Вывести переменную в результаты теста
+        storage_output_hint: По умолчанию не выводится. Если установить true, то значение переменной будет выведено
+          после окончания теста, даже если она была в дальнейшем изменена
       functions/alert_control:
         value: Действие
         value_hint: Что сделать - принять или отказаться

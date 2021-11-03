@@ -5,7 +5,9 @@ module Substitutions
     NAME_TO_CLASS = { 'phone_number' => Substitutions::PhoneNumber,
                       'random_integer' => Substitutions::RandomInteger,
                       'calculate' => Substitutions::Calculate,
-                      'variable' => Substitutions::Variable}.freeze
+                      'variable' => Substitutions::Variable,
+                      'table_element_in_row' => Substitutions::XpathTableElementInRow,
+                      'find_sub_string' => Substitutions::FindSubString}.freeze
 
     class FunctionBuildError < StandardError; end
 

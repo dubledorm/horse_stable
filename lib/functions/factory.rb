@@ -15,7 +15,8 @@ module Functions
                       'scroll' => Functions::Scroll,
                       'sub_script' => Functions::SubScript,
                       'load_file' => Functions::LoadFile,
-                      'alert_control' => Functions::AlertControl
+                      'alert_control' => Functions::AlertControl,
+                      'set_variable' => Functions::SetVariable
     }.freeze
 
     class FunctionBuildError < StandardError; end;
