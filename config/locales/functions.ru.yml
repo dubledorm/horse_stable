@@ -85,6 +85,10 @@ ru:
         <<: *fields_selector
         delay: Время ожидания (сек)
         delay_hint: Время в сек, в течение которого ждать появления элемента
+        need_refresh: Обновлять страницу?
+        refresh_period_in_sec: Частота обновления страницы в сек
+        need_refresh_hint: Возможно, что ожидаемое значение появится только после перезагрузки страницы. Тогда надо ставить true. По умолчанию false
+        refresh_period_in_sec_hint: Как часто обновлять страницу, если включен режим обновления. По умолчанию - раз в 10 сек.
       functions/write_variable_to_output:
         variable_name: Строка для вывода
         variable_name_hint: Строка может содержать функции
@@ -222,6 +226,8 @@ ru:
             delay:
               <<: *fielderrors
               not_a_number: Должно быть числом
+            refresh_period_in_sec:
+              <<: *fielderrors
         functions/write_variable_to_output:
           attributes:
             variable_name:
