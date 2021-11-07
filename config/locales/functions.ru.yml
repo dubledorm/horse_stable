@@ -16,7 +16,7 @@ ru:
       functions/load_file: Загрузить файл
       functions/alert_control: Системное предупреждение (alert)
       functions/set_variable: Установить значение переменной
-      functions/if_exists: Если существует
+      functions/if_exists: Прервать шаг теста если существует элемент
 
     attributes:
       aliases:
