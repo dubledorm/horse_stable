@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module Variables
+  # Класс определяет набор перемнных, объедмнённых под одним именем
+  # Таких наборов может быть несколько в рамках одного теста
+  # set_id - уникальный ключ для идентификации набора в рамках одного эксперимента
+  # human_set_name - Название для использования пользователем
+  # variables - набор ключ - значение, собственно сами переменные
   class SetOfVariables
     include ActiveModel::Model
     include ActiveModel::Serializers::JSON
