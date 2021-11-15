@@ -48,6 +48,16 @@ module UserCabinet
       end
     end
 
+    def add_set_of_variable
+      byebug
+      get_resource
+      raise CanCan::AccessDenied unless can? :add_set_of_variable, @resource
+      @resource.variables_sets.sets << Variables::SetOfVariables.new(human_set_name: params['variables_set_of_variables']['new_variable_set_name'])
+      @resource.sets_of_variables_json = @resource.variables_sets.to_json
+      @resource.save
+      render json: {}, status: 200
+    end
+
     def update_categories
       get_resource
       raise CanCan::AccessDenied unless can? :update_categories, @resource

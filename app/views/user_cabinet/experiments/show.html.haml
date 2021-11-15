@@ -14,7 +14,7 @@
         .col-xs-12.col-md-6
           .experiment_show
             = render('experiment_show')
-        .col-xs-10.col-md-6
+        .col-xs-10.col-md-6.center
           .row
             = link_to(user_cabinet_experiments_path, class: 'btn btn-success btn-lg') do
               %i.fa.fa-arrow-circle-up
@@ -25,10 +25,11 @@
                 = t('.delete')
 
       .row
+        %hr
         = render('tab_select')
 
       .row{id: 'experiment_tab_panels'}
         #experiment_test
           = render('test_panel')
-        #experiment_settings
+        #experiment_settings.hidden
           = render('settings_panel')

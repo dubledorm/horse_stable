@@ -17,6 +17,7 @@ ru:
       functions/alert_control: Системное предупреждение (alert)
       functions/set_variable: Установить значение переменной
       functions/if_exists: Прервать шаг теста если существует элемент
+      functions/switch_to_frame: Переключиться на iframe
 
     attributes:
       aliases:
@@ -110,6 +111,11 @@ ru:
       functions/alert_control:
         value: Действие
         value_hint: Что сделать - принять или отказаться
+      functions/switch_to_frame:
+        value: Номер или имя iframe
+        value_hint: По умолчанию - 0. Если вводится число, то будет подставляться как порядковый номер iframe на странице. Иначе будет пониматься как значение атрибута name
+        to_default_frame: Вернуться в корневой iframe
+        to_default_frame_hint: Если установлено в значение true, то вернуться в корневой iframe. Значние в поле 'Номер или имя' в этом случае значения не играют.
     errors:
       aliases:
         _field_errors_alias: &fielderrors

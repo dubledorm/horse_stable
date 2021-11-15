@@ -8,7 +8,22 @@ module Variables
     attr_accessor :sets, :active_set_id
 
     def initialize(hash_attributes = {})
-      super(hash_attributes.deep_stringify_keys)
+      self.sets = []
+      self.attributes=hash_attributes
+    end
+
+    def attributes=(hash)
+      return unless hash
+      hash.deep_stringify_keys.each do |key, value|
+        if key == 'sets'
+          # Обрабатываем массив sets
+          value.each do |set_of_variables|
+            self.sets << SetOfVariables.new(set_of_variables)
+          end
+        else
+          send("#{key}=", value)
+        end
+      end
     end
 
     # Список атрибутов для сериализации

@@ -11,6 +11,37 @@ form input.form-control, textarea.form-control {
     width: 100%;
 }
 
+%form-control-inline {
+    display: inline-block;
+    margin: 5px;
+    background-color: $background_input_field_color;
+}
+
+form .inline-form-group input.form-control.field-name{
+    @extend %form-control-inline;
+    width: 30%;
+}
+
+form .inline-form-group input.form-control.field-value{
+    @extend %form-control-inline;
+    width: 60%;
+}
+
+form .inline-form-group div{
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    margin-left: 5px;
+}
+
+//form .inline-form-group i {
+//    text-align: center;
+//    width: 80%;
+//    height: 80%;
+//    margin: 10% 10%;
+//    overflow: hidden;
+//}
+
 
 /* Список с кнопками */
 

@@ -85,6 +85,7 @@ gem 'draper'
 gem 'has_scope'
 gem 'whenever', require: false
 gem 'awesome_print'
+gem 'uuidtools' # Для генерации GUIDов
 
 # Обработка изображения для active_storage
 gem 'image_processing', '~> 1.2'

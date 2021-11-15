@@ -9,11 +9,14 @@ RSpec.describe Variables::SetOfVariables do
 
   describe 'attributes' do
     let(:set1) { Variables::SetOfVariables.new(set_id: 'id', human_set_name: 'name', variables: {var1: 'val1', var2: 'val2'}) }
+    let(:set2) { Variables::SetOfVariables.new(human_set_name: 'name') }
 
     it { expect(set1.set_id).to eq('id') }
     it { expect(set1.human_set_name).to eq('name') }
     it { expect(set1.variables).to eq({var1: 'val1', var2: 'val2'}) }
     it { expect(set1.variables[:var2]).to eq('val2') }
+
+    it { expect(set2.set_id.length).to eq(36) }
   end
 
   describe 'to_json' do

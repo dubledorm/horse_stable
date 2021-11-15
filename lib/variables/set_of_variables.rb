@@ -13,12 +13,25 @@ module Variables
     attr_accessor :set_id, :human_set_name, :variables
     validates :set_id, :human_set_name, presence: true
 
+    def initialize(hash_attributes = {})
+      self.variables = {}
+      super
+      self.set_id  = UUIDTools::UUID.random_create.to_s unless self.set_id
+    end
+
     # Список атрибутов для сериализации
     def attributes
       { 'set_id' => self.set_id,
         'human_set_name' => self.human_set_name,
         'variables' => self.variables
       }
+    end
+
+    def attributes=(hash)
+      return unless hash
+      hash.deep_stringify_keys.each do |key, value|
+        send("#{key}=", value)
+      end
     end
   end
 end
