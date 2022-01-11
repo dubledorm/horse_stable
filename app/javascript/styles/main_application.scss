@@ -27,6 +27,23 @@ form .inline-form-group input.form-control.field-value{
     width: 60%;
 }
 
+form .inline-form-group .label-field-name {
+    @extend %form-control-inline;
+    width: 30%;
+    background-color: white;
+    color: $header_text_color;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+form .inline-form-group .label-field-value {
+    @extend %form-control-inline;
+    width: 60%;
+    background-color: white;
+    color: $header_text_color;
+    font-weight: 700;
+    font-size: 16px;
+}
 form .inline-form-group div{
     display: inline-block;
     width: auto;

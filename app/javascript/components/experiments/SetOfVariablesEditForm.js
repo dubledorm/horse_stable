@@ -7,8 +7,10 @@ import VariableEditField from "./VariableEditField";
 class SetOfVariablesEditForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { human_set_name: props.human_set_name,
+        this.state = {
+            human_set_name: props.human_set_name,
             variables: this.createArrayOfRows(),
+            prev_variables: [],
             edit_mode: this.props.edit_mode,
             error_message: ''
         }
@@ -19,6 +21,8 @@ class SetOfVariablesEditForm extends React.Component {
         this.onEdit = this.onEdit.bind(this);
         this.onDeleteVariable = this.onDeleteVariable.bind(this);
         this.onAddVariable = this.onAddVariable.bind(this);
+        this.onChangeVariable = this.onChangeVariable.bind(this);
+        this.onChangeHumanName = this.onChangeHumanName.bind(this);
     }
 
     createArrayOfRows() {
@@ -32,7 +36,7 @@ class SetOfVariablesEditForm extends React.Component {
             })
         }
 
-        if (arrayOfRows.length == 0) {
+        if (arrayOfRows.length === 0) {
             arrayOfRows.push({
                 key: 1,
                 variable_name: '',
@@ -52,83 +56,127 @@ class SetOfVariablesEditForm extends React.Component {
         return result + 1;
     }
 
-    onSubmit(){
-        this.props.onToggleSpinner(true);
+    onSubmit() {
         $.ajax({
-            type: "PUT",
+            type: "POST",
             url: this.props.url,
             dataType: "json",
-            data: { ['set_id']: this.props.set_id,
-            ['human_set_name']: this.state.human_set_name,
-            ['variables']: this.state.variables},
+            data: {
+                ['set_of_variables']: {
+                    ['set_id']: this.props.set_id,
+                    ['human_set_name']: this.state.human_set_name,
+                    ['variables']: this.state.variables
+                }
+            },
             success: this.onSubmitSuccess,
             error: this.onSubmitError
         });
     }
 
-    onSubmitSuccess(){
-        this.setState({ error_message: '' });
+    onSubmitSuccess() {
+        this.setState({error_message: ''});
     }
 
-    onSubmitError(error){
+    onSubmitError(error) {
         let error_message = error.responseText || error.statusText;
         console.error(`Submit error. Status = ${error.status}. Message = ${error_message}`);
-        this.setState({ error_message: error_message });
+        this.setState({error_message: error_message});
     }
 
-    onEdit(){
-        this.setState({ edit_mode: false });
+    onEdit() {
+        this.setState({edit_mode: false});
     }
 
-    onCancel(){
-        this.setState({ edit_mode: false });
+    onCancel() {
+        this.setState({edit_mode: false});
     }
 
-    onDeleteVariable(variable_field_name) {
-      alert(variable_field_name);
+    onChangeHumanName(event) {
+        this.setState({human_set_name: event.target.value});
+    }
+
+    onChangeVariable(event) {
+        const target = event.target;
+        const name = target.name;
+        const field_type = name.indexOf('variable_name_') === 0 ? 'variable_name' : 'variable_value';
+        const row_key = name.slice(field_type.length + 1);
+
+        let new_variables = this.state.variables.slice(0); // Копируем массив
+        let row_for_change = new_variables.find(function (item, index, array) {
+            return item.key == row_key;
+
+        });
+        row_for_change[field_type] = event.target.value;
+        this.setState({variables: new_variables});
+    }
+
+    onDeleteVariable(row_key) {
+        let new_variables = this.state.variables.slice(0); // Копируем массив
+        let row_for_delete = new_variables.findIndex(function (item, index, array) {
+            return item.key == row_key;
+
+        });
+        new_variables.splice(row_for_delete, 1);
+        this.setState({variables: new_variables});
     }
 
     onAddVariable() {
-        let new_variable = this.state.variables.slice(0);
-        new_variable.push({key: this.maxRowKew(), variable_name: '', variable_value: ''});
-        this.setState({ variables: new_variable });
+        let new_variables = this.state.variables.slice(0);
+        new_variables.push({key: this.maxRowKew(), variable_name: '', variable_value: ''});
+        this.setState({variables: new_variables});
     }
 
     createRowsOfVariables() {
-        let result = '';
+        let result;
         result = this.state.variables.map((variable_row) => <div className="form-group" key={variable_row['key']}>
-            <VariableEditField base_field_name={'row_' + variable_row['key']}
-                               variable_name={variable_row['name']}
-                               variable_value={variable_row['value']}
-                               on_delete={this.onDeleteVariable}/>
+                <VariableEditField row_key={String(variable_row['key'])}
+                                   variable_name={variable_row['variable_name']}
+                                   variable_value={variable_row['variable_value']}
+                                   on_delete={this.onDeleteVariable}
+                                   onChangeVariable={this.onChangeVariable}/>
             </div>
         )
         return result;
     }
 
     render() {
-        let context = null;
+        let context;
+        let error_message = '';
+        if (this.state.error_message) {
+            error_message = <div className="rc-field-error">{this.state.error_message}</div>
+        }
         if (this.state.edit_mode) {
-          context = <div className='rc-form-buttons'>
-              {this.createRowsOfVariables()}
-              <div className="form-group add-button">
-                  <BtnPrimary onClickHandler={this.onAddVariable}>+</BtnPrimary>
-              </div>
-              <BtnCancel onClickHandler={this.onCancel}>{this.props.cancel_button_text}</BtnCancel>
-              <BtnPrimary onClickHandler={this.onSubmit}>{this.props.submit_button_text}</BtnPrimary>
-          </div>;
-        } else
-        {
-          context = <div className='rc-form-buttons'>
-              <BtnPrimary onClickHandler={this.onEdit}>{this.props.edit_button_text}</BtnPrimary>
-          </div>;
+            context = <div className='rc-form-buttons'>
+                <div className="form-group required">
+                    <div className="rc-editable-field-title">
+                        <h2>Название группы</h2>
+                        <input type="text" name="human_set_name" className="form-control" defaultValue={this.state.human_set_name}
+                               onChange={this.onChangeHumanName}/>
+                    </div>
+                </div>
+                <div className="inline-form-group">
+                    <div className={'label-field-name'}>Название</div>
+                    <div className={'label-field-value'}>Значение</div>
+                </div>
+                {this.createRowsOfVariables()}
+                <div className="form-group add-button">
+                    <BtnPrimary onClickHandler={this.onAddVariable}>+</BtnPrimary>
+                </div>
+                {error_message}
+                <BtnCancel onClickHandler={this.onCancel}>{this.props.cancel_button_text}</BtnCancel>
+                <BtnPrimary onClickHandler={this.onSubmit}>{this.props.submit_button_text}</BtnPrimary>
+            </div>;
+        } else {
+            context = <div className='rc-form-buttons'>
+                <BtnPrimary onClickHandler={this.onEdit}>{this.props.edit_button_text}</BtnPrimary>
+            </div>;
         }
 
         return (
             <div className="rc-block-hidden-form">
-                <form onSubmit={this.onSubmit} >
+                <form onSubmit={this.onSubmit}>
                     {context}
-                 </form>
+                </form>
             </div>);
     }
 }
