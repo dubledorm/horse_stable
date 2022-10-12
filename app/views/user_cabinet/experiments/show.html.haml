@@ -10,30 +10,26 @@
       = render('shared/resource_alert_notice')
 
     .page-blocks
-      .col-xs-12.col-md-6
-        .experiment_show
-          = render('experiment_show')
-        .experiment_cases_show
-          = render('experiment_cases_show')
-        .row.control_buttons.center
-          = link_to new_user_cabinet_experiment_experiment_case_path(experiment_id: @resource.id), class: 'btn btn-success btn-lg' do
-            %i.fa.fa-plus-square
-            = t('.add_experiment_case')
-      .col-xs-10.col-md-6
-        .row
-          = link_to(user_cabinet_experiments_path, class: 'btn btn-success btn-lg') do
-            %i.fa.fa-arrow-circle-up
-              = t('.return_to_tests')
-        .row
-          = link_to(user_cabinet_experiment_path(id: @resource.id), class: 'btn btn-primary btn-lg', method: :delete, data: { confirm: t('.sure') }) do
-            %i.fa.fa-minus.fa-minus-square
-              = t('.delete')
+      .row
+        .col-xs-12.col-md-6
+          .experiment_show
+            = render('experiment_show')
+        .col-xs-10.col-md-6.center
+          .row
+            = link_to(user_cabinet_experiments_path, class: 'btn btn-success btn-lg') do
+              %i.fa.fa-arrow-circle-up
+                = t('.return_to_tests')
+          .row
+            = link_to(user_cabinet_experiment_path(id: @resource.id), class: 'btn btn-primary btn-lg', method: :delete, data: { confirm: t('.sure') }) do
+              %i.fa.fa-minus.fa-minus-square
+                = t('.delete')
 
-        .row.current_state
-          = render('current_state')
-        .row.last_test_task
-          = render('last_test_task')
-        .row.test_task_list
-          = render('test_task_list')
-        .row.control_buttons.center
-          = render('run_experiment')
+      .row
+        %hr
+        = render('tab_select')
+
+      .row{id: 'experiment_tab_panels'}
+        #experiment_test
+          = render('test_panel')
+        #experiment_settings.hidden
+          = render('settings_panel')

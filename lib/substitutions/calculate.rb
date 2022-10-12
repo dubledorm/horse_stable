@@ -4,7 +4,7 @@
 module Substitutions
   # noinspection SpellCheckingInspection
   class Calculate < Base
-    OPERATION_VALUES = %w(sum percent)
+    OPERATION_VALUES = %w(sum percent request_number)
 
     attr_accessor :operation, :values
     validates :operation, inclusion: { in: OPERATION_VALUES,

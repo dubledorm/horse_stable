@@ -53,7 +53,7 @@ module Functions
     # Если в значениях атрибутов используется функция, то перевести в значение функции
     def translate_attributes
       Hash[*attributes.map do |key, value|
-        [key, value.class == String ? translate!(value) : value]
+        [key, value.class == String && key != 'file_body' ? translate!(value) : value]
       end.flatten]
     end
 

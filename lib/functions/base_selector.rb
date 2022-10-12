@@ -25,7 +25,7 @@ module Functions
     end
 
     def self.attribute_values
-      super.merge( { selector_name: %w[class_name id link_text partial_link_text name tag_name xpath].sort })
+      super.merge( { selector_name: %w[class_name id link_text partial_link_text name tag_name xpath css].sort })
     end
 
     def self.attribute_hints

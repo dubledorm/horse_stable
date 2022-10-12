@@ -22,7 +22,8 @@ RSpec.describe Experiment, type: :model do
                         'state' => 'new',
                         'created_at' => experiment.created_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
                         'updated_at' => experiment.updated_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
-                        'experiment_cases' => [] } }
+                        'experiment_cases' => [],
+                        'sets_of_variables_json' => nil} }
 
       it 'only print' do
         ap experiment.as_json
@@ -39,7 +40,8 @@ RSpec.describe Experiment, type: :model do
                         'state' => 'new',
                         'created_at' => experiment.created_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
                         'updated_at' => experiment.updated_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
-                        'experiment_cases' => [ experiment.experiment_cases[0].as_json ] } }
+                        'experiment_cases' => [ experiment.experiment_cases[0].as_json ],
+                        'sets_of_variables_json' => nil} }
 
       it 'only print' do
         ap experiment.as_json

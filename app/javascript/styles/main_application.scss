@@ -11,6 +11,54 @@ form input.form-control, textarea.form-control {
     width: 100%;
 }
 
+%form-control-inline {
+    display: inline-block;
+    margin: 5px;
+    background-color: $background_input_field_color;
+}
+
+form .inline-form-group input.form-control.field-name{
+    @extend %form-control-inline;
+    width: 30%;
+}
+
+form .inline-form-group input.form-control.field-value{
+    @extend %form-control-inline;
+    width: 60%;
+}
+
+form .inline-form-group .label-field-name {
+    @extend %form-control-inline;
+    width: 30%;
+    background-color: white;
+    color: $header_text_color;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+form .inline-form-group .label-field-value {
+    @extend %form-control-inline;
+    width: 60%;
+    background-color: white;
+    color: $header_text_color;
+    font-weight: 700;
+    font-size: 16px;
+}
+form .inline-form-group div{
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    margin-left: 5px;
+}
+
+//form .inline-form-group i {
+//    text-align: center;
+//    width: 80%;
+//    height: 80%;
+//    margin: 10% 10%;
+//    overflow: hidden;
+//}
+
 
 /* Список с кнопками */
 
@@ -125,6 +173,41 @@ a.btn-cancel {
     border-bottom: 1px solid gray;
 }
 
+.tab_selector_panel {
+    list-style: none outside none;
+    margin: 0 0 40px 0;
+    padding: 0;
+}
+
+.tab_selector_panel>li {
+    display: inline-block;
+}
+
+.tab_selector_panel>li a {
+    background: none repeat scroll 0 0 #FFFFFF;
+    font-size: 14px;
+    font-weight: 400;
+    margin-right: 20px;
+    text-transform: uppercase;
+    transition: all 0.9s ease 0s;
+    -moz-transition: all 0.9s ease 0s;
+    -webkit-transition: all 0.9s ease 0s;
+    -o-transition: all 0.9s ease 0s;
+    border: 1px solid #F2F2F2;
+    outline: none;
+    border-radius: 3px;
+}
+
+.tab_selector_panel>li a:hover,
+.tab_selector_panel>li a.active {
+    color: #fff;
+    background: #EC5538;
+    border: 1px solid #EC5538;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+
 /* TestTask */
 .success_test_task {
     color: green;
@@ -149,4 +232,8 @@ a.btn-cancel {
 
 .filter-wrap {
     margin-bottom: 20px;
+}
+
+.control_buttons_container a {
+    margin-left: 10px;
 }

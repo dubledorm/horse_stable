@@ -218,7 +218,9 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.11.0)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
@@ -412,6 +414,7 @@ GEM
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     unicode-display_width (2.0.0)
+    uuidtools (2.2.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.1.0)
@@ -497,6 +500,7 @@ DEPENDENCIES
   timecop
   turbolinks (~> 5)
   tzinfo-data
+  uuidtools
   web-console (>= 3.3.0)
   webdrivers
   webmock

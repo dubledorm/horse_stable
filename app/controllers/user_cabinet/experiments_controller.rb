@@ -5,6 +5,7 @@ module UserCabinet
     has_scope :human_description
     has_scope :state
     has_scope :by_id, as: :id
+    has_scope :by_category, as: :category
 
     add_breadcrumb Experiment.model_name.human(count: 3), :user_cabinet_experiments_path
 
@@ -47,6 +48,40 @@ module UserCabinet
       end
     end
 
+    def add_set_of_variable
+      get_resource
+      raise CanCan::AccessDenied unless can? :add_set_of_variable, @resource
+      byebug
+      new_variable_set = Variables::SetOfVariables.new(human_set_name: params['set_of_variables'])
+      if new_variable_set.valid?
+        @resource.variables_sets.sets << new_variable_set
+        @resource.sets_of_variables_json = @resource.variables_sets.to_json
+        @resource.save
+        render json: {}, status: 200
+      end
+      render json: new_variable_set.errors.full_messages.join(', '), status: :unprocessable_entity
+    end
+
+    def update_categories
+      get_resource
+      raise CanCan::AccessDenied unless can? :update_categories, @resource
+
+      new_categories = ExperimentCategoryPresenter.new.from_json_string(experiment_params[:categories]).categories
+      old_categories = ExperimentCategoryPresenter.new.from_experiment(@resource).categories
+
+      (old_categories - new_categories).each do |category|
+        @resource.delete_category(category[:name])
+      end
+
+      (new_categories - old_categories).each do |category|
+        @resource.add_category(category[:name])
+      end
+
+      render json: ExperimentCategoryPresenter.new.from_experiment(@resource).to_json,  status: :ok
+    rescue StandardError => e
+      render json: e.message, status: :unprocessable_entity
+    end
+
     def destroy
       super do
         ActiveRecord::Base.transaction do
@@ -67,7 +102,7 @@ module UserCabinet
     private
 
     def experiment_params
-      params.required(:experiment).permit(:human_name, :human_description)
+      params.required(:experiment).permit(:human_name, :human_description, :categories)
     end
 
     def menu_action_items

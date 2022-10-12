@@ -14,6 +14,10 @@ ru:
       functions/scroll: Прокрутить
       functions/sub_script: Вызвать тест
       functions/load_file: Загрузить файл
+      functions/alert_control: Системное предупреждение (alert)
+      functions/set_variable: Установить значение переменной
+      functions/if_exists: Прервать шаг теста если существует элемент
+      functions/switch_to_frame: Переключиться на iframe
 
     attributes:
       aliases:
@@ -58,6 +62,9 @@ ru:
         value_from_storage_hint: Значение может быть взято из указанной переменной
         send_return: Нажать Enter
         send_return_hint: После ввода значения нажать клавишу Enter
+        symbols_per_second: Скорость ввода(символов в минуту)
+        symbols_per_second_hint: Иногда, если на поле ввода 'висит' js обработчик, то при быстром вводе символы могут теряться.
+          Этим полем можно задать скорость ввода. По умолчанию 0 - нет ограничений.
       functions/sub_script:
         script_id: Ид-р теста
       functions/connect:
@@ -80,11 +87,35 @@ ru:
         <<: *fields_selector
         delay: Время ожидания (сек)
         delay_hint: Время в сек, в течение которого ждать появления элемента
+        need_refresh: Обновлять страницу?
+        refresh_period_in_sec: Частота обновления страницы в сек
+        need_refresh_hint: Возможно, что ожидаемое значение появится только после перезагрузки страницы. Тогда надо ставить true. По умолчанию false
+        refresh_period_in_sec_hint: Как часто обновлять страницу, если включен режим обновления. По умолчанию - раз в 10 сек.
+      functions/if_exists:
+        <<: *fields_selector
+        delay: Время ожидания (сек)
+        delay_hint: Сколько секунд ждать появления элемента. По умолчанию 0.
       functions/write_variable_to_output:
         variable_name: Строка для вывода
         variable_name_hint: Строка может содержать функции
         save_as: Переменная вывода
-        save_as_hint: С каким имененм переменная будет выведена
+        save_as_hint: С каким именем переменная будет выведена
+      functions/set_variable:
+        variable_name: Имя переменной
+        variable_name_hint: По этому имени переменную можно в дальнейшем использовать
+        value: Значение переменной
+        value_hint: Строка может содержать функции
+        storage_output: Вывести переменную в результаты теста
+        storage_output_hint: По умолчанию не выводится. Если установить true, то значение переменной будет выведено
+          после окончания теста, даже если она была в дальнейшем изменена
+      functions/alert_control:
+        value: Действие
+        value_hint: Что сделать - принять или отказаться
+      functions/switch_to_frame:
+        value: Номер или имя iframe
+        value_hint: По умолчанию - 0. Если вводится число, то будет подставляться как порядковый номер iframe на странице. Иначе будет пониматься как значение атрибута name
+        to_default_frame: Вернуться в корневой iframe
+        to_default_frame_hint: Если установлено в значение true, то вернуться в корневой iframe. Значние в поле 'Номер или имя' в этом случае значения не играют.
     errors:
       aliases:
         _field_errors_alias: &fielderrors
@@ -92,7 +123,8 @@ ru:
           not_a_number: Должно быть числом
           required: Должно быть заполнено
           taken: Значение уже используется
-          greater_than: Должно быть больше 0
+          greater_than: Должно быть больше %{count}
+          greater_than_or_equal_to: Должно быть больше или равно %{count}
           not_an_integer: Должно быть целым числом
           less_than_or_equal_to: Превышает верхнее разрешённое значение
       models:
@@ -182,6 +214,8 @@ ru:
               <<: *fielderrors
             selector_value:
               <<: *fielderrors
+            symbols_per_second:
+              <<: *fielderrors
         functions/sub_script:
           attributes:
             do:
@@ -202,7 +236,12 @@ ru:
           attributes:
             delay:
               <<: *fielderrors
-              not_a_number: Должно быть числом
+            refresh_period_in_sec:
+              <<: *fielderrors
+        functions/if_exists:
+          attributes:
+            delay:
+              <<: *fielderrors
         functions/write_variable_to_output:
           attributes:
             variable_name:

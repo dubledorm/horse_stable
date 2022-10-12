@@ -1,0 +1,31 @@
+ru:
+  activemodel:
+    models:
+      variables/set_of_variables: Набор переменных
+      variables/array_of_sets: Массив наборов переменных
+    attributes:
+      variables/array_of_sets:
+        sets: Наборы
+        active_set_id: Активный набор
+      variables/set_of_variables:
+        set_id: Идентификатор набора
+        human_set_name: Название
+        variables: Переменные
+    errors:
+      aliases:
+        _field_errors_alias: &fielderrors
+          blank: Должно быть заполнено
+          not_a_number: Должно быть числом
+          required: Должно быть заполнено
+          taken: Значение уже используется
+          greater_than: Должно быть больше %{count}
+          greater_than_or_equal_to: Должно быть больше или равно %{count}
+          not_an_integer: Должно быть целым числом
+          less_than_or_equal_to: Превышает верхнее разрешённое значение
+      models:
+        variables/set_of_variables:
+          attributes:
+            set_id:
+              blank: Должно быть заполнено
+            human_set_name:
+              <<: *fielderrors

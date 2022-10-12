@@ -61,20 +61,17 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "portal_production"
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: ENV['LOCALHOST_URL'], port: 80 }
+  config.action_mailer.default_url_options = { host: ENV['LOCALHOST_URL'], port: ENV['LOCALHOST_PORT'] }
   config.action_mailer.smtp_settings = {
-    user_name:      ENV['SENDMAIL_USERNAME'],
-    password:       ENV['SENDMAIL_PASSWORD'],
-    domain:         ENV['MAIL_HOST'],
-    address:       'smtp.gmail.com',
-    port:          '587',
-    authentication: :plain,
-    enable_starttls_auto: true
+    domain:         ENV['MAIL_DOMAIN'],
+    address:        ENV['SMTP_SERVER_URL'],
+    port:           ENV['SMTP_SERVER_PORT'],
+    enable_starttls_auto: false
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.

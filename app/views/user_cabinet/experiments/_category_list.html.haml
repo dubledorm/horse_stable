@@ -1,0 +1,11 @@
+.category_list_block
+  = react_component 'editable_fields/BaseEditableList', { name: 'categories',
+      name_title: t('.title'),
+      name_hint: '',
+      resource_class: @resource.class.name.underscore,
+      submit_button_text: I18n.t('send'),
+      cancel_button_text: I18n.t('cancel'),
+      url:  update_categories_user_cabinet_experiment_path(@resource),
+      start_value: ExperimentCategoryPresenter.new.from_experiment(@resource).to_json,
+      edit_element_type: '',
+      read_only: false }

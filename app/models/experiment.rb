@@ -47,4 +47,8 @@ class Experiment < ApplicationRecord
   def last_test_tasks(user_id, count)
     self.test_tasks.by_user_id(user_id).state(:completed).descendant_sort.limit(count)
   end
+
+  def variables_sets
+    @variables_sets ||= Variables::ArrayOfSets.new(sets_of_variables_json.nil? ? {} : JSON.parse(sets_of_variables_json))
+  end
 end
