@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Experiment, type: :model do
   describe 'factory' do
-    let!(:experiment) {FactoryGirl.create :experiment}
+    let!(:experiment) { FactoryGirl.create :experiment }
 
     # Factories
     it { expect(experiment).to be_valid }

@@ -487,6 +487,7 @@ DEPENDENCIES
   redis (~> 4.0)
   rolify
   rspec-rails (~> 4.0.0.rc1)
+  rubocop
   rubocop-rails
   ruby-prof
   sassc-rails

@@ -23,7 +23,7 @@
         <li class="dropdown">
           <a href="#" class="<%= ['dropdown-toggle', active_menu_item('social')].join(' ')%>" data-toggle="dropdown"><%=t('.social') %> <i class="fa fa-angle-down"></i></a>
           <ul class="dropdown-menu">
-            <li><a href="blog-item.html"><%=t('.groups') %></a></li>
+            <li><%= link_to(t('.groups'), user_cabinet_user_groups_path) %></li>
             <li><%= link_to(t('.categories'), user_cabinet_categories_path) %></li>
             <li><%= link_to(SomeFile.model_name.human(count: 3), user_cabinet_some_files_path) %></li>
           </ul>

@@ -60,6 +60,7 @@ Rails.application.routes.draw do
       resources :test_tasks
       resources :galleries
       resources :categories
+      resources :user_groups
       resources :articles
       resources :some_files
     end

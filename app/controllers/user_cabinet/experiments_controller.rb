@@ -1,4 +1,6 @@
+# frozen_string_literal: true
 # encoding: utf-8
+
 module UserCabinet
   class ExperimentsController < PrivateAreaController
     has_scope :human_name
@@ -51,7 +53,6 @@ module UserCabinet
     def add_set_of_variable
       get_resource
       raise CanCan::AccessDenied unless can? :add_set_of_variable, @resource
-      byebug
       new_variable_set = Variables::SetOfVariables.new(human_set_name: params['set_of_variables'])
       if new_variable_set.valid?
         @resource.variables_sets.sets << new_variable_set

@@ -26,6 +26,7 @@ class Ability
     can :manage, Gallery, user_id: user.id
     can :manage, Picture, user_id: user.id
     can :manage, Service, user_id: user.id
+    can :manage, UserGroup, user_id: user.id
 
 
 

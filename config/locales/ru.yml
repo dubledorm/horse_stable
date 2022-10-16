@@ -27,6 +27,9 @@ ru:
         other: Операции
       functions/click:
         one: Клик мышкой
+      user_group:
+        one: Группа пользователей
+        other: Группы пользователей
       user:
         one: Пользователь
         other: Пользователи
@@ -185,7 +188,7 @@ ru:
           not_an_integer: Должно быть целым числом
           less_than_or_equal_to: Превышает верхнее разрешённое значение
       messages:
-        record_invalid: Record Invalid - попытка создать запись с ошибоными значениями полей
+        record_invalid: Record Invalid - попытка создать запись с ошибочными значениями полей
         content_type: Не верный формат файла
       models:
         operation:

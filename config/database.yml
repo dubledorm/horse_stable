@@ -61,8 +61,8 @@ test:
   <<: *default
   host: localhost
   database: horse_stable_test
-  username: azirumga
-  password: iselPodij
+  username: hs_test_username
+  password: hs_test_password
 
 
 # As with config/credentials.yml, you never want to store sensitive information,
