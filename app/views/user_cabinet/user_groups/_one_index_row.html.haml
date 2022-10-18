@@ -1,0 +1,20 @@
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = UserGroup.human_attribute_name(:id) + ':'
+.col-xs-6.col-md-1
+  = locals[:id]
+
+.col-xs-12.hidden-md.hidden-lg
+  %b
+    = UserGroup.human_attribute_name(:name) + ':'
+.col-xs-12.col-md-5
+  = locals[:name]
+
+.col-xs-12.hidden-md.hidden-lg
+  %b
+    = UserGroup.human_attribute_name(:user) + ':'
+.col-xs-12.col-md-4
+  = locals[:author]
+
+.col-xs-12.col-md-1.center
+  = locals[:do]

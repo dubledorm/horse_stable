@@ -9,6 +9,9 @@ RSpec.describe UserGroup, type: :model do
     # Factories
     it { expect(user_group).to be_valid }
 
+    it { should validate_presence_of(:name) }
     it { should validate_presence_of(:user_id) }
+
+    it { should belong_to(:user) }
   end
 end

@@ -155,6 +155,12 @@ ru:
         nick_name: Nickname
         categories: Категории
         main_description: О себе
+      user_group:
+        id: Ид-р
+        name: Название
+        user: Автор
+        created_at: Создан
+        updated_at: Изменён
       tag:
         id: Ид-р
         name: Имя
@@ -191,6 +197,10 @@ ru:
         record_invalid: Record Invalid - попытка создать запись с ошибочными значениями полей
         content_type: Не верный формат файла
       models:
+        user_group:
+          attributes:
+            name:
+              <<: *fielderrors
         operation:
           attributes:
             operation_type:

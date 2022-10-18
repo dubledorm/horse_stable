@@ -11,6 +11,18 @@ ru:
         groups: Группы
         categories: Категории
   user_cabinet:
+    user_groups:
+      new:
+        title: Группа
+        large_title: Создать группу
+        title_text: "Введите название группы"
+      show:
+        title: Группа
+        return_to_index: К списку групп
+        delete: Удалить
+        sure: Подтвердите удаление группы
+      index:
+        new: Новая группа
     operations:
       show:
         title: Операция
@@ -181,6 +193,9 @@ ru:
       title: Тест
       large_title: Просмотр теста
       title_text: 'Введите название теста.'
+  user_group:
+    show:
+      name_hint: Название группы
   user:
     show:
       title: 'Профиль'
