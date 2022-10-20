@@ -10,15 +10,24 @@
       = render('shared/resource_alert_notice')
 
     .page-blocks
-      .col-xs-12.col-md-8
-        .category_show
-          = render('user_group_show')
-      .col-xs-10.col-md-4
-        .row
-          = link_to(user_cabinet_user_groups_path, class: 'btn btn-success btn-lg') do
-            %i.fa.fa-arrow-circle-up
-              = t('.return_to_index')
-        .row
-          = link_to(user_cabinet_user_group_path(id: @resource.id), class: 'btn btn-primary btn-lg', method: :delete, data: { confirm: t('.sure') }) do
-            %i.fa.fa-minus.fa-minus-square
-              = t('.delete')
+      .row
+        .col-xs-12.col-md-8
+          .user_group_show
+            = render('user_group_show')
+        .col-xs-10.col-md-4
+          .row
+            = link_to(user_cabinet_user_groups_path, class: 'btn btn-success btn-lg') do
+              %i.fa.fa-arrow-circle-up
+                = t('.return_to_index')
+          .row
+            = link_to(user_cabinet_user_group_path(id: @resource.id), class: 'btn btn-primary btn-lg', method: :delete, data: { confirm: t('.sure') }) do
+              %i.fa.fa-minus.fa-minus-square
+                = t('.delete')
+      .row
+        .col-xs-12.col-md-8
+          .h2
+            =I18n.t('activerecord.models.user.other')
+          .users_show
+            = render('users')
+
+

@@ -8,4 +8,6 @@ class UserGroup < ApplicationRecord
   validates :name, :user_id, presence: true
 
   belongs_to :user
+  has_many :user_to_user_groups
+  has_many :members, class_name: 'User', through: :user_to_user_groups, source: :user
 end

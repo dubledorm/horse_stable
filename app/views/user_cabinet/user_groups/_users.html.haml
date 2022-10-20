@@ -1,0 +1,20 @@
+.row
+  .col-xs-2.col-md-4
+    %b
+      = User.human_attribute_name(:email)
+  .col-xs-10.col-md-6
+    %b
+      = UserToUserGroup.human_attribute_name(:access_right)
+#users_body
+  - @resource.members.order(:email).each do |user|
+    .row{ id: "user_#{user.id}" }
+      .col-xs-2.col-md-4
+        = user.email
+      .col-xs-10.col-md-6
+        = user.access_right
+      .col-xs-3.col-xs-offset-6.col-md-1.col-md-offset-0
+        = link_to user_cabinet_experiment_experiment_case_path(experiment_id: 2, id: 2) do
+          %i.fa.fa-edit.rc-fa-edit
+      .col-xs-3.col-md-1
+        = link_to clone_user_cabinet_experiment_experiment_case_path(experiment_id: 2, id: 2), method: :post do
+          %i.fa.fa-clone
