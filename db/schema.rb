@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_18_141621) do
+ActiveRecord::Schema.define(version: 2022_10_21_091520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,13 @@ ActiveRecord::Schema.define(version: 2022_10_18_141621) do
     t.index ["experiment_id"], name: "index_experiment_cases_on_experiment_id"
     t.index ["number"], name: "index_experiment_cases_on_number"
     t.index ["user_id"], name: "index_experiment_cases_on_user_id"
+  end
+
+  create_table "experiment_to_user_groups", force: :cascade do |t|
+    t.bigint "experiment_id", null: false
+    t.bigint "user_group_id", null: false
+    t.index ["experiment_id"], name: "index_experiment_to_user_groups_on_experiment_id"
+    t.index ["user_group_id"], name: "index_experiment_to_user_groups_on_user_group_id"
   end
 
   create_table "experiments", force: :cascade do |t|
@@ -308,6 +315,8 @@ ActiveRecord::Schema.define(version: 2022_10_18_141621) do
   add_foreign_key "blogs", "users"
   add_foreign_key "experiment_cases", "experiments"
   add_foreign_key "experiment_cases", "users"
+  add_foreign_key "experiment_to_user_groups", "experiments"
+  add_foreign_key "experiment_to_user_groups", "user_groups"
   add_foreign_key "experiments", "users"
   add_foreign_key "grades", "users"
   add_foreign_key "pictures", "galleries"
