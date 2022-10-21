@@ -35,6 +35,12 @@ ActiveAdmin.register UserGroup do
     panel UserGroup.human_attribute_name(:user_to_user_groups) do
       render 'admin/user_to_user_groups_table', user_to_user_groups: user_group.user_to_user_groups
     end
+
+    panel UserGroup.human_attribute_name(:experiment_to_user_groups) do
+      table_for user_group.experiments do
+        column :name
+      end
+    end
     active_admin_comments
   end
 end

@@ -161,6 +161,7 @@ ru:
         description: Описание
         user: Автор
         user_to_user_groups: Полключенные пользователи
+        experiment_to_user_groups: Подключенные тесты
         created_at: Создан
         updated_at: Изменён
       user_to_user_group:
