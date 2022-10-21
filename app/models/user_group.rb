@@ -10,4 +10,5 @@ class UserGroup < ApplicationRecord
   belongs_to :user
   has_many :user_to_user_groups
   has_many :members, class_name: 'User', through: :user_to_user_groups, source: :user
+  accepts_nested_attributes_for :user_to_user_groups, allow_destroy: true
 end

@@ -158,9 +158,13 @@ ru:
       user_group:
         id: Ид-р
         name: Название
+        description: Описание
         user: Автор
+        user_to_user_groups: Полключенные пользователи
         created_at: Создан
         updated_at: Изменён
+      user_to_user_group:
+        access_right: Права
       tag:
         id: Ид-р
         name: Имя
@@ -193,10 +197,19 @@ ru:
           greater_than: Должно быть больше 0
           not_an_integer: Должно быть целым числом
           less_than_or_equal_to: Превышает верхнее разрешённое значение
+          inclusion: Должно содержать значение из предопределённого списка
       messages:
         record_invalid: Record Invalid - попытка создать запись с ошибочными значениями полей
         content_type: Не верный формат файла
       models:
+        user_to_user_group:
+          attributes:
+            access_right:
+              <<: *fielderrors
+            user:
+              <<: *fielderrors
+            user_group:
+              <<: *fielderrors
         user_group:
           attributes:
             name:

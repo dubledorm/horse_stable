@@ -4,5 +4,6 @@ FactoryGirl.define do
   factory :user_to_user_group, class: UserToUserGroup do |au|
     user_group
     user
+    access_right :user
   end
 end

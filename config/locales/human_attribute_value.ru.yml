@@ -42,4 +42,7 @@ ru:
         result_kod:
           processed: Выполнен успешно
           interrupted: Прерван
-
+      user_to_user_group:
+        access_right:
+          user: Пользователь
+          manager: Управляющий
