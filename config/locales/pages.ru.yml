@@ -251,3 +251,5 @@ ru:
         return_to_some_files: Вернуться к списку
         delete_some_file: Удалить этот файл
         is_really_delete_some_file: Подтвердите удаление файла
+      index_template:
+        new_test: Добавить новый тест

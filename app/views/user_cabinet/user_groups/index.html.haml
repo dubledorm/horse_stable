@@ -1,15 +1,7 @@
-%section#tags
-  .container
-    .row.contact-wrap
-      -# Сообщения об ошибках
-      = render('shared/resource_alert_notice')
-    .row.filter-wrap
-      = render('filter')
-      .pull-right
-        = link_to(t('.new'),new_user_cabinet_user_group_path, class: 'btn btn-success')
+= render 'shared/actions/index_template' do
+  = render 'shared/actions/index_filter_panel'
 
+  .page-blocks
+    = render('index_table')
 
-    .page-blocks
-      = render('index_table')
-
-    = render('shared/pagination_block')
+  = render('shared/pagination_block')

@@ -1,6 +1,6 @@
 = render('layouts/template_parts/small_title', locals: { title: @resource.model_name.human })
 
-%section{class: "#{@resource.model_name.to_s.singularize.underscore}-page"}
+%section{id: "#{@resource.model_name.to_s.singularize.underscore}-page"}
   .container
     %ol.breadcrumb
       = render_breadcrumbs tag: :li, separator: ''
@@ -10,4 +10,4 @@
       = render('shared/resource_alert_notice')
 
     .page-blocks
-      = yield
+      = yield if block_given?
