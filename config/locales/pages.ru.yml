@@ -235,3 +235,19 @@ ru:
       title_text: 'Описание программы/услуги. Если вы хотите изменить какое-то поле, нажмите кнопку <b>Изменить</b>'
       name_hint: Под этим именем вашу программу увидят заказчики
       main_description_hint: Описание программы
+  shared:
+    actions:
+      show_edit:
+        return_to_tests: Вернуться к списку
+        delete_test: Удалить этот тест
+        is_really_delete_test: Подтвердите удаление теста. При этом, также будут удалены все результаты тестирования.
+        delete_step: Удалить этот шаг
+        return_to_test: Вернуться к тесту
+        is_really_delete_step: Подтвердите удаление шага тестирования
+        return_to_groups: Вернуться к группам
+        return_to_categories: Вернуться к списку
+        delete_category: Удалить категорию
+        is_really_delete_category: Подтвердите удаление категории
+        return_to_some_files: Вернуться к списку
+        delete_some_file: Удалить этот файл
+        is_really_delete_some_file: Подтвердите удаление файла

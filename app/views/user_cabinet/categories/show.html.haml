@@ -1,24 +1,11 @@
-= render('layouts/template_parts/small_title', locals: { title: t('.category') })
-
-%section#test-task-page
-  .container
-    %ol.breadcrumb
-      = render_breadcrumbs tag: :li, separator: ''
-
-    .row.contact-wrap
-      -# Сообщения об ошибках
-      = render('shared/resource_alert_notice')
-
-    .page-blocks
-      .col-xs-12.col-md-8
-        .category_show
-          = render('category_show')
-      .col-xs-10.col-md-4
-        .row
-          = link_to(user_cabinet_test_tasks_path, class: 'btn btn-success btn-lg') do
-            %i.fa.fa-arrow-circle-up
-              = t('.return_to_categories')
-        .row
-          = link_to(user_cabinet_category_path(id: @resource.id), class: 'btn btn-primary btn-lg', method: :delete, data: { confirm: t('.sure') }) do
-            %i.fa.fa-minus.fa-minus-square
-              = t('.delete')
+= render 'shared/actions/show_edit' do
+  .row
+    .col-xs-12.col-md-8
+      .category_show
+        = render('category_show')
+    = render 'shared/actions/show_edit_right_buttons',
+return_to_path: user_cabinet_categories_path,
+return_to_button_name: t('.return_to_categories'),
+delete_object_path: user_cabinet_category_path(id: @resource.id),
+delete_object_button_name: t('.delete_category'),
+delete_object_sure: t('.is_really_delete_category')

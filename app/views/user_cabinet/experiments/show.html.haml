@@ -1,35 +1,20 @@
-= render('layouts/template_parts/small_title', locals: { title: I18n.t('experiment.show.title') })
+= render 'shared/actions/show_edit' do
+  .row
+    .col-xs-12.col-md-8
+      = render('experiment_show')
+    = render 'shared/actions/show_edit_right_buttons',
+return_to_path: user_cabinet_experiments_path,
+return_to_button_name: t('.return_to_tests'),
+delete_object_path: user_cabinet_experiment_path(id: @resource.id),
+delete_object_button_name: t('.delete_test'),
+delete_object_sure: t('.is_really_delete_test')
 
-%section#experiment-page
-  .container
-    %ol.breadcrumb
-      = render_breadcrumbs tag: :li, separator: ''
+  .row
+    %hr
+    = render('tab_select')
 
-    .row.contact-wrap
-      -# Сообщения об ошибках
-      = render('shared/resource_alert_notice')
-
-    .page-blocks
-      .row
-        .col-xs-12.col-md-6
-          .experiment_show
-            = render('experiment_show')
-        .col-xs-10.col-md-6.center
-          .row
-            = link_to(user_cabinet_experiments_path, class: 'btn btn-success btn-lg') do
-              %i.fa.fa-arrow-circle-up
-                = t('.return_to_tests')
-          .row
-            = link_to(user_cabinet_experiment_path(id: @resource.id), class: 'btn btn-primary btn-lg', method: :delete, data: { confirm: t('.sure') }) do
-              %i.fa.fa-minus.fa-minus-square
-                = t('.delete')
-
-      .row
-        %hr
-        = render('tab_select')
-
-      .row{id: 'experiment_tab_panels'}
-        #experiment_test
-          = render('test_panel')
-        #experiment_settings.hidden
-          = render('settings_panel')
+  .row{id: 'experiment_tab_panels'}
+    #experiment_test
+      = render('test_panel')
+    #experiment_settings.hidden
+      = render('settings_panel')

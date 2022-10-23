@@ -1,0 +1,13 @@
+.col-xs-12.col-md-4.center
+  - if local_variables.include?(:return_to_path)
+    .row
+      = link_to(return_to_path, class: 'btn btn-success btn-lg') do
+        %i.fa.fa-arrow-circle-up
+          = local_variables.include?(:return_to_button_name) ? return_to_button_name : I18n.t('return')
+  - if local_variables.include?(:delete_object_path)
+    .row
+      = link_to(delete_object_path, method: :delete,
+      data: { confirm: local_variables.include?(:delete_object_sure) ? delete_object_sure : I18n.t('sure') },
+      class: 'btn btn-primary btn-lg') do
+        %i.fa.fa-minus-square
+          = local_variables.include?(:delete_object_button_name) ? delete_object_button_name : I18n.t('delete')

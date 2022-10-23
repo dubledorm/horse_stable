@@ -1,24 +1,10 @@
-= render('layouts/template_parts/small_title', locals: { title: t('.title') })
-
-%section#experiment-case-page
-  .container
-    %ol.breadcrumb
-      = render_breadcrumbs tag: :li, separator: ''
-
-    .row.contact-wrap
-      -# Сообщения об ошибках
-      = render('shared/resource_alert_notice')
-
-    .page-blocks
-      .col-xs-12.col-md-8
-        = render('experiment_case_show')
-      .col-xs-12.col-md-4.center
-        .row
-          = link_to(user_cabinet_experiment_path(id: @resource.experiment_id), class: 'btn btn-success btn-lg') do
-            %i.fa.fa-arrow-circle-up
-              = t('.return_to_test')
-        .row
-          = link_to(user_cabinet_experiment_experiment_case_path(experiment_id: @resource.experiment_id,
-        id: @resource.id), method: :delete, data: { confirm: t('.sure') }, class: 'btn btn-primary btn-lg') do
-            %i.fa.fa-minus-square
-              = t('.delete')
+= render 'shared/actions/show_edit' do
+  .row
+    .col-xs-12.col-md-8
+      = render('experiment_case_show')
+    = render 'shared/actions/show_edit_right_buttons',
+return_to_path: user_cabinet_experiment_path(id: @resource.experiment_id),
+return_to_button_name: t('.return_to_test'),
+delete_object_path: user_cabinet_experiment_experiment_case_path(experiment_id: @resource.experiment_id, id: @resource.id),
+delete_object_button_name: t('.delete_step'),
+delete_object_sure: t('.is_really_delete_step')

@@ -19,7 +19,7 @@ class Experiment < ApplicationRecord
   validates :state, inclusion: { in: STATE_VALUES,
                                  message: "Поле state может содержать значения: #{STATE_VALUES.map{ |item| item.to_s }.join(', ')}. %{value} это не корректное значение" }
 
-  scope :human_name, ->(human_name) {  where('human_name LIKE ?', "%#{human_name}%") }
+  scope :human_name, ->(human_name) { where('human_name LIKE ?', "%#{human_name}%") }
   scope :human_description, ->(human_description) { where('human_description LIKE ?', "%#{human_description}%") }
   scope :state, ->(state) { where(state: state) }
   scope :by_user_id, ->(user_id) { where(user_id: user_id) }

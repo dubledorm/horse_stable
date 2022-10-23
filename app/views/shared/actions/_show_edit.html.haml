@@ -1,0 +1,13 @@
+= render('layouts/template_parts/small_title', locals: { title: @resource.model_name.human })
+
+%section{class: "#{@resource.model_name.to_s.singularize.underscore}-page"}
+  .container
+    %ol.breadcrumb
+      = render_breadcrumbs tag: :li, separator: ''
+
+    .row.contact-wrap
+      -# Сообщения об ошибках
+      = render('shared/resource_alert_notice')
+
+    .page-blocks
+      = yield
