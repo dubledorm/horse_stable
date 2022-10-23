@@ -75,7 +75,7 @@ class ExperimentHistory extends React.Component {
 
 
     render () {
-        let content = this.state.history_list.map((test_task) => <TestTask key={test_task.id} test_task={test_task}/>);;
+        let content = this.state.history_list.map((test_task) => <TestTask key={test_task.id} test_task={test_task}/>);
         return (
             <ExperimentBlockWrap title_class_name={'experiment_history'} title={this.props.main_title} spinner={this.state.state == 'read'}>
                 {content}

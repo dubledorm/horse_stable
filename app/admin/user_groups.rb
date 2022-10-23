@@ -38,7 +38,9 @@ ActiveAdmin.register UserGroup do
 
     panel UserGroup.human_attribute_name(:experiment_to_user_groups) do
       table_for user_group.experiments do
-        column :name
+        column :human_name
+        column :human_description
+        column :user
       end
     end
     active_admin_comments

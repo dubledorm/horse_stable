@@ -1,0 +1,19 @@
+.row
+  .col-xs-2.col-md-4
+    %b
+      = Experiment.human_attribute_name(:human_name)
+  .col-xs-2.col-md-4
+    %b
+      = Experiment.human_attribute_name(:human_description)
+  .col-xs-6.col-md-2
+    %b
+      = Experiment.human_attribute_name(:user)
+#users_body
+  - @resource.experiments.each do |experiment|
+    .row{ id: "experiment_#{experiment.id}" }
+      .col-xs-2.col-md-4
+        = experiment.human_name
+      .col-xs-2.col-md-4
+        = experiment.human_description
+      .col-xs-6.col-md-2
+        = experiment.user

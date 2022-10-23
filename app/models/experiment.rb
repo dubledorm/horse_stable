@@ -3,6 +3,7 @@ class Experiment < ApplicationRecord
   include ExperimentJsonConcern
   include TaggableConcern
   include CategoryConcern
+  include UserGroupConcern
 
   STATE_VALUES = %w[new draft locked]
   FIELD_NAME_VALUES_RELATIONS = { state: STATE_VALUES }
@@ -11,6 +12,8 @@ class Experiment < ApplicationRecord
   has_many :experiment_cases, dependent: :destroy
   has_many :operations, through: :experiment_cases
   has_many :test_tasks, dependent: :destroy
+  has_many :experiment_to_user_groups, dependent: :destroy
+  has_many :user_groups, through: :experiment_to_user_groups
 
   validates :state, :human_name, presence: :true
   validates :state, inclusion: { in: STATE_VALUES,

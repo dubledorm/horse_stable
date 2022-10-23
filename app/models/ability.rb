@@ -17,9 +17,18 @@ class Ability
     can :manage, SomeFile, user_id: user.id
     can :manage, Tag, user_id: user.id
     can :manage, TestTask, user_id: user.id
-    can :manage, Operation, { experiment_case: {user_id: user.id} }
+    can :manage, Operation, { experiment_case: { user_id: user.id } }
+
     can :manage, Experiment, user_id: user.id
-    can :manage, ExperimentCase, user_id: user.id
+    can :read, Experiment, user_groups: { user_to_user_groups: { user_id: user.id, access_right: 'user' } }
+    can :manage, Experiment, user_groups: { user_to_user_groups: { user_id: user.id, access_right: 'manager' } }
+
+    can :manage, ExperimentCase, experiment: { user_id: user.id }
+    can :read, ExperimentCase, experiment: { user_groups: { user_to_user_groups: { user_id: user.id,
+                                                                                   access_right: 'user' } } }
+    can :manage, ExperimentCase, experiment: { user_groups: { user_to_user_groups: { user_id: user.id,
+                                                                                     access_right: 'manager' } } }
+
     can :manage, Article, user_id: user.id
     can :manage, Grade, user_id: user.id
     can :manage, GradeAverage, user_id: user.id
@@ -27,8 +36,9 @@ class Ability
     can :manage, Picture, user_id: user.id
     can :manage, Picture, user_id: user.id
     can :manage, Service, user_id: user.id
-    can :manage, UserGroup, members: { id: user.id }
-
+    can :read, UserGroup, members: { id: user.id }
+    can :manage, ExperimentToUserGroup, user_group: { user_to_user_groups: { user_id: user.id,
+                                                                             access_right: 'manager' } }
 
 
 

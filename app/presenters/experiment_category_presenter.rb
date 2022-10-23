@@ -20,7 +20,7 @@ class ExperimentCategoryPresenter
   # При этом, оставляет только те записи где included == true
   def from_json_string(json_string)
     begin
-      @categories = JSON.parse(json_string, symbolize_names: true).find_all{ |item| item[:included] }
+      @categories = JSON.parse(json_string, symbolize_names: true).find_all { |item| item[:included] }
       self
 
     rescue Exception => e
@@ -46,6 +46,6 @@ class ExperimentCategoryPresenter
   end
 
   def has_category?(name)
-    categories.find_all{|category| category[:name] == name}.any?
+    categories.find_all { |category| category[:name] == name }.any?
   end
 end

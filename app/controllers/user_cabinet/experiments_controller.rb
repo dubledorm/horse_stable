@@ -78,7 +78,27 @@ module UserCabinet
         @resource.add_category(category[:name])
       end
 
-      render json: ExperimentCategoryPresenter.new.from_experiment(@resource).to_json,  status: :ok
+      render json: ExperimentCategoryPresenter.new.from_experiment(@resource).to_json, status: :ok
+    rescue StandardError => e
+      render json: e.message, status: :unprocessable_entity
+    end
+
+    def update_groups
+      get_resource
+      raise CanCan::AccessDenied unless can? :update_groups, @resource
+
+      new_user_groups = ExperimentGroupPresenter.new.from_json_string(experiment_params[:user_groups]).groups
+      old_user_groups = ExperimentGroupPresenter.new.from_experiment(@resource).groups
+
+      (old_user_groups - new_user_groups).each do |user_group|
+        @resource.delete_user_group(user_group[:name])
+      end
+
+      (new_user_groups - old_user_groups).each do |user_group|
+        @resource.add_user_group(user_group[:name])
+      end
+
+      render json: ExperimentGroupPresenter.new.from_experiment(@resource).to_json, status: :ok
     rescue StandardError => e
       render json: e.message, status: :unprocessable_entity
     end
@@ -103,7 +123,7 @@ module UserCabinet
     private
 
     def experiment_params
-      params.required(:experiment).permit(:human_name, :human_description, :categories)
+      params.required(:experiment).permit(:human_name, :human_description, :categories, :user_groups)
     end
 
     def menu_action_items

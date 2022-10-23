@@ -1,0 +1,11 @@
+.group_list_block
+  = react_component 'editable_fields/BaseEditableList', { name: 'user_groups',
+      name_title: I18n.t('activerecord.models.user_group.other'),
+      name_hint: '',
+      resource_class: @resource.class.name.underscore,
+      submit_button_text: I18n.t('send'),
+      cancel_button_text: I18n.t('cancel'),
+      url:  update_groups_user_cabinet_experiment_path(@resource),
+      start_value: ExperimentGroupPresenter.new.from_experiment(@resource).to_json,
+      edit_element_type: '',
+      read_only: false }

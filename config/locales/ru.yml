@@ -92,6 +92,7 @@ ru:
         human_name: Название
         human_description: Описание
         user_id: Пользователь
+        user: Пользователь
         state: Состояние
         <<: *timestamps
       some_file:
