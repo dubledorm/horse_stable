@@ -5,4 +5,11 @@ class PrivateAreaController < ApplicationController
   def get_collection
     @collection = apply_scopes(get_resource_class.accessible_by(current_ability)).page params[:page]
   end
+
+  def show
+    super do
+      @read_only = !can?(:write, @resource)
+      yield if block_given?
+    end
+  end
 end

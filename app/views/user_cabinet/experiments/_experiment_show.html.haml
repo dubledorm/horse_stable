@@ -1,3 +1,2 @@
-= read_only = !can?(:write, @resource)
-= rc_string_field(@resource, :human_name, user_cabinet_experiment_path(id: @resource.id), read_only)
-= rc_text_field(@resource, :human_description, user_cabinet_experiment_path(id: @resource.id), read_only)
+= rc_string_field(@resource, :human_name, user_cabinet_experiment_path(id: @resource.id), @read_only)
+= rc_text_field(@resource, :human_description, user_cabinet_experiment_path(id: @resource.id), @read_only)
