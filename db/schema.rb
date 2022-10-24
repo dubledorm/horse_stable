@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_21_091520) do
+ActiveRecord::Schema.define(version: 2022_10_24_194951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,8 @@ ActiveRecord::Schema.define(version: 2022_10_21_091520) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "sets_of_variables_json"
+    t.bigint "project_id", null: false
+    t.index ["project_id"], name: "index_experiments_on_project_id"
     t.index ["user_id"], name: "index_experiments_on_user_id"
   end
 
@@ -201,6 +203,13 @@ ActiveRecord::Schema.define(version: 2022_10_21_091520) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["gallery_id"], name: "index_pictures_on_gallery_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "services", force: :cascade do |t|
@@ -269,6 +278,8 @@ ActiveRecord::Schema.define(version: 2022_10_21_091520) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.index ["project_id"], name: "index_user_groups_on_project_id"
     t.index ["user_id"], name: "index_user_groups_on_user_id"
   end
 
@@ -317,6 +328,7 @@ ActiveRecord::Schema.define(version: 2022_10_21_091520) do
   add_foreign_key "experiment_cases", "users"
   add_foreign_key "experiment_to_user_groups", "experiments"
   add_foreign_key "experiment_to_user_groups", "user_groups"
+  add_foreign_key "experiments", "projects"
   add_foreign_key "experiments", "users"
   add_foreign_key "grades", "users"
   add_foreign_key "pictures", "galleries"
@@ -325,6 +337,7 @@ ActiveRecord::Schema.define(version: 2022_10_21_091520) do
   add_foreign_key "test_tasks", "experiments"
   add_foreign_key "test_tasks", "operations"
   add_foreign_key "test_tasks", "users"
+  add_foreign_key "user_groups", "projects"
   add_foreign_key "user_groups", "users"
   add_foreign_key "user_parameters", "users"
   add_foreign_key "user_to_user_groups", "user_groups"

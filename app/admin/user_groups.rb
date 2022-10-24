@@ -2,12 +2,13 @@ ActiveAdmin.register UserGroup do
   menu label: I18n.t('activerecord.models.user_group.other')
   menu parent: :controls
 
-  permit_params :name, :description, :user_id, user_to_user_groups_attributes: [:id, :user_id, :user_group_id, :access_right, :_destroy]
+  permit_params :name, :description, :user_id, :project_id, user_to_user_groups_attributes: [:id, :user_id, :user_group_id, :access_right, :_destroy]
 
   form title: I18n.t('activerecord.models.user_group.one') do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs do
       f.input :name
+      f.input :project
       f.input :user
       f.input :description
     end
@@ -28,6 +29,7 @@ ActiveAdmin.register UserGroup do
   show do
     attributes_table do
       row :name
+      row :project
       row :user
       row :description
     end

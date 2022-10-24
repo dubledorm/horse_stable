@@ -9,6 +9,7 @@ class Experiment < ApplicationRecord
   FIELD_NAME_VALUES_RELATIONS = { state: STATE_VALUES }
 
   belongs_to :user
+  belongs_to :project
   has_many :experiment_cases, dependent: :destroy
   has_many :operations, through: :experiment_cases
   has_many :test_tasks, dependent: :destroy

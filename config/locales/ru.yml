@@ -6,6 +6,10 @@ ru:
       updated_at: Изменён
   activerecord:
     models:
+      project:
+        one: Проект
+        two: Проекты
+        other: Проекты
       article:
         one: 'Позиция номенклатуры'
         two: 'Позиции номенклатуры'
@@ -52,6 +56,11 @@ ru:
         one: Средняя оценка
         other: Средние оценки
     attributes:
+      project:
+        id: Ид-р
+        name: Название
+        created_at: Создан
+        updated_at: Изменён
       article:
         id: "Ид-р"
         name: "Название"
@@ -159,6 +168,7 @@ ru:
       user_group:
         id: Ид-р
         name: Название
+        project: Проект
         description: Описание
         user: Автор
         user_to_user_groups: Полключенные пользователи
@@ -204,6 +214,10 @@ ru:
         record_invalid: Record Invalid - попытка создать запись с ошибочными значениями полей
         content_type: Не верный формат файла
       models:
+        project:
+          attributes:
+            name:
+              <<: *fielderrors
         user_to_user_group:
           attributes:
             access_right:
@@ -215,6 +229,8 @@ ru:
         user_group:
           attributes:
             name:
+              <<: *fielderrors
+            project:
               <<: *fielderrors
         operation:
           attributes:
