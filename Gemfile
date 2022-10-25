@@ -77,6 +77,7 @@ group :development do
 end
 
 gem 'activeadmin'
+gem 'activeadmin_blaze_theme'
 
 gem 'haml'
 gem 'devise'
