@@ -193,6 +193,7 @@ ru:
       title: Тест
       large_title: Просмотр теста
       title_text: 'Введите название теста.'
+      project_id_hint: 'Выберите проект'
   user_group:
     show:
       name_hint: Название группы

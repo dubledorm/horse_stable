@@ -10,6 +10,8 @@ class Experiment < ApplicationRecord
 
   belongs_to :user
   belongs_to :project
+  has_many :project_to_users, through: :project
+  has_many :members, class_name: 'User', through: :project_to_users, source: :user
   has_many :experiment_cases, dependent: :destroy
   has_many :operations, through: :experiment_cases
   has_many :test_tasks, dependent: :destroy
@@ -25,6 +27,8 @@ class Experiment < ApplicationRecord
   scope :state, ->(state) { where(state: state) }
   scope :by_user_id, ->(user_id) { where(user_id: user_id) }
   scope :by_id, ->(id) { where(id: id) }
+  scope :read_only_by_user, ->(user_id) { joins(:project_to_users).where(project_to_users: { user_id: user_id, access_right: 'tester'}) }
+  scope :can_manage_by_user, ->(user_id) { joins(:project_to_users).where(project_to_users: { user_id: user_id, access_right: 'developer'}) }
 
   def attributes=(hash)
     hash.each do |key, value|

@@ -106,6 +106,8 @@ ru:
         user_id: Пользователь
         user: Пользователь
         state: Состояние
+        project: Проект
+        project_id: Проект
         <<: *timestamps
       some_file:
         name: Название

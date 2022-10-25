@@ -29,6 +29,11 @@ module UserCabinet
 
     def create
       super do
+        project = Project.find(experiment_params[:project_id])
+        if project.project_to_users.where(user_id: current_user.id, access_right: 'developer').count.zero?
+          raise CanCan::AccessDenied
+        end
+
         @resource = Experiment.create(experiment_params.merge!(user_id: current_user.id,
                                                                state: :new))
         unless @resource.persisted?
@@ -42,7 +47,7 @@ module UserCabinet
     def update
       super do
         @resource.update(experiment_params)
-        if @resource.errors.count == 0
+        if @resource.errors.count.zero?
           render json: attributes_mask_to_json(@resource, experiment_params),  status: :ok
         else
           render json: @resource.errors.full_messages.join(', '), status: :unprocessable_entity
@@ -123,7 +128,7 @@ module UserCabinet
     private
 
     def experiment_params
-      params.required(:experiment).permit(:human_name, :human_description, :categories, :user_groups)
+      params.required(:experiment).permit(:human_name, :human_description, :categories, :user_groups, :project_id)
     end
 
     def menu_action_items

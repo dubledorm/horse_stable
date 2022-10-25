@@ -5,6 +5,7 @@ class ExperimentCase < ApplicationRecord
   belongs_to :user
   belongs_to :experiment
   has_many :operations, dependent: :destroy
+  has_many :project_to_users, through: :experiment
 
   validates :human_name, :number, presence: :true
   validates :number, uniqueness: { scope: [:experiment] }

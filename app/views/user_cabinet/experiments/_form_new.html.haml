@@ -5,6 +5,13 @@
       = f.text_field(:human_name, class: 'form-control')
       .field_hint
         Название теста
+
+    .form-group
+      = f.label(:project)
+      = f.select(:project_id, Project.accessible_by(current_ability).map { |project| [project.name, project.id] }, { include_blank: false }, { class: 'form-control' })
+      .field_hint
+        Описание теста
+
     .form-group
       = f.label(:human_description)
       = f.text_area(:human_description, class: 'form-control')

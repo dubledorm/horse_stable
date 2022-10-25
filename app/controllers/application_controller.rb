@@ -53,35 +53,41 @@ class ApplicationController < ActionController::Base
 
   def show
     get_resource
-    raise CanCan::AccessDenied unless can? :read, @resource
+    raise CanCan::AccessDenied unless can? :show, @resource
+
     yield if block_given?
   end
 
   def index
-    raise CanCan::AccessDenied unless can? :read, get_resource_class
+    #raise CanCan::AccessDenied unless can? :index, get_resource_class
+
     get_collection
     yield if block_given?
   end
 
   def new
     raise CanCan::AccessDenied unless can? :new, get_resource_class
+
     yield if block_given?
   end
 
   def create
     raise CanCan::AccessDenied unless can? :create, get_resource_class
+
     yield
   end
 
   def update
     get_resource
     raise CanCan::AccessDenied unless can? :update, @resource
+
     yield
   end
 
   def destroy
     get_resource
     raise CanCan::AccessDenied unless can? :destroy, @resource
+
     if block_given?
       yield
     else
@@ -94,6 +100,7 @@ class ApplicationController < ActionController::Base
   def edit
     get_resource
     raise CanCan::AccessDenied unless can? :edit, @resource
+
     yield if block_given?
   end
 

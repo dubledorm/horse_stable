@@ -29,6 +29,11 @@ module UserCabinet
 
     def create
       super do
+        experiment = Experiment.find(params[:experiment_id])
+        if experiment&.project.project_to_users.where(user_id: current_user.id, access_right: 'developer').count.zero?
+          raise CanCan::AccessDenied
+        end
+
         @resource = ExperimentCase.create(experiment_case_params.merge!(experiment_id: params[:experiment_id],
                                                                         user_id: current_user.id))
         unless @resource.persisted?
