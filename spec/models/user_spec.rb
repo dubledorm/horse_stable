@@ -21,6 +21,8 @@ RSpec.describe User, type: :model do
     it { should have_many(:articles) }
     it { should have_many(:grades) }
     it { should have_many(:blogs) }
+    it { should have_many(:project_to_users) }
+    it { should have_many(:projects) }
     it { should have_one(:user_parameter)}
 
     it { should have_many(:test_tasks) }

@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :test_tasks, dependent: :destroy
   has_many :experiments, dependent: :destroy
   has_many :experiment_cases, dependent: :destroy
+  has_many :project_to_users, dependent: :destroy
+  has_many :projects, through: :project_to_users
 
   has_many :owner_tags, dependent: :destroy, class_name: 'Tag'
 
