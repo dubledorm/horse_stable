@@ -6,6 +6,6 @@
       submit_button_text: I18n.t('send'),
       cancel_button_text: I18n.t('cancel'),
       url:  update_groups_user_cabinet_experiment_path(@resource),
-      start_value: ExperimentGroupPresenter.new.from_experiment(@resource).to_json,
+      start_value: ExperimentGroupPresenter.new(current_ability).group_list(@resource).to_json,
       edit_element_type: '',
       read_only: false }

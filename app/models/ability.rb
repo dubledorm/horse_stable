@@ -25,15 +25,16 @@ class Ability
     can :manage, Picture, user_id: user.id
     can :manage, Picture, user_id: user.id
     can :manage, Service, user_id: user.id
-    can :read, UserGroup, members: { id: user.id }
+    can %i[index show], UserGroup, user_to_user_groups: { user_id: user.id }
     can :manage, ExperimentToUserGroup, user_group: { user_to_user_groups: { user_id: user.id,
                                                                              access_right: 'manager' } }
 
-    can :read, Project, project_to_users: { user_id: user.id }
+    can %i[index show], Project, project_to_users: { user_id: user.id }
 
     can %i[index show], Experiment, project_to_users: { user_id: user.id, access_right: 'tester' }
-    can %i[index show update destroy], Experiment, project_to_users: { user_id: user.id,
-                                                                       access_right: 'developer' }
+    can %i[index show update destroy update_categories update_groups], Experiment,
+        project_to_users: { user_id: user.id,
+                            access_right: 'developer' }
     can :create, Experiment
 
     can %i[index show], ExperimentCase, project_to_users: { user_id: user.id, access_right: 'tester' }

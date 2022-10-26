@@ -93,18 +93,24 @@ module UserCabinet
       get_resource
       raise CanCan::AccessDenied unless can? :update_groups, @resource
 
-      new_user_groups = ExperimentGroupPresenter.new.from_json_string(experiment_params[:user_groups]).groups
-      old_user_groups = ExperimentGroupPresenter.new.from_experiment(@resource).groups
+      new_user_groups = ExperimentGroupPresenter.new(current_ability).from_json_string(experiment_params[:user_groups]).groups
+      old_user_groups = ExperimentGroupPresenter.new(current_ability).from_experiment(@resource).groups
 
       (old_user_groups - new_user_groups).each do |user_group|
+        group = UserGroup.find(user_group[:name])
+        raise CanCan::AccessDenied unless group.user_manager?(current_user)
+
         @resource.delete_user_group(user_group[:name])
       end
 
       (new_user_groups - old_user_groups).each do |user_group|
+        group = UserGroup.find(user_group[:name])
+        raise CanCan::AccessDenied unless group.user_manager?(current_user)
+
         @resource.add_user_group(user_group[:name])
       end
 
-      render json: ExperimentGroupPresenter.new.from_experiment(@resource).to_json, status: :ok
+      render json: ExperimentGroupPresenter.new(current_ability).group_list(@resource).to_json, status: :ok
     rescue StandardError => e
       render json: e.message, status: :unprocessable_entity
     end
