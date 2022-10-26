@@ -199,7 +199,7 @@ class FunctionEditor extends React.Component {
                     <div className="rc-block-content" >
                         <FieldTitle name={this.props.name_title}
                                     onChangeMode={this.onChangeModeHandler}
-                                    read_only={false}
+                                    read_only={this.props.read_only}
                                     spinner={this.state.spinner} />
                         {context}
                         {error_message}

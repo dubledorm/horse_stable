@@ -8,6 +8,7 @@ module UserCabinet
     has_scope :state
     has_scope :by_id, as: :id
     has_scope :by_category, as: :category
+    has_scope :by_project_id, as: :project_id
 
     add_breadcrumb Experiment.model_name.human(count: 3), :user_cabinet_experiments_path
 

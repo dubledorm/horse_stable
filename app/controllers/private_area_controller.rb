@@ -8,7 +8,7 @@ class PrivateAreaController < ApplicationController
 
   def show
     super do
-      @read_only = !can?(:write, @resource)
+      @read_only = !can?(:update, @resource)
       yield if block_given?
     end
   end

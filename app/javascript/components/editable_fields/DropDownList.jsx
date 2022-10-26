@@ -56,7 +56,7 @@ class DropDownList extends React.Component {
                     <div className="rc-block-content" >
                         <FieldTitle name={this.state.name_title}
                                     onChangeMode={this.onChangeModeHandler}
-                                    read_only={false}
+                                    read_only={this.state.read_only}
                                     spinner={false} />
                         {context}
                     </div>

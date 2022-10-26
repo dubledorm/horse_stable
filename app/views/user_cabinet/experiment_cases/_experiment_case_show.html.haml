@@ -1,6 +1,6 @@
-= rc_string_field(@resource, :number, user_cabinet_experiment_experiment_case_path(id: @resource.id, experiment_id: params[:experiment_id]))
-= rc_string_field(@resource, :human_name, user_cabinet_experiment_experiment_case_path(id: @resource.id, experiment_id: params[:experiment_id]))
-= rc_text_field(@resource, :human_description, user_cabinet_experiment_experiment_case_path(id: @resource.id, experiment_id: params[:experiment_id]))
+= rc_string_field(@resource, :number, user_cabinet_experiment_experiment_case_path(id: @resource.id, experiment_id: params[:experiment_id]), @read_only)
+= rc_string_field(@resource, :human_name, user_cabinet_experiment_experiment_case_path(id: @resource.id, experiment_id: params[:experiment_id]), @read_only)
+= rc_text_field(@resource, :human_description, user_cabinet_experiment_experiment_case_path(id: @resource.id, experiment_id: params[:experiment_id]), @read_only)
 %h2
   = Operation.model_name.human(count: 3)
 
