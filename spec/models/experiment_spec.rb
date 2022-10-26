@@ -1,15 +1,18 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Experiment, type: :model do
   describe 'factory' do
-    let!(:experiment) {FactoryGirl.create :experiment}
+    let!(:experiment) { FactoryGirl.create :experiment }
 
     # Factories
     it { expect(experiment).to be_valid }
 
     it { should belong_to(:user) }
+    it { should belong_to(:project) }
     it { should have_many(:experiment_cases) }
     it { should have_many(:operations) }
+    it { should have_many(:user_groups) }
   end
 
   describe 'serialialization' do
@@ -19,6 +22,7 @@ RSpec.describe Experiment, type: :model do
                         'human_name' => experiment.human_name,
                         'human_description' => experiment.human_description,
                         'user_id' => experiment.user_id,
+                        'project_id' => experiment.project_id,
                         'state' => 'new',
                         'created_at' => experiment.created_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
                         'updated_at' => experiment.updated_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
@@ -37,6 +41,7 @@ RSpec.describe Experiment, type: :model do
                         'human_name' => experiment.human_name,
                         'human_description' => experiment.human_description,
                         'user_id' => experiment.user_id,
+                        'project_id' => experiment.project_id,
                         'state' => 'new',
                         'created_at' => experiment.created_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
                         'updated_at' => experiment.updated_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),

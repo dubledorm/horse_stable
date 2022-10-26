@@ -1,4 +1,6 @@
+# frozen_string_literal: true
 # encoding: utf-8
+
 module UserCabinet
   class ExperimentsController < PrivateAreaController
     has_scope :human_name
@@ -6,6 +8,7 @@ module UserCabinet
     has_scope :state
     has_scope :by_id, as: :id
     has_scope :by_category, as: :category
+    has_scope :by_project_id, as: :project_id
 
     add_breadcrumb Experiment.model_name.human(count: 3), :user_cabinet_experiments_path
 
@@ -27,6 +30,11 @@ module UserCabinet
 
     def create
       super do
+        project = Project.find(experiment_params[:project_id])
+        if project.project_to_users.where(user_id: current_user.id, access_right: 'developer').count.zero?
+          raise CanCan::AccessDenied
+        end
+
         @resource = Experiment.create(experiment_params.merge!(user_id: current_user.id,
                                                                state: :new))
         unless @resource.persisted?
@@ -40,7 +48,7 @@ module UserCabinet
     def update
       super do
         @resource.update(experiment_params)
-        if @resource.errors.count == 0
+        if @resource.errors.count.zero?
           render json: attributes_mask_to_json(@resource, experiment_params),  status: :ok
         else
           render json: @resource.errors.full_messages.join(', '), status: :unprocessable_entity
@@ -51,7 +59,6 @@ module UserCabinet
     def add_set_of_variable
       get_resource
       raise CanCan::AccessDenied unless can? :add_set_of_variable, @resource
-      byebug
       new_variable_set = Variables::SetOfVariables.new(human_set_name: params['set_of_variables'])
       if new_variable_set.valid?
         @resource.variables_sets.sets << new_variable_set
@@ -77,7 +84,33 @@ module UserCabinet
         @resource.add_category(category[:name])
       end
 
-      render json: ExperimentCategoryPresenter.new.from_experiment(@resource).to_json,  status: :ok
+      render json: ExperimentCategoryPresenter.new.from_experiment(@resource).to_json, status: :ok
+    rescue StandardError => e
+      render json: e.message, status: :unprocessable_entity
+    end
+
+    def update_groups
+      get_resource
+      raise CanCan::AccessDenied unless can? :update_groups, @resource
+
+      new_user_groups = ExperimentGroupPresenter.new(current_ability).from_json_string(experiment_params[:user_groups]).groups
+      old_user_groups = ExperimentGroupPresenter.new(current_ability).from_experiment(@resource).groups
+
+      (old_user_groups - new_user_groups).each do |user_group|
+        group = UserGroup.find(user_group[:name])
+        raise CanCan::AccessDenied unless group.user_manager?(current_user)
+
+        @resource.delete_user_group(user_group[:name])
+      end
+
+      (new_user_groups - old_user_groups).each do |user_group|
+        group = UserGroup.find(user_group[:name])
+        raise CanCan::AccessDenied unless group.user_manager?(current_user)
+
+        @resource.add_user_group(user_group[:name])
+      end
+
+      render json: ExperimentGroupPresenter.new(current_ability).group_list(@resource).to_json, status: :ok
     rescue StandardError => e
       render json: e.message, status: :unprocessable_entity
     end
@@ -102,7 +135,7 @@ module UserCabinet
     private
 
     def experiment_params
-      params.required(:experiment).permit(:human_name, :human_description, :categories)
+      params.required(:experiment).permit(:human_name, :human_description, :categories, :user_groups, :project_id)
     end
 
     def menu_action_items

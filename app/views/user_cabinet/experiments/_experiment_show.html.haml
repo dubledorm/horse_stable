@@ -1,2 +1,4 @@
-= rc_string_field(@resource, :human_name, user_cabinet_experiment_path(id: @resource.id))
-= rc_text_field(@resource, :human_description, user_cabinet_experiment_path(id: @resource.id))
+= rc_string_field(@resource, :human_name, user_cabinet_experiment_path(id: @resource.id), @read_only)
+= rc_text_field(@resource, :human_description, user_cabinet_experiment_path(id: @resource.id), @read_only)
+= rc_drop_down_list(@resource, :project_id, user_cabinet_experiment_path(id: @resource.id),
+Project.accessible_by(current_ability).map { |project| [project.name, project.id] }, @read_only)

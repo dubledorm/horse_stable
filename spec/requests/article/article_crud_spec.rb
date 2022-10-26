@@ -40,60 +40,60 @@ RSpec.describe 'Article', type: :request do
   #   it { expect{ subject }.to change(Article, :count).by(1) }
   # end
 
-  describe 'update#' do
-    include DeviseSupport
-
-    context 'when we are owner of the record' do
-      let(:article) { FactoryGirl.create :article,  user: @user }
-      let(:subject) { put(user_cabinet_article_path(article), params: { article: { name: 'new_name' } }) }
-
-      before :each do
-        sign_in_user
-        subject
-        article.reload
-      end
-
-      it { expect(article.name).to eq('new_name') }
-      it { expect(response).to have_http_status(200) }
-      it { expect(JSON.parse(response.body)['name']).to eq('new_name')}
-      it { ap(response.body) }
-
-      context 'update all fields' do
-        let(:subject) { put(user_cabinet_article_path(article), params: TEST_PARAMS ) }
-
-        it { expect(response).to have_http_status(200) }
-        it { ap(response.body) }
-        it { expect(JSON.parse(response.body).symbolize_keys).to eq(TEST_PARAMS[:article])}
-      end
-
-    end
-
-
-
-    context 'when we are not owner of the record' do
-      let!(:article) { FactoryGirl.create :article }
-
-      before :each do
-        sign_in_user
-      end
-
-      it_should_behave_like 'get response 403' do
-        subject { put(user_cabinet_article_path(article), params: { article: { name: 'new_name' } })  }
-      end
-    end
-  end
-
-  describe 'delete#' do
-    include DeviseSupport
-    let(:article) { FactoryGirl.create :article,  user: @user }
-    let!(:article1) { FactoryGirl.create :article }
-
-    before :each do
-      sign_in_user
-      article.save
-    end
-
-    it { expect{ delete(user_cabinet_article_path(article)) }.to change(Article, :count).by(-1) }
-    it { expect{ delete(user_cabinet_article_path(article1)) }.to change(Article, :count).by(0) }
-  end
+  # describe 'update#' do
+  #   include DeviseSupport
+  #
+  #   context 'when we are owner of the record' do
+  #     let(:article) { FactoryGirl.create :article,  user: @user }
+  #     let(:subject) { put(user_cabinet_article_path(article), params: { article: { name: 'new_name' } }) }
+  #
+  #     before :each do
+  #       sign_in_user
+  #       subject
+  #       article.reload
+  #     end
+  #
+  #     it { expect(article.name).to eq('new_name') }
+  #     it { expect(response).to have_http_status(200) }
+  #     it { expect(JSON.parse(response.body)['name']).to eq('new_name')}
+  #     it { ap(response.body) }
+  #
+  #     context 'update all fields' do
+  #       let(:subject) { put(user_cabinet_article_path(article), params: TEST_PARAMS ) }
+  #
+  #       it { expect(response).to have_http_status(200) }
+  #       it { ap(response.body) }
+  #       it { expect(JSON.parse(response.body).symbolize_keys).to eq(TEST_PARAMS[:article])}
+  #     end
+  #
+  #   end
+  #
+  #
+  #
+  #   context 'when we are not owner of the record' do
+  #     let!(:article) { FactoryGirl.create :article }
+  #
+  #     before :each do
+  #       sign_in_user
+  #     end
+  #
+  #     it_should_behave_like 'get response 403' do
+  #       subject { put(user_cabinet_article_path(article), params: { article: { name: 'new_name' } })  }
+  #     end
+  #   end
+  # end
+  #
+  # describe 'delete#' do
+  #   include DeviseSupport
+  #   let(:article) { FactoryGirl.create :article,  user: @user }
+  #   let!(:article1) { FactoryGirl.create :article }
+  #
+  #   before :each do
+  #     sign_in_user
+  #     article.save
+  #   end
+  #
+  #   it { expect{ delete(user_cabinet_article_path(article)) }.to change(Article, :count).by(-1) }
+  #   it { expect{ delete(user_cabinet_article_path(article1)) }.to change(Article, :count).by(0) }
+  # end
 end

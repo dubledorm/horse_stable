@@ -6,6 +6,10 @@ ru:
       updated_at: Изменён
   activerecord:
     models:
+      project:
+        one: Проект
+        two: Проекты
+        other: Проекты
       article:
         one: 'Позиция номенклатуры'
         two: 'Позиции номенклатуры'
@@ -27,6 +31,9 @@ ru:
         other: Операции
       functions/click:
         one: Клик мышкой
+      user_group:
+        one: Группа пользователей
+        other: Группы пользователей
       user:
         one: Пользователь
         other: Пользователи
@@ -49,6 +56,14 @@ ru:
         one: Средняя оценка
         other: Средние оценки
     attributes:
+      project:
+        id: Ид-р
+        name: Название
+        users: Пользователи
+        user_groups: Группы
+        experiments: Тесты
+        created_at: Создан
+        updated_at: Изменён
       article:
         id: "Ид-р"
         name: "Название"
@@ -89,7 +104,10 @@ ru:
         human_name: Название
         human_description: Описание
         user_id: Пользователь
+        user: Пользователь
         state: Состояние
+        project: Проект
+        project_id: Проект
         <<: *timestamps
       some_file:
         name: Название
@@ -152,6 +170,20 @@ ru:
         nick_name: Nickname
         categories: Категории
         main_description: О себе
+      user_group:
+        id: Ид-р
+        name: Название
+        project: Проект
+        description: Описание
+        user: Автор
+        user_to_user_groups: Полключенные пользователи
+        experiment_to_user_groups: Подключенные тесты
+        created_at: Создан
+        updated_at: Изменён
+      user_to_user_group:
+        access_right: Права
+      project_to_user:
+        access_right: Права
       tag:
         id: Ид-р
         name: Имя
@@ -184,10 +216,37 @@ ru:
           greater_than: Должно быть больше 0
           not_an_integer: Должно быть целым числом
           less_than_or_equal_to: Превышает верхнее разрешённое значение
+          inclusion: Должно содержать значение из предопределённого списка
       messages:
-        record_invalid: Record Invalid - попытка создать запись с ошибоными значениями полей
+        record_invalid: Record Invalid - попытка создать запись с ошибочными значениями полей
         content_type: Не верный формат файла
       models:
+        project:
+          attributes:
+            name:
+              <<: *fielderrors
+        project_to_user:
+          attributes:
+            access_right:
+              <<: *fielderrors
+            user:
+              <<: *fielderrors
+            project:
+              <<: *fielderrors
+        user_to_user_group:
+          attributes:
+            access_right:
+              <<: *fielderrors
+            user:
+              <<: *fielderrors
+            user_group:
+              <<: *fielderrors
+        user_group:
+          attributes:
+            name:
+              <<: *fielderrors
+            project:
+              <<: *fielderrors
         operation:
           attributes:
             operation_type:

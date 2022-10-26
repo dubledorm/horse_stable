@@ -3,6 +3,7 @@ FactoryGirl.define do
     sequence(:human_name) { |n| "human_name#{n}" }
     state :new
     user
+    project
   end
 
   factory :experiment_with_operations, parent: :experiment do

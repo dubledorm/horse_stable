@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import {TestTask} from "./ExperimentFunctions";
 
 
 class TabSelectorPanel extends React.Component {
@@ -30,12 +31,15 @@ class TabSelectorPanel extends React.Component {
     }
 
     buildRow(field, key) {
-        let className = 'btn btn-default'
+        let className = 'btn btn-default';
+        let itemName = field.tabName;
         if (this.state.activeTabId == field.tabId) {
             className = className + ' active'
         }
         return <li key={key}>
-            <a className={className} href={'#'}  onClick={this.onChangeValue.bind(this, field.tabId)}>{field.tabName}</a>
+            <a className={className} href={'#'}  onClick={this.onChangeValue.bind(this, field.tabId)}>
+                {itemName}
+            </a>
         </li>
     }
 
@@ -44,13 +48,14 @@ class TabSelectorPanel extends React.Component {
         let index = 1;
 
         for(let field of this.props.fieldObjects) {
-            context.push(this.buildRow(field, index));
+           context.push(this.buildRow(field, index));
             index += 1;
         }
 
+
         return(
             <React.Fragment>
-                <ul className={'tab_selector_panel text-center'}>
+                <ul className='tab_selector_panel text-center'>
                     {context}
                 </ul>
             </React.Fragment>

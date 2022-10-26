@@ -40,6 +40,7 @@ Rails.application.routes.draw do
         member do
           post :clone
           patch :update_categories
+          patch :update_groups
           post :add_set_of_variable
         end
         resources :experiment_cases, except: [:index, :edit] do
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
       resources :test_tasks
       resources :galleries
       resources :categories
+      resources :user_groups
       resources :articles
       resources :some_files
     end

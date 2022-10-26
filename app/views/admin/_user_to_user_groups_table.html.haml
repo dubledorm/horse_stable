@@ -1,0 +1,20 @@
+.section
+  %table
+    %thead
+      %tr
+        %th
+          = User.human_attribute_name(:email)
+        %th
+          = User.human_attribute_name(:nick_name)
+        %th
+          = UserToUserGroup.human_attribute_name(:access_right)
+
+    %tbody
+      - user_to_user_groups.each do |user_to_user_group|
+        %tr
+          %td
+            = link_to user_to_user_group.user.email, admin_admin_user_path(id: user_to_user_group.user_id)
+          %td
+            = user_to_user_group.user.nick_name
+          %td
+            = user_to_user_group.human_attribute_value(:access_right)

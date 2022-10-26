@@ -1,0 +1,20 @@
+.section
+  %table
+    %thead
+      %tr
+        %th
+          = User.human_attribute_name(:email)
+        %th
+          = User.human_attribute_name(:nick_name)
+        %th
+          = ProjectToUser.human_attribute_name(:access_right)
+
+    %tbody
+      - project_to_users.each do |project_to_user|
+        %tr
+          %td
+            = link_to project_to_user.user.email, admin_admin_user_path(id: project_to_user.user_id)
+          %td
+            = project_to_user.user.nick_name
+          %td
+            = project_to_user.human_attribute_value(:access_right)

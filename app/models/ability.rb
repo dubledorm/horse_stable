@@ -17,44 +17,34 @@ class Ability
     can :manage, SomeFile, user_id: user.id
     can :manage, Tag, user_id: user.id
     can :manage, TestTask, user_id: user.id
-    can :manage, Operation, { experiment_case: {user_id: user.id} }
-    can :manage, Experiment, user_id: user.id
-    can :manage, ExperimentCase, user_id: user.id
+
     can :manage, Article, user_id: user.id
     can :manage, Grade, user_id: user.id
     can :manage, GradeAverage, user_id: user.id
     can :manage, Gallery, user_id: user.id
     can :manage, Picture, user_id: user.id
+    can :manage, Picture, user_id: user.id
     can :manage, Service, user_id: user.id
+    can %i[index show], UserGroup, user_to_user_groups: { user_id: user.id }
+    can :manage, ExperimentToUserGroup, user_group: { user_to_user_groups: { user_id: user.id,
+                                                                             access_right: 'manager' } }
 
+    can %i[index show], Project, project_to_users: { user_id: user.id }
 
+    can %i[index show], Experiment, project_to_users: { user_id: user.id, access_right: 'tester' }
+    can %i[index show update destroy update_categories update_groups], Experiment,
+        project_to_users: { user_id: user.id,
+                            access_right: 'developer' }
+    can :create, Experiment
 
+    can %i[index show], ExperimentCase, project_to_users: { user_id: user.id, access_right: 'tester' }
+    can %i[index show update destroy], ExperimentCase, project_to_users: { user_id: user.id,
+                                                                           access_right: 'developer' }
+    can :create, ExperimentCase
 
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+    can %i[index show], Operation, project_to_users: { user_id: user.id, access_right: 'tester' }
+    can %i[index show update destroy], Operation, project_to_users: { user_id: user.id,
+                                                                      access_right: 'developer' }
+    can :create, Operation
   end
 end

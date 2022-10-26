@@ -26,6 +26,7 @@ class Operation < ApplicationRecord
   belongs_to :experiment_case
   has_one :experiment, through: :experiment_case
   has_many :test_tasks, dependent: :destroy
+  has_many :project_to_users, through: :experiment_case
 
   scope :check, -> { where(operation_type: 'check').order(:number) }
   scope :do, -> { where(operation_type: 'do').order(:number) }

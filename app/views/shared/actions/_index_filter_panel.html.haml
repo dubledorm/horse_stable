@@ -1,0 +1,7 @@
+.row.filter-wrap
+  .row
+    .col-md-10
+      = yield if block_given?
+    .col-md-2.center
+      - if local_variables.include?(:new_path)
+        = link_to(local_variables.include?(:new_button_name) ? new_button_name : I18n.t('new'),new_path, class: 'btn btn-success')

@@ -1,0 +1,21 @@
+= render 'shared/actions/show_edit' do
+  .row
+    .col-xs-12.col-md-8= render('user_group_show')
+    = render 'shared/actions/show_edit_right_buttons',
+return_to_path: user_cabinet_user_groups_path,
+return_to_button_name: t('.return_to_groups')
+
+  .row
+    .col-xs-12.col-md-8
+      .h2
+        =I18n.t('activerecord.models.user.other')
+      .users_show
+        = render('users')
+  .row
+    .col-xs-12.col-md-8
+      .h2
+        =I18n.t('activerecord.models.experiment.other')
+      .users_show
+        = render('experiments')
+
+

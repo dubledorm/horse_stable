@@ -1,5 +1,5 @@
-= rc_string_field(@resource, :number, user_cabinet_operation_path(id: @resource.id))
+= rc_string_field(@resource, :number, user_cabinet_operation_path(id: @resource.id), @read_only)
 = rc_drop_down_list(@resource, :operation_type, user_cabinet_operation_path(id: @resource.id), [[I18n.t('operation.operation_type.check'), 'check'],
 [I18n.t('operation.operation_type.do'), 'do'],
-[I18n.t('operation.operation_type.next'), 'next']])
-= rc_function_editor(@resource)
+[I18n.t('operation.operation_type.next'), 'next']], @read_only)
+= rc_function_editor(@resource, @read_only)

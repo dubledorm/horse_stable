@@ -55,6 +55,8 @@ GEM
       kaminari (~> 1.0, >= 1.2.1)
       railties (>= 5.2, < 6.2)
       ransack (~> 2.1, >= 2.1.1)
+    activeadmin_blaze_theme (1.0.0)
+      activeadmin (~> 2.0)
     activejob (6.0.3.4)
       activesupport (= 6.0.3.4)
       globalid (>= 0.3.6)
@@ -448,6 +450,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  activeadmin_blaze_theme
   autotest
   autotest-notification
   autotest-rails-pure
@@ -487,6 +490,7 @@ DEPENDENCIES
   redis (~> 4.0)
   rolify
   rspec-rails (~> 4.0.0.rc1)
+  rubocop
   rubocop-rails
   ruby-prof
   sassc-rails

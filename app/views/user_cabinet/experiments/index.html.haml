@@ -1,17 +1,10 @@
-= render('layouts/template_parts/small_title', locals: { title: t('.tests') })
+= render 'shared/actions/index_template' do
+  = render 'shared/actions/index_filter_panel',
+new_path: new_user_cabinet_experiment_path,
+new_button_name: t('.new_test') do
+    = render('filter')
 
-%section#tests-index
-  .container
-    .row.contact-wrap
-      -# Сообщения об ошибках
-      = render('shared/resource_alert_notice')
-    .row.filter-wrap
-      = render('filter')
-      .pull-right
-        = link_to(t('.new'),new_user_cabinet_experiment_path, class: 'btn btn-success')
+  .page-blocks
+    = render('index_table')
 
-
-    .page-blocks
-      = render('index_table')
-
-    = render('shared/pagination_block')
+  = render('shared/pagination_block')

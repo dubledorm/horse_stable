@@ -1,0 +1,19 @@
+.row
+  .col-xs-2.col-md-4
+    %b
+      = User.human_attribute_name(:email)
+  .col-xs-2.col-md-4
+    %b
+      = User.human_attribute_name(:nick_name)
+  .col-xs-6.col-md-2
+    %b
+      = UserToUserGroup.human_attribute_name(:access_right)
+#users_body
+  - @resource.user_to_user_groups.each do |user_to_user_group|
+    .row{ id: "user_#{user_to_user_group.user.id}" }
+      .col-xs-2.col-md-4
+        = user_to_user_group.user.email
+      .col-xs-2.col-md-4
+        = user_to_user_group.user.nick_name
+      .col-xs-6.col-md-2
+        = user_to_user_group.access_right

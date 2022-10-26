@@ -1,0 +1,15 @@
+.row.table_header.hidden-xs.hidden-sm
+  %b
+    = render('one_index_row', locals: { id: UserGroup.human_attribute_name(:id),
+     name: UserGroup.human_attribute_name(:name),
+     author: UserGroup.human_attribute_name(:user),
+     do: I18n.t('some_do') })
+
+- @collection.each do |user_group|
+  - edit_btn = link_to(user_cabinet_user_group_path(id: user_group.id)) do content_tag(:i, '', class: 'fa fa-edit rc-fa-edit') end
+  .row.table_row
+    = render('one_index_row', locals: { id: user_group.id,
+     name: user_group.name,
+     author: user_group.user.name,
+     do: edit_btn })
+
