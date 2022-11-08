@@ -7,13 +7,13 @@
 .col-xs-12.hidden-md.hidden-lg
   %b
     = Experiment.human_attribute_name(:human_name) + ':'
-.col-xs-12.col-md-3
+.col-xs-12.col-md-2
   = locals[:human_name]
 
 .hidden-xs.col-sm-12.hidden-md.hidden-lg
   %b
     = Experiment.human_attribute_name(:human_description) + ':'
-.hidden-xs.col-sm-12.col-md-3
+.hidden-xs.col-sm-12.col-md-2
   = locals[:human_description]
 
 .col-xs-4.hidden-md.hidden-lg
@@ -21,6 +21,12 @@
     = Experiment.human_attribute_name(:state) + ':'
 .col-xs-8.col-md-1
   = locals[:state]
+
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = Experiment.human_attribute_name(:user) + ':'
+.col-xs-8.col-md-2
+  = locals[:user]
 
 .hidden-xs.col-sm-4.hidden-md.hidden-lg
   %b

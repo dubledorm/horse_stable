@@ -5,6 +5,7 @@
      human_description: Experiment.human_attribute_name(:human_description),
      state: Experiment.human_attribute_name(:state),
      project: Experiment.human_attribute_name(:project),
+     user: Experiment.human_attribute_name(:user),
      created_at: Experiment.human_attribute_name(:created_at),
      do: I18n.t('some_do') })
 - @collection.each do |experiment|
@@ -15,6 +16,7 @@
      human_name: experiment.human_name,
      human_description: experiment.human_description,
      state: experiment.human_attribute_value(:state),
+     user: experiment.user.email,
      project: experiment.project.name,
      created_at: experiment.created_at,
      do: edit_btn.concat(clone_btn) })

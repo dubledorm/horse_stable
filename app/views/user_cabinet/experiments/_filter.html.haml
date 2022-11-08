@@ -14,6 +14,9 @@
       = f.select(:state, Experiment.options_for_select_type(:state), { include_blank: true, selected: params[:state] }, class: 'form-control')
   .row
     .col-md-2.form-group
+      = f.label(Experiment.human_attribute_name(:user))
+      = f.select(:user, User.all.sort_by(&:email).map{ |user| [user.email, user.id]}, { include_blank: true, selected: params[:user] }, class: 'form-control')
+    .col-md-2.form-group
       = f.label(I18n.t('category'))
       = f.select(:category, Tag.category.sort_by(&:title).map{ |category| [category.name, category.title]}, { include_blank: true, selected: params[:category] }, class: 'form-control')
     .col-md-4.form-group
