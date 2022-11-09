@@ -29,6 +29,10 @@ class DropDownList extends React.Component {
         this.setState({spinner: mode});
     }
 
+    humanState() {
+        return JSON.parse(this.props.values).find(item => item[1] == this.state.value)[0]
+    }
+
     render() {
         let context = null;
         if (this.state.edit_mode) {
@@ -47,7 +51,7 @@ class DropDownList extends React.Component {
 
 
         } else {
-            context = <div className="rc-block-visible-data">{this.state.value}</div>
+            context = <div className="rc-block-visible-data">{this.humanState()}</div>
         }
 
         return (

@@ -146,6 +146,9 @@ class FunctionEditor extends React.Component {
         this.setState({function_attributes: function_attributes });
     }
 
+    humanFunctionName() {
+        return JSON.parse(this.props.values).find(item => item[1] == this.state.function_name)[0]
+    }
 
     render() {
         let context = null;
@@ -183,7 +186,7 @@ class FunctionEditor extends React.Component {
 
         } else {
             context = <div>
-                <div className="rc-block-visible-data">{this.state.function_name}</div>
+                <div className="rc-block-visible-data">{this.humanFunctionName()}</div>
                 <div className="col-md-12 col-md-offset-1">
                   <FunctionFields attributes={this.state.fields_description.attributes}
                                   attributeHints={this.state.fields_description.attribute_hints}
