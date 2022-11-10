@@ -9,8 +9,6 @@ class TestTask < ApplicationRecord
 
   STATE_VALUES = %w[new started completed].freeze
   RESULT_KOD_VALUES = %w[interrupted processed].freeze
-  FIELD_NAME_VALUES_RELATIONS = { result_kod: RESULT_KOD_VALUES, state: STATE_VALUES }.freeze
-
 
   validates :test_setting_json, :state, presence: :true
   validates :state, inclusion: { in: STATE_VALUES,
@@ -24,6 +22,7 @@ class TestTask < ApplicationRecord
   belongs_to :operation, optional: true
   belongs_to :experiment
   belongs_to :user
+  has_one :project, through: :experiment
 
   has_one_attached :failed_screen_shot # Скрин со сбойной операцией
 
@@ -36,10 +35,6 @@ class TestTask < ApplicationRecord
   scope :descendant_by_id_sort, ->(*) { order(id: :desc) }
   scope :descendant_sort, ->(*) { order(finished_time: :desc, id: :desc) }
   scope :by_id, ->(id) { where(id: id) }
-
-  def self.options_for_select_type(field_name)
-    FIELD_NAME_VALUES_RELATIONS[field_name].map { |value| [human_attribute_value(field_name, value), value] }
-  end
 
   def success?
     return true if result_kod == 'processed'

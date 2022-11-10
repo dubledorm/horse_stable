@@ -10,6 +10,17 @@ module UserCabinet
 
     add_breadcrumb TestTask.model_name.human(count: 3), :user_cabinet_test_tasks_path, only: :show
 
+    def show
+      super do
+        @resource = @resource.decorate
+      end
+    end
+
+    def index
+      super do
+        @collection = TestTaskDecorator.decorate_collection(@collection)
+      end
+    end
 
     def create
       super do
@@ -36,6 +47,7 @@ module UserCabinet
         redirect_to user_cabinet_test_tasks_path
       end
     end
+
     private
 
     def test_task_params

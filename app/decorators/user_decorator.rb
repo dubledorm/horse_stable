@@ -3,6 +3,7 @@ class UserDecorator < Draper::Decorator
 
   def nick_name
     return object.nick_name unless object.nick_name.nil?
+
     I18n.t('not_defined_yet')
   end
 

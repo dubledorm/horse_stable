@@ -9,6 +9,7 @@ RSpec.describe TestTask, type: :model do
 
     it { should belong_to(:experiment) }
     it { should belong_to(:user) }
+    it { should have_one(:project) }
   end
 
   describe 'scope' do

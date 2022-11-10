@@ -13,11 +13,11 @@
   - show_btn = link_to(user_cabinet_test_task_path(id: test_task.id)) do content_tag(:i, '', class: 'fa fa-edit rc-fa-edit') end
   .row.table_row
     = render('one_index_row', locals: { id: test_task.id,
-     experiment: test_task.experiment.human_name,
-     state: test_task.human_attribute_value(:state),
+     experiment: test_task.name,
+     state: test_task.state,
      user: test_task.user,
      duration: test_task.duration,
      start_time: test_task.start_time,
-     result_kod: test_task.human_attribute_value(:result_kod),
+     result_kod: test_task.result_kod,
      do: show_btn })
 

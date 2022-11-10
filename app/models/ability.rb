@@ -17,6 +17,7 @@ class Ability
     can :manage, SomeFile, user_id: user.id
     can :manage, Tag, user_id: user.id
     can :manage, TestTask, user_id: user.id
+    can %i[index show], TestTask, project: { project_to_users: { user_id: user.id } }
 
     can :manage, Article, user_id: user.id
     can :manage, Grade, user_id: user.id

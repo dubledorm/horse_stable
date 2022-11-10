@@ -208,6 +208,7 @@ ru:
         finished_time: Время завершения
         plan_start_time: Плановое время начала
         user: Пользователь
+        project: Проект
     errors:
       aliases:
         _field_errors_alias: &fielderrors
