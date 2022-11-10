@@ -31,4 +31,8 @@ class User < ApplicationRecord
 
   validates :avatar, content_type: IMAGE_CONTENT_TYPES
   validates :main_image, content_type: IMAGE_CONTENT_TYPES
+
+  def to_s
+    email
+  end
 end

@@ -3,7 +3,7 @@
     = f.label(TestTask.human_attribute_name(:id))
     = f.text_field(:id, class: 'form-control', value: params[:id])
 
-  .col-md-3.form-group
+  .col-md-2.form-group
     = f.label(TestTask.human_attribute_name(:experiment))
     = f.text_field(:experiment_name, class: 'form-control', value: params[:experiment_name])
 
@@ -11,7 +11,11 @@
     = f.label(TestTask.human_attribute_name(:state))
     = f.select(:state, TestTask.options_for_select_type(:state), { include_blank: true, selected: params[:state] }, class: 'form-control')
 
-  .col-md-3.form-group
+  .col-md-2.form-group
+    = f.label(TestTask.human_attribute_name(:user))
+    = f.select(:user, User.all.map { |user| [user.to_s, user.id] }, { include_blank: true, selected: params[:user] }, class: 'form-control')
+
+  .col-md-2.form-group
     = f.label(TestTask.human_attribute_name(:result_kod))
     = f.select(:result_kod, TestTask.options_for_select_type(:result_kod), { include_blank: true, selected: params[:result_kod] }, class: 'form-control')
 

@@ -195,9 +195,9 @@ ru:
       test_task:
         id: Ид-р
         test_setting_json: Скрипт
-        duration: Длительность выполнения
-        start_time: Реальное время начала
-        result_kod: Результат выполнения
+        duration: Длит-сть
+        start_time: Время начала
+        result_kod: Результат
         result_values_json: Выходные значения
         result_message: Сообщение
         state: Состояние
@@ -206,7 +206,8 @@ ru:
         experiment: Тест
         experiment_id: Тест Id
         finished_time: Время завершения
-        plan_start_time: Запланированное время начала
+        plan_start_time: Плановое время начала
+        user: Пользователь
     errors:
       aliases:
         _field_errors_alias: &fielderrors

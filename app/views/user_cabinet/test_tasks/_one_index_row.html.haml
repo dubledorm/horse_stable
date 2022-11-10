@@ -7,7 +7,7 @@
 .col-xs-12.hidden-md.hidden-lg
   %b
     = TestTask.human_attribute_name(:experiment) + ':'
-.col-xs-12.col-md-1
+.col-xs-12.col-md-2
   = locals[:experiment]
 
 .col-xs-4.hidden-md.hidden-lg
@@ -15,6 +15,12 @@
     = TestTask.human_attribute_name(:state) + ':'
 .col-xs-8.col-md-1
   = locals[:state]
+
+.col-xs-4.hidden-md.hidden-lg
+  %b
+    = TestTask.human_attribute_name(:user) + ':'
+.col-xs-8.col-md-2
+  = locals[:user]
 
 .col-xs-4.hidden-md.hidden-lg
   %b
@@ -31,21 +37,8 @@
 .col-xs-4.hidden-md.hidden-lg
   %b
     = TestTask.human_attribute_name(:result_kod) + ':'
-.col-xs-8.col-md-1
+.col-xs-8.col-md-2
   = locals[:result_kod]
-
-.hidden-xs.col-sm-12.hidden-md.hidden-lg
-  %b
-    = TestTask.human_attribute_name(:result_values_json) + ':'
-.hidden-xs.col-sm-12.col-md-2
-  = locals[:result_values_json]
-
-.hidden-xs.col-sm-12.hidden-md.hidden-lg
-  %b
-    = TestTask.human_attribute_name(:result_message) + ':'
-.hidden-xs.col-sm-12.col-md-2
-  = locals[:result_message]
-
 
 .col-xs-12.col-md-1.center
   = locals[:do]

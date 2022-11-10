@@ -6,6 +6,7 @@ module UserCabinet
     has_scope :experiment_name
     has_scope :descendant_by_id_sort, default: nil, allow_blank: true
     has_scope :by_id, as: :id
+    has_scope :by_user_id, as: :user
 
     add_breadcrumb TestTask.model_name.human(count: 3), :user_cabinet_test_tasks_path, only: :show
 

@@ -40,7 +40,7 @@ ru:
           new: Новый
           started: Запущен
         result_kod:
-          processed: Выполнен успешно
+          processed: Успешно
           interrupted: Прерван
       user_to_user_group:
         access_right:

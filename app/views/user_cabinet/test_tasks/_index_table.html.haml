@@ -3,11 +3,10 @@
     = render('one_index_row', locals: { id: TestTask.human_attribute_name(:id),
      experiment: TestTask.human_attribute_name(:experiment),
      state: TestTask.human_attribute_name(:state),
+     user: TestTask.human_attribute_name(:user),
      duration: TestTask.human_attribute_name(:duration),
      start_time: TestTask.human_attribute_name(:start_time),
      result_kod: TestTask.human_attribute_name(:result_kod),
-     result_values_json: TestTask.human_attribute_name(:result_values_json),
-     result_message: TestTask.human_attribute_name(:result_message),
      do: I18n.t('some_do') })
 
 - @collection.each do |test_task|
@@ -16,10 +15,9 @@
     = render('one_index_row', locals: { id: test_task.id,
      experiment: test_task.experiment.human_name,
      state: test_task.human_attribute_value(:state),
+     user: test_task.user,
      duration: test_task.duration,
      start_time: test_task.start_time,
      result_kod: test_task.human_attribute_value(:result_kod),
-     result_values_json: test_task.result_values_json,
-     result_message: test_task.result_message,
      do: show_btn })
 

@@ -1,18 +1,24 @@
+# frozen_string_literal: true
+
+# Класс, определяющий попытку запуска теста.
+# Содержит планируемое время запуска, состояние, весь результат
 class TestTask < ApplicationRecord
   # Класс для сохранения задания отданного на исполнение в mbu_selenium
 
   include HumanAttributeValue
 
-  STATE_VALUES = %w[new started completed]
-  RESULT_KOD_VALUES = %w[interrupted processed]
-  FIELD_NAME_VALUES_RELATIONS = { result_kod: RESULT_KOD_VALUES, state: STATE_VALUES }
+  STATE_VALUES = %w[new started completed].freeze
+  RESULT_KOD_VALUES = %w[interrupted processed].freeze
+  FIELD_NAME_VALUES_RELATIONS = { result_kod: RESULT_KOD_VALUES, state: STATE_VALUES }.freeze
 
 
   validates :test_setting_json, :state, presence: :true
   validates :state, inclusion: { in: STATE_VALUES,
-                                 message: "Поле state может содержать значения: #{STATE_VALUES.map{ |item| item.to_s }.join(', ')}. %{value} это не корректное значение" }
+                                 message: "Поле state может содержать значения:
+ #{STATE_VALUES.map(&:to_s).join(', ')}. %{value} это не корректное значение" }
   validates :result_kod, allow_blank: true, inclusion: { in: RESULT_KOD_VALUES,
-                                                         message: "Поле state может содержать значения: #{RESULT_KOD_VALUES.map{ |item| item.to_s }.join(', ')}. %{value} это не корректное значение" }
+                                                         message: "Поле state может содержать значения:
+ #{RESULT_KOD_VALUES.map(&:to_s).join(', ')}. %{value} это не корректное значение" }
 
 
   belongs_to :operation, optional: true
@@ -32,7 +38,7 @@ class TestTask < ApplicationRecord
   scope :by_id, ->(id) { where(id: id) }
 
   def self.options_for_select_type(field_name)
-    FIELD_NAME_VALUES_RELATIONS[field_name].map{|value| [human_attribute_value(field_name, value), value]}
+    FIELD_NAME_VALUES_RELATIONS[field_name].map { |value| [human_attribute_value(field_name, value), value] }
   end
 
   def success?
