@@ -2,6 +2,7 @@
 
 module Functions
   class ElementNotFound < StandardError; end
+
   class TestInterrupted < StandardError; end
 
   FIND_ELEMENT_TIMEOUT = 5
@@ -20,11 +21,12 @@ module Functions
 
     def initialize(hash_attributes = {})
       super(hash_attributes)
-      self.attributes=hash_attributes
+      self.attributes = hash_attributes
     end
 
     def attributes=(hash)
       return unless hash
+
       hash.each do |key, value|
         send("#{key}=", value)
       end
@@ -32,7 +34,7 @@ module Functions
 
     # Список атрибутов для отображения на форме ввода
     def short_attribute_names
-      attribute_names.reject{ |name| SERVICE_FIELDS.include?(name) }
+      attribute_names.reject { |name| SERVICE_FIELDS.include?(name) }
     end
 
     # Возможные значения атрибутов
@@ -53,7 +55,7 @@ module Functions
     # Если в значениях атрибутов используется функция, то перевести в значение функции
     def translate_attributes
       Hash[*attributes.map do |key, value|
-        [key, value.class == String && key != 'file_body' ? translate!(value) : value]
+        [key, value.instance_of?(String) && key != 'file_body' ? translate!(value) : value]
       end.flatten]
     end
 
@@ -63,8 +65,7 @@ module Functions
     def attributes
       { 'human_name' => self.human_name,
         'human_description' => self.human_description,
-        'do' => self.do
-      }
+        'do' => self.do }
     end
 
     # Общий спсиок имён всех атрибутов

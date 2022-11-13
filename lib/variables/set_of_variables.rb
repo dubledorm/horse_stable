@@ -16,21 +16,21 @@ module Variables
 
     def initialize(hash_attributes = {})
       self.variables = {}
-      super
-      self.set_id ||= UUIDTools::UUID.random_create.to_s
+      super(hash_attributes)
+      self.set_id = UUIDTools::UUID.random_create.to_s if set_id.nil? || set_id == ''
     end
 
     # Список атрибутов для сериализации
     def attributes
-      { 'set_id' => self.set_id,
+      { 'set_id' => set_id,
         'human_set_name' => human_set_name,
-        'variables' => variables }
+        'variables' => self.variables }
     end
 
     def attributes=(hash)
       return unless hash
 
-      hash.deep_stringify_keys.each do |key, value|
+      hash.deep_symbolize_keys.each do |key, value|
         send("#{key}=", value)
       end
     end

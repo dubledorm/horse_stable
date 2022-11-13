@@ -68,7 +68,7 @@ module UserCabinet
       get_resource
       raise CanCan::AccessDenied unless can? :add_set_of_variable, @resource
 
-      new_variable_set = Variables::SetOfVariables.new(human_set_name: params['set_of_variables'])
+      new_variable_set = Variables::SetOfVariables.new(params['set_of_variables'])
       if new_variable_set.valid?
         @resource.variables_sets.sets << new_variable_set
         @resource.sets_of_variables_json = @resource.variables_sets.to_json
@@ -148,7 +148,7 @@ module UserCabinet
 
     private
 
-    FIELD_NAMES = %i[human_name human_description categories user_groups project_id].freeze
+    FIELD_NAMES = %i[human_name human_description categories user_groups project_id set_of_variables].freeze
     def experiment_params
       params.required(:experiment).permit(*FIELD_NAMES)
     end
