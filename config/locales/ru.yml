@@ -46,6 +46,9 @@ ru:
       test_environment:
         one: Окружение
         other: Окружения
+      environment_variable:
+        one: Переменная
+        other: Переменные
       some_file:
         one: Файл
         other: Файлы
@@ -219,6 +222,12 @@ ru:
         description: Описание
         project: Проект
         <<: *timestamps
+      environment_variable:
+        id: Ид-р
+        key: Ключ
+        value: Значение
+        test_environment: Окружение
+        <<: *timestamps
     errors:
       aliases:
         _field_errors_alias: &fielderrors
@@ -297,6 +306,10 @@ ru:
         test_environment:
           attributes:
             name:
+              <<: *fielderrors
+        environment_variable:
+          attributes:
+            key:
               <<: *fielderrors
         user:
           attributes:
