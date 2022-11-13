@@ -43,6 +43,9 @@ ru:
       test_task:
         one: Задание
         other: Задания
+      test_environment:
+        one: Окружение
+        other: Окружения
       some_file:
         one: Файл
         other: Файлы
@@ -62,6 +65,7 @@ ru:
         users: Пользователи
         user_groups: Группы
         experiments: Тесты
+        test_environments: Окружения
         created_at: Создан
         updated_at: Изменён
       article:
@@ -209,6 +213,12 @@ ru:
         plan_start_time: Плановое время начала
         user: Пользователь
         project: Проект
+      test_environment:
+        id: Ид-р
+        name: Название
+        description: Описание
+        project: Проект
+        <<: *timestamps
     errors:
       aliases:
         _field_errors_alias: &fielderrors
@@ -284,6 +294,10 @@ ru:
             tag_type:
               blank: Тип тэга должен быть заполнен
               inclusion: Тип тэга может принимать значения ordinal, category
+        test_environment:
+          attributes:
+            name:
+              <<: *fielderrors
         user:
           attributes:
             email:

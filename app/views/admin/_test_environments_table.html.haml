@@ -1,0 +1,16 @@
+.section
+  %table
+    %thead
+      %tr
+        %th
+          = TestEnvironment.human_attribute_name(:name)
+        %th
+          = TestEnvironment.human_attribute_name(:description)
+
+    %tbody
+      - test_environments.each do |test_environment|
+        %tr
+          %td
+            = link_to test_environment.name, admin_test_environment_path(id: test_environment.id)
+          %td
+            = test_environment.description

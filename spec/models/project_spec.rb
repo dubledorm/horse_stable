@@ -14,5 +14,6 @@ RSpec.describe Project, type: :model do
     it { should have_many(:user_groups) }
     it { should have_many(:project_to_users) }
     it { should have_many(:users) }
+    it { should have_many(:test_environments) }
   end
 end

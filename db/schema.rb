@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_25_065643) do
+ActiveRecord::Schema.define(version: 2022_11_13_172158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -259,6 +259,16 @@ ActiveRecord::Schema.define(version: 2022_10_25_065643) do
     t.index ["taggable_id", "taggable_type", "tag_id"], name: "taggable_tag_id"
   end
 
+  create_table "test_environments", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name", "project_id"], name: "index_test_environments_on_name_and_project_id"
+    t.index ["project_id"], name: "index_test_environments_on_project_id"
+  end
+
   create_table "test_tasks", force: :cascade do |t|
     t.text "test_setting_json", null: false
     t.integer "duration"
@@ -346,6 +356,7 @@ ActiveRecord::Schema.define(version: 2022_10_25_065643) do
   add_foreign_key "project_to_users", "users"
   add_foreign_key "some_files", "users"
   add_foreign_key "tags", "users"
+  add_foreign_key "test_environments", "projects"
   add_foreign_key "test_tasks", "experiments"
   add_foreign_key "test_tasks", "operations"
   add_foreign_key "test_tasks", "users"
