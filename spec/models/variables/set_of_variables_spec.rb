@@ -13,7 +13,7 @@ RSpec.describe Variables::SetOfVariables do
 
     it { expect(set1.set_id).to eq('id') }
     it { expect(set1.human_set_name).to eq('name') }
-    it { expect(set1.variables).to eq({var1: 'val1', var2: 'val2'}) }
+    it { expect(set1.variables).to eq({ var1: 'val1', var2: 'val2' }) }
     it { expect(set1.variables[:var2]).to eq('val2') }
 
     it { expect(set2.set_id.length).to eq(36) }
@@ -28,6 +28,7 @@ RSpec.describe Variables::SetOfVariables do
     let(:set1) { Variables::SetOfVariables.new(set_id: 'id', human_set_name: 'name', variables: {var1: 'val1', var2: 'val2'}) }
     let(:json_str) { set1.to_json }
     let(:new_set) { Variables::SetOfVariables.new(JSON.parse(json_str)) }
+    let(:new_set1) { Variables::SetOfVariables.new(JSON.parse(json_example1)) }
 
     it { expect(new_set.set_id).to eq('id') }
     it { expect(new_set.human_set_name).to eq('name') }

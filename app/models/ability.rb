@@ -13,9 +13,13 @@ class Ability
     end
 
     can :manage, User, id: user.id
+    can %i[index show], User
 
     can :manage, SomeFile, user_id: user.id
+
     can :manage, Tag, user_id: user.id
+    can %i[index show], Tag
+
     can :manage, TestTask, user_id: user.id
     can %i[index show], TestTask, project: { project_to_users: { user_id: user.id } }
 
@@ -33,14 +37,14 @@ class Ability
     can %i[index show], Project, project_to_users: { user_id: user.id }
 
     can %i[index show], Experiment, project_to_users: { user_id: user.id, access_right: 'tester' }
-    can %i[index show update destroy update_categories update_groups], Experiment,
+    can %i[index show update destroy update_categories update_groups clone add_set_of_variable], Experiment,
         project_to_users: { user_id: user.id,
                             access_right: 'developer' }
     can :create, Experiment
 
     can %i[index show], ExperimentCase, project_to_users: { user_id: user.id, access_right: 'tester' }
-    can %i[index show update destroy], ExperimentCase, project_to_users: { user_id: user.id,
-                                                                           access_right: 'developer' }
+    can %i[index show update destroy clone], ExperimentCase, project_to_users: { user_id: user.id,
+                                                                                 access_right: 'developer' }
     can :create, ExperimentCase
 
     can %i[index show], Operation, project_to_users: { user_id: user.id, access_right: 'tester' }

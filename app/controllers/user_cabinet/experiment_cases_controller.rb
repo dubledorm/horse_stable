@@ -6,7 +6,7 @@ module UserCabinet
 
     def show
       super do
-        experiment = @resource.experiment
+        experiment = @resource.experiment.decorate
         @last_test_task = experiment.last_test_task(current_user.id)
         add_breadcrumb experiment.human_name, user_cabinet_experiment_path(id: experiment.id)
       end
@@ -15,6 +15,7 @@ module UserCabinet
     def clone
       get_resource
       raise CanCan::AccessDenied unless can? :clone, @resource
+
       experiment_case = @resource.clone
       experiment_case.save!
       redirect_to user_cabinet_experiment_path(id: params[:experiment_id])

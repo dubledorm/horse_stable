@@ -16,7 +16,7 @@
 #experiment_cases_body
   - @resource.experiment_cases.order(:number).each do |experiment_case|
     - row_class = 'ordinal_experiment_case'
-    - row_class = 'failed_experiment_case' if @last_test_task && @last_test_task.result_kod == 'interrupted' && @last_test_task.operation&.experiment_case_id == experiment_case.id
+    - row_class = 'failed_experiment_case' if @resource.last_test_task(current_user) && @resource.last_test_task(current_user).result_kod == 'interrupted' && @resource.last_test_task(current_user).operation&.experiment_case_id == experiment_case.id
     .row{id: "experiment_case_row_#{experiment_case.id}", class: row_experiment_case_class(@last_test_task, experiment_case.id)}
       .col-xs-2.col-md-2
         = experiment_case.number

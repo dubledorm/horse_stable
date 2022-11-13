@@ -14,8 +14,8 @@ class TestTaskDecorator < Draper::Decorator
     FIELD_NAME_VALUES_RELATIONS[field_name].map { |value| [human_attribute_value(field_name, value), value] }
   end
 
-  def self.options_for_select_user
-    User.all.map { |user| [user.to_s, user.id] }
+  def self.options_for_select_user(current_ability)
+    User.accessible_by(current_ability).sort_by(&:email).map { |user| [user.to_s, user.id] }
   end
 
   def state

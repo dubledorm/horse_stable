@@ -9,7 +9,8 @@
     - tabs_array << { tabId: 'experiment_new_variable_set', tabName: '+' }
     -# = react_component('experiments/TabSelectorPanel', { fieldObjects: tabs_array, activeTabId: tabs_array.first[:tabId] })
 
-  #experiment_new_variable_set{ tabs_array.count > 1 ? {class: :hidden} : {} }
+  #experiment_new_variable_set
+    -#{ tabs_array.count > 1 ? {class: :hidden} : {} }
     = react_component('experiments/SetOfVariablesEditForm', variable_editor_options(nil))
     -# = form_with(model: [@resource, Variables::SetOfVariables], local: true, url: add_set_of_variable_user_cabinet_experiment_path(id: @resource.id), method: :post) do |f|
     -#   .form-group.required

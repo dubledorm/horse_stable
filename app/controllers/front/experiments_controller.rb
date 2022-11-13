@@ -10,7 +10,7 @@ module Front
 
     # Возвращает последний результат эксперимента
     def experiment_last_result
-      experiment = get_experiment
+      experiment = get_experiment&.decorate
       url_screen_shot = ''
       url_screen_shot_preview = ''
       last_test_task = experiment.last_test_task(params.required(:user_id))
@@ -41,7 +41,8 @@ module Front
     def last_test_task_experiment_case(last_test_task)
       return unless last_test_task
       return unless last_test_task.result_kod == 'interrupted'
-      return last_test_task.operation&.experiment_case_id
+
+      last_test_task.operation&.experiment_case_id
     end
 
     def get_experiment

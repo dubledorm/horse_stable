@@ -7,7 +7,6 @@ module VariableEditHelper
       submit_button_text: I18n.t('send'),
       cancel_button_text: I18n.t('cancel'),
       edit_button_text: I18n.t('edit'),
-      edit_mode: true
-    }
+      edit_mode: true }
   end
 end

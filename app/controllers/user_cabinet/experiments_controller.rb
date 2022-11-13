@@ -16,10 +16,17 @@ module UserCabinet
 
     def show
       super do
-        @last_test_task = @resource.last_test_task(current_user.id)
-        @last_task_list = @resource.last_test_tasks(current_user.id, 5)
-        @started_task_list = @resource.test_tasks.state(:started).limit(5)
-        @query_task_list = @resource.test_tasks.state(:new).limit(5)
+        @resource = @resource.decorate
+        #  @last_test_task = @resource.last_test_task(current_user.id)
+        #@last_task_list = @resource.last_test_tasks(current_user.id)
+        #@started_task_list = @resource.test_tasks.state(:started).limit(5)
+        #@query_task_list = @resource.test_tasks.state(:new).limit(5)
+      end
+    end
+
+    def index
+      super do
+        @collection = ExperimentDecorator.decorate_collection(@collection)
       end
     end
 
@@ -48,9 +55,9 @@ module UserCabinet
 
     def update
       super do
-        @resource.update(experiment_params)
+        @resource.update(experiment_decorator_params)
         if @resource.errors.count.zero?
-          render json: attributes_mask_to_json(@resource, experiment_params),  status: :ok
+          render json: attributes_mask_to_json(@resource, experiment_decorator_params), status: :ok
         else
           render json: @resource.errors.full_messages.join(', '), status: :unprocessable_entity
         end
@@ -60,21 +67,24 @@ module UserCabinet
     def add_set_of_variable
       get_resource
       raise CanCan::AccessDenied unless can? :add_set_of_variable, @resource
+
       new_variable_set = Variables::SetOfVariables.new(human_set_name: params['set_of_variables'])
       if new_variable_set.valid?
         @resource.variables_sets.sets << new_variable_set
         @resource.sets_of_variables_json = @resource.variables_sets.to_json
         @resource.save
         render json: {}, status: 200
+      else
+        render json: new_variable_set.errors.full_messages.join(', '), status: :unprocessable_entity
       end
-      render json: new_variable_set.errors.full_messages.join(', '), status: :unprocessable_entity
     end
 
     def update_categories
       get_resource
-      raise CanCan::AccessDenied unless can? :update_categories, @resource
+      #    raise CanCan::AccessDenied unless can? :update_categories, @resource
 
-      new_categories = ExperimentCategoryPresenter.new.from_json_string(experiment_params[:categories]).categories
+      new_categories = ExperimentCategoryPresenter.new.from_json_string(experiment_decorator_params[:categories])
+                                                  .categories
       old_categories = ExperimentCategoryPresenter.new.from_experiment(@resource).categories
 
       (old_categories - new_categories).each do |category|
@@ -94,7 +104,8 @@ module UserCabinet
       get_resource
       raise CanCan::AccessDenied unless can? :update_groups, @resource
 
-      new_user_groups = ExperimentGroupPresenter.new(current_ability).from_json_string(experiment_params[:user_groups]).groups
+      new_user_groups = ExperimentGroupPresenter.new(current_ability).from_json_string(experiment_decorator_params[:user_groups])
+                                                .groups
       old_user_groups = ExperimentGroupPresenter.new(current_ability).from_experiment(@resource).groups
 
       (old_user_groups - new_user_groups).each do |user_group|
@@ -128,15 +139,22 @@ module UserCabinet
     def clone
       get_resource
       raise CanCan::AccessDenied unless can? :clone, @resource
+
       experiment = @resource.clone
       experiment.human_name = "#{experiment.human_name} (#{I18n.t('this_is_the_copy')})"
       experiment.save!
       redirect_to user_cabinet_experiments_path
     end
+
     private
 
+    FIELD_NAMES = %i[human_name human_description categories user_groups project_id].freeze
     def experiment_params
-      params.required(:experiment).permit(:human_name, :human_description, :categories, :user_groups, :project_id)
+      params.required(:experiment).permit(*FIELD_NAMES)
+    end
+
+    def experiment_decorator_params
+      params.required(:experiment_decorator).permit(*FIELD_NAMES)
     end
 
     def menu_action_items

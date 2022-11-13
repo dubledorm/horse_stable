@@ -13,7 +13,7 @@
 
   .col-md-2.form-group
     = f.label(TestTask.human_attribute_name(:user))
-    = f.select(:user, TestTaskDecorator.options_for_select_user, { include_blank: true, selected: params[:user] }, class: 'form-control')
+    = f.select(:user, TestTaskDecorator.options_for_select_user(current_ability), { include_blank: true, selected: params[:user] }, class: 'form-control')
 
   .col-md-2.form-group
     = f.label(TestTask.human_attribute_name(:result_kod))
