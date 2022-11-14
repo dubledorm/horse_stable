@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :environment_variable, class: EnvironmentVariable do |au|
     sequence(:key) { |n| "key#{n}" }
     sequence(:value) { |n| "value#{n}" }
-    test_environment
+    experiment_test_environment
   end
 end

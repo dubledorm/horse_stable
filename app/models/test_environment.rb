@@ -7,7 +7,7 @@ class TestEnvironment < ApplicationRecord
   validates :name, uniqueness: { scope: :project }
 
   belongs_to :project
-  has_many :environment_variables
+  has_many :experiment_test_environments
 
   def to_s
     name

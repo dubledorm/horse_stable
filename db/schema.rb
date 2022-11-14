@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_13_191526) do
+ActiveRecord::Schema.define(version: 2022_11_14_183911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,13 +112,13 @@ ActiveRecord::Schema.define(version: 2022_11_13_191526) do
   end
 
   create_table "environment_variables", force: :cascade do |t|
-    t.bigint "test_environment_id", null: false
     t.string "key"
     t.string "value"
+    t.bigint "experiment_test_environment_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["key", "test_environment_id"], name: "index_environment_variables_on_key_and_test_environment_id"
-    t.index ["test_environment_id"], name: "index_environment_variables_on_test_environment_id"
+    t.index ["experiment_test_environment_id"], name: "index_environment_variables_on_experiment_test_environment_id"
+    t.index ["key", "experiment_test_environment_id"], name: "key_for_environment_index"
   end
 
   create_table "experiment_cases", force: :cascade do |t|
@@ -132,6 +132,15 @@ ActiveRecord::Schema.define(version: 2022_11_13_191526) do
     t.index ["experiment_id"], name: "index_experiment_cases_on_experiment_id"
     t.index ["number"], name: "index_experiment_cases_on_number"
     t.index ["user_id"], name: "index_experiment_cases_on_user_id"
+  end
+
+  create_table "experiment_test_environments", force: :cascade do |t|
+    t.bigint "experiment_id", null: false
+    t.bigint "test_environment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["experiment_id"], name: "index_experiment_test_environments_on_experiment_id"
+    t.index ["test_environment_id"], name: "index_experiment_test_environments_on_test_environment_id"
   end
 
   create_table "experiment_to_user_groups", force: :cascade do |t|
@@ -354,9 +363,11 @@ ActiveRecord::Schema.define(version: 2022_11_13_191526) do
   add_foreign_key "articles", "users"
   add_foreign_key "blogs", "galleries"
   add_foreign_key "blogs", "users"
-  add_foreign_key "environment_variables", "test_environments"
+  add_foreign_key "environment_variables", "experiment_test_environments"
   add_foreign_key "experiment_cases", "experiments"
   add_foreign_key "experiment_cases", "users"
+  add_foreign_key "experiment_test_environments", "experiments"
+  add_foreign_key "experiment_test_environments", "test_environments"
   add_foreign_key "experiment_to_user_groups", "experiments"
   add_foreign_key "experiment_to_user_groups", "user_groups"
   add_foreign_key "experiments", "projects"

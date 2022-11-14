@@ -13,6 +13,7 @@ RSpec.describe Experiment, type: :model do
     it { should have_many(:experiment_cases) }
     it { should have_many(:operations) }
     it { should have_many(:user_groups) }
+    it { should have_many(:experiment_test_environments) }
   end
 
   describe 'serialialization' do

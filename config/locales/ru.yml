@@ -307,6 +307,11 @@ ru:
           attributes:
             name:
               <<: *fielderrors
+        experiment_test_environment:
+          attributes:
+            test_environment:
+              <<: *fielderrors
+              unallowable_project: Неразрешённое окружение для данного эксперимента
         environment_variable:
           attributes:
             key:
