@@ -46,4 +46,10 @@ class ExperimentDecorator < Draper::Decorator
   def test_environments
     experiment_test_environments
   end
+
+  def options_for_select_environments
+    ExperimentTestEnvironmentsCollectionDecorator.decorate(experiment_test_environments).map do |environment|
+      [environment.name, environment.id]
+    end
+  end
 end

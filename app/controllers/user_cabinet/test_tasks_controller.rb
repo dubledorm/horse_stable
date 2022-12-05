@@ -25,10 +25,15 @@ module UserCabinet
     def create
       super do
         experiment = Experiment.find(params.required(:test_task).required(:experiment_id))
+        environment = nil
+        unless params.dig(:test_task, :environment_id).empty?
+          environment = ExperimentTestEnvironment.find(params.dig(:test_task,:environment_id))
+        end
         @resource = TestTask.create(test_setting_json: experiment.as_json(functions_translate: true).to_json,
                                     plan_start_time: DateTime.now,
                                     state: :new,
                                     experiment: experiment,
+                                    environment_json: environment ? environment.decorate.to_json : '',
                                     user: current_user)
         unless @resource.persisted?
           render 'errors/500'
