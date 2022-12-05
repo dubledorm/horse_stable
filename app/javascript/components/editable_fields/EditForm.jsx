@@ -27,7 +27,7 @@ class EditForm extends React.Component {
     onSubmit(){
         this.props.onToggleSpinner(true);
         $.ajax({
-            type: "PUT",
+            type: this.props.request_type == undefined ? "PUT" : this.props.request_type,
             url: this.props.url,
             dataType: "json",
             data: { [this.props.resource_class]: { [this.props.field_name]: this.input.current.value }},
@@ -126,7 +126,8 @@ EditForm.propTypes = {
     onChangeMode: PropTypes.func,
     onToggleSpinner: PropTypes.func,
     edit_element_type: PropTypes.string,
-    values: PropTypes.string
+    values: PropTypes.string,
+    request_type: PropTypes.string
 };
 
 export default EditForm

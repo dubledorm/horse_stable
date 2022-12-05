@@ -48,6 +48,8 @@ ru:
         attribute_hint: Имя атрибута, значение которого хотим проверить
         value: Значение атрибута
         value_hint: Значение, которое должен иметь атрибут
+        strictly: Точное соответствие
+        strictly_hint: Да - точное сравнение, Нет - искать значение как подстроку в атрибуте
       functions/read_attribute:
         <<: *fields_selector
         attribute_name: Имя атрибута

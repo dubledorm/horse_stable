@@ -193,7 +193,7 @@ RSpec.describe Front::ExperimentsController, type: :request do
                                                 'experiment_case_id' => nil,
                                                 'id' => test_task2.id,
                                                 'result_kod' => 'processed',
-                                                'translated_result_kod' => 'Выполнен успешно',
+                                                'translated_result_kod' => 'Успешно',
                                                 'result_message' => nil,
                                                 'result_values_json' => {},
                                                 'start_time' => test_task2.start_time.to_s,
@@ -266,7 +266,7 @@ RSpec.describe Front::ExperimentsController, type: :request do
                                                                      'start_time' => test_task2.start_time.to_s,
                                                                      'state' => 'Выполнен',
                                                                      'result_kod' => 'processed',
-                                                                     'translated_result_kod' => 'Выполнен успешно' },
+                                                                     'translated_result_kod' => 'Успешно' },
                                                                    { 'id' => test_task4.id,
                                                                      'start_time' => test_task4.start_time.to_s,
                                                                      'state' => 'Запущен',
@@ -277,6 +277,36 @@ RSpec.describe Front::ExperimentsController, type: :request do
                                                                      'state' => 'Новый',
                                                                      'result_kod' => nil,
                                                                      'translated_result_kod' => nil }])
+      }
+    end
+  end
+
+  describe 'experiment_test_environments#' do
+    context 'when test_environments does not exist' do
+      let(:experiment) { FactoryGirl.create :experiment }
+      let(:subject) { get(front_experiment_test_environments_path, params: { id: experiment.id }) }
+
+      before :each do
+        subject
+      end
+
+      it { expect(response).to have_http_status(200) }
+      it {
+        expect(JSON.parse(response.body)).to eq([])
+      }
+    end
+
+    context 'when test_environments exists' do
+      let(:experiment) { FactoryGirl.create :experiment }
+      let(:subject) { get(front_experiment_test_environments_path, params: { id: experiment.id }) }
+
+      before :each do
+        subject
+      end
+
+      it { expect(response).to have_http_status(200) }
+      it {
+        expect(JSON.parse(response.body)).to eq([])
       }
     end
   end

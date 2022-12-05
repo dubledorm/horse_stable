@@ -79,4 +79,67 @@ RSpec.describe ExperimentTestEnvironment, type: :model do
       it { expect(experiment_test_environment).to be_invalid }
     end
   end
+
+  describe 'variables' do
+    let(:experiment_test_environment) { FactoryGirl.create :experiment_test_environment }
+
+    it { expect(experiment_test_environment.environment_variables.count).to eq(0) }
+
+    context 'when add two variables' do
+      before :each do
+        experiment_test_environment.environment_variables << EnvironmentVariable.new(key: 'key1', value: 'value1')
+        experiment_test_environment.environment_variables << EnvironmentVariable.new(key: 'key2', value: 'value2')
+      end
+
+      it { expect(experiment_test_environment.environment_variables.count).to eq(2) }
+    end
+  end
+
+  describe 'serialize to json' do
+    context 'when serialize on object' do
+      let(:experiment_test_environment) { FactoryGirl.create :experiment_test_environment }
+      before :each do
+        experiment_test_environment.environment_variables << EnvironmentVariable.new(key: 'key1', value: 'value1')
+        experiment_test_environment.environment_variables << EnvironmentVariable.new(key: 'key2', value: 'value2')
+      end
+
+      it { expect(experiment_test_environment.environment_variables.count).to eq(2) }
+      it { puts(JSON.parse(experiment_test_environment.decorate.to_json)) }
+      it { expect(JSON.parse(experiment_test_environment.decorate.to_json)['environment_variables'].count).to eq(2) }
+    end
+
+    context 'when serialize collection' do
+      let(:experiment_test_environment1) { FactoryGirl.create :experiment_test_environment }
+      let(:experiment_test_environment2) { FactoryGirl.create :experiment_test_environment }
+      let(:experiment) { FactoryGirl.create :experiment }
+      before :each do
+        experiment_test_environment1.environment_variables << EnvironmentVariable.new(key: 'key11', value: 'value11')
+        experiment_test_environment1.environment_variables << EnvironmentVariable.new(key: 'key12', value: 'value12')
+        experiment_test_environment2.environment_variables << EnvironmentVariable.new(key: 'key21', value: 'value21')
+        experiment_test_environment2.environment_variables << EnvironmentVariable.new(key: 'key22', value: 'value22')
+        experiment.experiment_test_environments << experiment_test_environment1
+        experiment.experiment_test_environments << experiment_test_environment2
+      end
+
+      # it { puts(ExperimentTestEnvironmentsCollectionDecorator.decorate(experiment.experiment_test_environments).to_json) }
+      # it { puts(ExperimentTestEnvironmentDecorator.decorate_collection(experiment.experiment_test_environments).to_json) }
+
+      it {
+        expect(JSON.parse(ExperimentTestEnvironmentsCollectionDecorator
+                               .decorate(experiment.experiment_test_environments)
+                               .to_json)[0]['environment_variables'][0]['key']).to eq('key11')
+      }
+      it {
+        expect(JSON.parse(ExperimentTestEnvironmentsCollectionDecorator
+                            .decorate(experiment.experiment_test_environments)
+                            .to_json)[1]['environment_variables'][1]['value']).to eq('value22')
+      }
+      it {
+        expect(JSON.parse(ExperimentTestEnvironmentsCollectionDecorator
+                            .decorate(experiment.experiment_test_environments)
+                            .to_json)[0]['name']).to eq(experiment_test_environment1.test_environment.name)
+      }
+
+    end
+  end
 end

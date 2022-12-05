@@ -18,7 +18,7 @@ class ExperimentTestEnvironment < ApplicationRecord
 
   has_one :test_environment_project, class_name: 'Project', through: :test_environment, source: :project
   has_one :experiment_project, class_name: 'Project', through: :experiment, source: :project
-  has_many :environment_variables
+  has_many :environment_variables, dependent: :destroy
 
   validates :test_environment, uniqueness: { scope: :experiment }
   validates_with ExperimentTestEnvironmentValidator

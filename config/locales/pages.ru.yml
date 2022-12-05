@@ -70,7 +70,9 @@ ru:
       tags_list:
         title: Тэги
       variable_list:
-        title: Список переменных
+        title: Доступные окружения
+        add_environment_name: Окружение
+        add_environment_hint: Выберите окружение из списка
       test_panel:
         add_experiment_case: Добавить
       run_experiment:

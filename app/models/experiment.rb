@@ -16,7 +16,7 @@ class Experiment < ApplicationRecord
   has_many :test_tasks, dependent: :destroy
   has_many :experiment_to_user_groups, dependent: :destroy
   has_many :user_groups, through: :experiment_to_user_groups
-  has_many :experiment_test_environments
+  has_many :experiment_test_environments, dependent: :destroy
 
   validates :state, :human_name, presence: :true
   validates :state, inclusion: { in: STATE_VALUES,

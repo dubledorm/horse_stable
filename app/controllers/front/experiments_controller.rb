@@ -10,7 +10,7 @@ module Front
 
     # Возвращает последний результат эксперимента
     def experiment_last_result
-      experiment = get_experiment&.decorate
+      experiment = get_experiment.decorate
       url_screen_shot = ''
       url_screen_shot_preview = ''
       last_test_task = experiment.last_test_task(params.required(:user_id))
@@ -61,11 +61,12 @@ module Front
         .test_tasks
         .by_user_id(params.required(:user_id))
         .descendant_sort.limit(5)
-        .map do |test_task| { id: test_task.id,
-                              start_time: test_task.start_time.to_s,
-                              state: test_task.human_attribute_value(:state),
-                              result_kod: test_task.result_kod,
-                              translated_result_kod: test_task.human_attribute_value(:result_kod) }
+        .map do |test_task|
+          { id: test_task.id,
+            start_time: test_task.start_time.to_s,
+            state: test_task.human_attribute_value(:state),
+            result_kod: test_task.result_kod,
+            translated_result_kod: test_task.human_attribute_value(:result_kod) }
         end
     end
   end

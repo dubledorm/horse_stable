@@ -303,6 +303,8 @@ ru:
             tag_type:
               blank: Тип тэга должен быть заполнен
               inclusion: Тип тэга может принимать значения ordinal, category
+            user:
+              <<: *fielderrors
         test_environment:
           attributes:
             name:

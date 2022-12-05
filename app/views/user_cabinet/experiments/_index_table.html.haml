@@ -2,7 +2,6 @@
   %b
     = render('one_index_row', locals: { id: Experiment.human_attribute_name(:id),
      human_name: Experiment.human_attribute_name(:human_name),
-     human_description: Experiment.human_attribute_name(:human_description),
      state: Experiment.human_attribute_name(:state),
      project: Experiment.human_attribute_name(:project),
      user: Experiment.human_attribute_name(:user),
@@ -14,7 +13,6 @@
   .row.table_row
     = render('one_index_row', locals: { id: experiment.id,
      human_name: experiment.human_name,
-     human_description: experiment.human_description,
      state: experiment.human_attribute_value(:state),
      user: experiment.user.email,
      project: experiment.project.name,

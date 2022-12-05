@@ -24,7 +24,7 @@ class ExperimentDecorator < Draper::Decorator
   end
 
   def self.options_for_select_category(current_ability)
-    Tag.accessible_by(current_ability).category.sort_by(&:title).map { |category| [category.name, category.title] }
+    Tag.accessible_by(current_ability).category.sort_by(&:title).map { |category| [category.title, category.name] }
   end
 
   def last_test_task(user_id)
@@ -37,5 +37,13 @@ class ExperimentDecorator < Draper::Decorator
 
   def started_test_tasks(user_id)
     object.test_tasks.by_user_id(user_id).state(:started).limit(SIZE_TASK_LIST)
+  end
+
+  def allowed_test_environments
+    project.test_environments
+  end
+
+  def test_environments
+    experiment_test_environments
   end
 end

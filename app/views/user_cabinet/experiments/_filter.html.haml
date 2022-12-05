@@ -6,19 +6,16 @@
     .col-md-3.form-group
       = f.label(Experiment.human_attribute_name(:human_name))
       = f.text_field(:human_name, class: 'form-control', value: params[:human_name])
-    .col-md-5.form-group
-      = f.label(Experiment.human_attribute_name(:human_description))
-      = f.text_field(:human_description, class: 'form-control', value: params[:human_description])
     .col-md-2.form-group
       = f.label(Experiment.human_attribute_name(:state))
       = f.select(:state, ExperimentDecorator.options_for_select_type(:state), { include_blank: true, selected: params[:state] }, class: 'form-control')
-  .row
-    .col-md-2.form-group
+    .col-md-3.form-group
       = f.label(Experiment.human_attribute_name(:user))
       = f.select(:user, ExperimentDecorator.options_for_select_user(current_ability), { include_blank: true, selected: params[:user] }, class: 'form-control')
     .col-md-2.form-group
       = f.label(I18n.t('category'))
       = f.select(:category, ExperimentDecorator.options_for_select_category(current_ability), { include_blank: true, selected: params[:category] }, class: 'form-control')
+  .row
     .col-md-4.form-group
       = f.label(Experiment.human_attribute_name(:project))
       = f.select(:project_id, ExperimentDecorator.options_for_select_project(current_ability), { include_blank: true, selected: params[:project_id] }, class: 'form-control')
