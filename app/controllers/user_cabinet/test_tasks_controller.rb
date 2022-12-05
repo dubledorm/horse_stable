@@ -27,7 +27,7 @@ module UserCabinet
         experiment = Experiment.find(params.required(:test_task).required(:experiment_id))
         environment = nil
         unless params.dig(:test_task, :environment_id).empty?
-          environment = ExperimentTestEnvironment.find(params.dig(:test_task,:environment_id))
+          environment = ExperimentTestEnvironment.find(params.dig(:test_task, :environment_id))
         end
         @resource = TestTask.create(test_setting_json: experiment.as_json(functions_translate: true).to_json,
                                     plan_start_time: DateTime.now,

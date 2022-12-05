@@ -26,10 +26,10 @@ module Api
       Rails.logger.debug('get_task')
 
       task = TestTask::FindNewJob.find
-
       if task.present?
         result = { job_status: :job,
                    job_id: task.id,
+                   environment_json: task.environment_json,
                    test: JSON.parse(task.test_setting_json).symbolize_keys }
         task.update!(state: 'started', start_time: Time.now)
         ExperimentChannel.broadcast_to 'ExperimentChannel', { experiment_id: task.experiment_id }
