@@ -82,6 +82,7 @@ class TestEnvironmentsEditForm extends React.Component {
         return (
             <div className="rc-test-environments-form">
                 <FieldTitle name={this.props.name_title}
+                            control={'plus'}
                             onChangeMode={this.onChangeModeHandler}
                             read_only={this.props.read_only}
                             spinner={this.state.spinner} />

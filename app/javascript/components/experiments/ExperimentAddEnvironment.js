@@ -7,20 +7,14 @@ class ExperimentAddEnvironment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            spinner: false,
-            add_environment: false
+            spinner: false
         }
-        this.onAddEnvironment = this.onAddEnvironment.bind(this);
         this.onChangeModeHandler = this.onChangeModeHandler.bind(this);
         this.onChangeValueHandler = this.onChangeValueHandler.bind(this);
     }
 
-    onAddEnvironment() {
-        this.setState({add_environment: true});
-    }
 
-    onChangeModeHandler(edit_mode) {
-        this.setState({add_environment: edit_mode});
+    onChangeModeHandler() {
         this.props.onChangeMode(false);
     }
 
@@ -29,30 +23,21 @@ class ExperimentAddEnvironment extends React.Component {
     }
 
     render() {
-        let context;
-        if (this.state.add_environment) {
-                context = <EditForm submit_button_text={this.props.submit_button_text}
-                                    cancel_button_text={this.props.cancel_button_text}
-                                    field_name={this.props.field_name}
-                                    field_hint={this.props.field_hint}
-                                    resource_class={this.props.resource_class}
-                                    start_value=''
-                                    values={this.props.environments}
-                                    url={this.props.url}
-                                    onChangeValue={this.onChangeValueHandler}
-                                    onChangeMode={this.onChangeModeHandler}
-                                    onToggleSpinner={this.props.onToggleSpinner}
-                                    edit_element_type='drop_down_list'
-                                    request_type='POST' />;
-        } else {
-            context =
-                <div className="rc-test-environments-form-content">
-                    <BtnPrimary onClickHandler={this.onAddEnvironment}>+</BtnPrimary>
-                </div>
-        }
         return (
             <React.Fragment>
-                {context}
+                <EditForm submit_button_text={this.props.submit_button_text}
+                          cancel_button_text={this.props.cancel_button_text}
+                          field_name={this.props.field_name}
+                          field_hint={this.props.field_hint}
+                          resource_class={this.props.resource_class}
+                          start_value=''
+                          values={this.props.environments}
+                          url={this.props.url}
+                          onChangeValue={this.onChangeValueHandler}
+                          onChangeMode={this.onChangeModeHandler}
+                          onToggleSpinner={this.props.onToggleSpinner}
+                          edit_element_type='drop_down_list'
+                          request_type='POST' />
             </React.Fragment>);
     }
 }
