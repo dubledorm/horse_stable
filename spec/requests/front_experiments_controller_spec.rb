@@ -284,7 +284,7 @@ RSpec.describe Front::ExperimentsController, type: :request do
   describe 'experiment_test_environments#' do
     context 'when test_environments does not exist' do
       let(:experiment) { FactoryGirl.create :experiment }
-      let(:subject) { get(front_experiment_test_environments_path, params: { id: experiment.id }) }
+      let(:subject) { get(front_experiment_experiment_test_environments_path(experiment_id: experiment.id)) }
 
       before :each do
         subject
@@ -297,8 +297,9 @@ RSpec.describe Front::ExperimentsController, type: :request do
     end
 
     context 'when test_environments exists' do
-      let(:experiment) { FactoryGirl.create :experiment }
-      let(:subject) { get(front_experiment_test_environments_path, params: { id: experiment.id }) }
+      let!(:experiment) { FactoryGirl.create :experiment }
+      let!(:experiment_test_environment1) { FactoryGirl.create :experiment_test_environment, experiment: experiment}
+      let(:subject) { get(front_experiment_experiment_test_environments_path(experiment_id: experiment.id)) }
 
       before :each do
         subject

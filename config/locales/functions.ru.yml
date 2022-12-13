@@ -18,6 +18,7 @@ ru:
       functions/set_variable: Установить значение переменной
       functions/if_exists: Прервать шаг теста если существует элемент
       functions/switch_to_frame: Переключиться на iframe
+      functions/http_request: Http запрос
 
     attributes:
       aliases:
@@ -118,6 +119,21 @@ ru:
         value_hint: По умолчанию - 0. Если вводится число, то будет подставляться как порядковый номер iframe на странице. Иначе будет пониматься как значение атрибута name
         to_default_frame: Вернуться в корневой iframe
         to_default_frame_hint: Если установлено в значение true, то вернуться в корневой iframe. Значние в поле 'Номер или имя' в этом случае значения не играют.
+      functions/http_request:
+        url: Url запроса
+        url_hint: 'Вводится в формате http(s)://АдресИлиИмя:Порт'
+        request_type: Тип запроса
+        request_type_hint: 'Возможные типы: Get, Post, Put, Patch, Delete'
+        request_header_json: Параметры заголовка запроса
+        request_header_json_hint: 'Если необходимо, то можно указать, например content-type: application/json'
+        request_body: Тело запроса
+        request_body_hint: Вводится, если у запроса в принципе есть тело
+        result_selector_json: Обработка результата запроса
+        result_selector_json_hint: В какие перменные и что взять из ответа на запрос
+        only_response_200: Прервать если не 200
+        only_response_200_hint: Останавливать тест если запрос вернул статус не 200. По умолчанию false
+        response_status_variable: Переменная для статуса
+        response_status_variable_hint: Укажите переменную в которую будет сохранён статус ответа. Необязательный параметр.
     errors:
       aliases:
         _field_errors_alias: &fielderrors

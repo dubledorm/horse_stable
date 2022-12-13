@@ -1,8 +1,8 @@
 module FunctionHelper
   def function_editor_options(resource, read_only = false)
     function = Functions::Factory.build!(resource.send(:function_name).to_s,
-                              JSON.parse(resource.operation_json || '{}'))
-    attr_array = function.short_attribute_names.map{|name| [name, function.send(name)]}
+                                         JSON.parse(resource.operation_json || '{}'))
+    attr_array = function.short_attribute_names.map { |name| [name, function.send(name)] }
     attr_hash = Hash[*attr_array.flatten]
 
     { name: :function_name,

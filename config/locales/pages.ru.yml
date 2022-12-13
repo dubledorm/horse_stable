@@ -10,6 +10,14 @@ ru:
         social: Совместная работа
         groups: Группы
         categories: Категории
+        documentation: Документация
+  documentation:
+    index:
+      title: Документация
+      title_hint: Описание операций и функций, статьи, переписка
+    index_right_column:
+      search_here: Найти
+      recent_comments: Полученные комментарии
   user_cabinet:
     user_groups:
       new:

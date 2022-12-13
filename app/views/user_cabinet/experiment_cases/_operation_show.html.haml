@@ -6,9 +6,7 @@
   .col-xs-4.col-md-3
     = locals[:operation].function_name
   .hidden-xs.col-md-5
-    - JSON.parse(locals[:operation].operation_json || '{}').each do |item|
-      .row
-        = item
+    = locals[:operation].to_html
   .col-xs-2.col-md-1
     = link_to user_cabinet_operation_path(id: locals[:operation].id) do
       %i.fa.fa-edit.rc-fa-edit

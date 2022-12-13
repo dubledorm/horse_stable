@@ -11,6 +11,7 @@ module Functions
   class Base
     include ActiveModel::Model
     include ActiveModel::Serializers::JSON
+    include Draper::Decoratable
 
     attr_accessor :human_name, :human_description, :do
 

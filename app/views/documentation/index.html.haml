@@ -1,0 +1,31 @@
+%section#blog.container
+  .center
+    %h2= t('.title')
+    %p.lead= t('.title_hint')
+  .blog
+    .row
+      .col-md-8
+        = render('index_blog_item')
+        = render('index_blog_item')
+        %ul.pagination.pagination-lg
+          %li
+            %a{href: "#"}
+              %i.fa.fa-long-arrow-left>
+              Previous Page
+          %li.active
+            %a{href: "#"} 1
+          %li
+            %a{href: "#"} 2
+          %li
+            %a{href: "#"} 3
+          %li
+            %a{href: "#"} 4
+          %li
+            %a{href: "#"} 5
+          %li
+            %a{href: "#"}
+              Next Page
+              %i.fa.fa-long-arrow-right
+        / /.pagination
+      / /.col-md-8
+      = render('index_right_column')

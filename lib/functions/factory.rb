@@ -18,10 +18,11 @@ module Functions
                       'alert_control' => Functions::AlertControl,
                       'set_variable' => Functions::SetVariable,
                       'if_exists' => Functions::IfExists,
-                      'switch_to_frame' => Functions::SwitchToFrame
+                      'switch_to_frame' => Functions::SwitchToFrame,
+                      'http_request' => Functions::HttpRequest
     }.freeze
 
-    class FunctionBuildError < StandardError; end;
+    class FunctionBuildError < StandardError; end
 
     def self.build!(function_name, hash_attributes = {})
       function_class = NAME_TO_CLASS[function_name]
@@ -32,6 +33,10 @@ module Functions
 
     def self.options_for_select
       NAME_TO_CLASS.inject([]){ |result, item| result << [item[1].model_name.human, item[0]]}
+    end
+
+    def self.function_name_to_human(function_name)
+      NAME_TO_CLASS[function_name].model_name.human
     end
   end
 end

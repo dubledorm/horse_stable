@@ -2,6 +2,7 @@ module Functions
   class ReadAttribute < BaseSelector
 
     attr_accessor :attribute_name, :save_as
+
     validates :attribute_name, :save_as, presence: true
 
     def self.attribute_values

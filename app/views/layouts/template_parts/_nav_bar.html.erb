@@ -40,7 +40,7 @@
             <li><a href="blog-item.html"><%=t('.by_test_tasks') %></a></li>
           </ul>
         </li>
-        <li><a href="blog.html">Blog</a></li>
+        <li class="<%= active_menu_item('documentation') %>"><%= link_to(t('.documentation'), documentation_path) %></li>
         <li><a href="contact-us.html">Contact</a></li>
       </ul>
     </div>

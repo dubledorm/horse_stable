@@ -10,7 +10,7 @@
   = render('operation_title')
   - @resource.operations.check.each do |operation|
     .operation
-      = render('operation_show', locals: { operation: operation })
+      = render('operation_show', locals: { operation: operation.decorate })
   %div
     = render('add_operation_button', locals: { operation_type: 'check' })
 .type_operations_block
@@ -19,7 +19,7 @@
   = render('operation_title')
   - @resource.operations.do.each do |operation|
     .operation
-      = render('operation_show', locals: { operation: operation })
+      = render('operation_show', locals: { operation: operation.decorate })
   %div
     = render('add_operation_button', locals: { operation_type: 'do' })
 .type_operations_block
@@ -28,6 +28,6 @@
   = render('operation_title')
   - @resource.operations.next.each do |operation|
     .operation
-      = render('operation_show', locals: { operation: operation })
+      = render('operation_show', locals: { operation: operation.decorate })
   %div
     = render('add_operation_button', locals: { operation_type: 'next' })

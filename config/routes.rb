@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'documentation', to: 'documentation#index', as: 'documentation'
+
 #  authenticated(:user) do
 
   resource :user_profile, only: %i[show update], controller: 'user_profile/users', as: :user_profile
