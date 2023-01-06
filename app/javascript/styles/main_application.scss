@@ -237,3 +237,10 @@ a.btn-cancel {
 .control_buttons_container a {
     margin-left: 10px;
 }
+
+/* Обрезать строку, поставить в конце ... */
+.truncate {
+    white-space: nowrap; /* Отменяем перенос текста */
+    overflow: hidden; /* Обрезаем содержимое */
+    text-overflow: ellipsis; /* Многоточие */
+}

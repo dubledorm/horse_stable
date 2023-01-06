@@ -11,7 +11,7 @@ module Functions
     protected
 
     def attributes
-      super.merge( 'value' => self.value )
+      super.merge('value' => value)
     end
   end
 end

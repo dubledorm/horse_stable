@@ -280,3 +280,7 @@ ru:
               <<: *fielderrors
             parameters:
               <<: *fielderrors
+  text: Текст
+  from_variable: Текст из переменной
+  wait: Ждать
+  need_refresh: с обновлением

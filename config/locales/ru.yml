@@ -149,7 +149,7 @@ ru:
         number: Номер
         operation_type: Тип операции
         function_name: Функция
-        operation_json: Команды(json)
+        operation_json: Параметры
         <<: *timestamps
       service:
         user: Пользователь
