@@ -266,6 +266,14 @@ ru:
               <<: *fielderrors
             save_as:
               <<: *fielderrors
+        functions/http_request:
+          attributes:
+            url:
+              <<: *fielderrors
+              invalid: Имеет неверное значение
+            request_type:
+              <<: *fielderrors
+              inclusion: Содержит недопустимое значение
         substitutions/calculate:
           attributes:
             operation:

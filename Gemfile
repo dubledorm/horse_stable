@@ -56,7 +56,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
 # Call 'bye_bug.rb' anywhere in the code to stop execution and get a debugger console
-  gem 'dotenv-rails'
+
   gem 'shoulda', '~> 3.5.0'
   gem 'shoulda-matchers'
   gem 'shoulda-context'
@@ -110,3 +110,4 @@ gem 'react-rails'
 gem 'kaminari'
 gem 'breadcrumbs_on_rails'
 
+gem 'dotenv-rails'

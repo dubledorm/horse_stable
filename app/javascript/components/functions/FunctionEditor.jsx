@@ -178,7 +178,8 @@ class FunctionEditor extends React.Component {
                                   attributeOrders={this.state.fields_description.attribute_orders}
                                   currentAttributeValues={this.state.function_attributes}
                                   onChangeAttribute={this.onChangeFunctionAttribute}
-                                  edit_mode={this.state.edit_mode}/>
+                                  edit_mode={this.state.edit_mode}
+                                  function_name={this.state.function_name}/>
                 </div>
                 {context_bottom}
             </form>
@@ -191,7 +192,8 @@ class FunctionEditor extends React.Component {
                   <FunctionFields attributes={this.state.fields_description.attributes}
                                   attributeHints={this.state.fields_description.attribute_hints}
                                   attributeOrders={this.state.fields_description.attribute_orders}
-                                  currentAttributeValues={this.state.function_attributes}/>
+                                  currentAttributeValues={this.state.function_attributes}
+                                  function_name={this.state.function_name}/>
                 </div>
             </div>
         }

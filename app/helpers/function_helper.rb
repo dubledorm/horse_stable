@@ -16,6 +16,7 @@ module FunctionHelper
       start_value: resource.send(:function_name).to_s,
       values: Functions::Factory.options_for_select.to_json,
       start_value_attributes: attr_hash.to_json,
+      function_name: resource.function_name,
       read_only: read_only }
   end
 

@@ -15,6 +15,7 @@ class FunctionFields extends React.Component {
                              fieldHint={this.props.attributeHints ? this.props.attributeHints[field] : ''}
                              value={this.props.currentAttributeValues ? this.props.currentAttributeValues[field] : ''}
                              edit_mode={this.props.edit_mode}
+                             function_name={this.props.function_name}
                              onChangeAttribute={this.props.onChangeAttribute}/>
     }
 
@@ -62,7 +63,8 @@ FunctionFields.propTypes = {
     attributeHints: PropTypes.object,
     currentAttributeValues: PropTypes.object,
     onChangeAttribute: PropTypes.func,
-    edit_mode: PropTypes.bool
+    edit_mode: PropTypes.bool,
+    function_name: PropTypes.string
 };
 
 export default FunctionFields

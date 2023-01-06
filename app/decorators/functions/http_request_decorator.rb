@@ -8,7 +8,7 @@ module Functions
 
     def to_html
       h.content_tag(:div, class: 'row') do
-        "#{request_type.upcase} #{url}"
+        "#{request_type&.upcase} #{url}"
       end
     end
   end

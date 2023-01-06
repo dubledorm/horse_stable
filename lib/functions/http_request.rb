@@ -2,11 +2,11 @@
 
 module Functions
   class HttpRequest < Base
-    REQUEST_TYPE_VALUES = {get: 'get',
-                           post: 'post',
-                           patch: 'patch',
-                           put: 'put',
-                           delete: 'delete'}.freeze
+    REQUEST_TYPE_VALUES = { get: 'get',
+                            post: 'post',
+                            patch: 'patch',
+                            put: 'put',
+                            delete: 'delete' }.freeze
 
     attr_accessor :url, :request_type, :request_header_json, :request_body,
                   :only_response_200, :result_selector_json, :response_status_variable
@@ -39,13 +39,36 @@ module Functions
     protected
 
     def attributes
+      # "[{\"key\":\"first_postamat_id\",\"value\":\"/data/collection/[0]/id\"}]"
+      # { 'first_postamat_id' => '/data/collection/[1]/id/' },
       super.merge('url': url,
                   'request_type': request_type,
-                  'request_header_json': request_header_json,
+                  'request_header_json': request_header_as_json,
                   'request_body': request_body,
-                  'result_selector_json': { 'first_postamat_id' => '/data/collection/[1]/id/' },
+                  'result_selector_json': result_selector_as_json,
                   'only_response_200': only_response_200,
                   'response_status_variable': response_status_variable)
+    end
+
+    def result_selector_as_json
+      key_value_as_json(result_selector_json)
+    end
+
+    def request_header_as_json
+      key_value_as_json(request_header_json)
+    end
+
+    private
+
+    def key_value_as_json(key_value_string)
+      return {} if key_value_string.empty?
+
+      result = {}
+      JSON.parse(key_value_string).each do |pair|
+        result[pair['key']] = pair['value']
+      end
+
+      result
     end
   end
 end
