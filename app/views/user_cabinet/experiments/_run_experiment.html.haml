@@ -1,6 +1,6 @@
 = form_with(model: TestTask, local: false, url: user_cabinet_test_tasks_path) do |f|
   = f.hidden_field(:experiment_id, value: @resource.id)
   = f.label(TestEnvironment.model_name.human)
-  = f.select(:environment_id, @resource.options_for_select_environments, { include_blank: true, selected: params[:environment] }, class: 'form-control')
+  = f.select(:environment_id, @resource.options_for_select_environments, { include_blank: true, selected: @resource.default_test_environment_id }, class: 'form-control')
   %button.btn.btn-primary.btn-lg{:name => "submit", :required => "required", :type => "submit"}
     = t('.run')

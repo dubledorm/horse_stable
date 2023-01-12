@@ -13,7 +13,7 @@ module Functions
 
     validates :url, :request_type, presence: true
     validates :request_type, inclusion: { in: REQUEST_TYPE_VALUES.values }
-    validates :url, format: { with: Regexp.new('\A(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#\[\]@!\$&\'\(\)\*\+,;=.]+\Z') }
+    #  validates :url, format: { with: Regexp.new('\A(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#\[\]@!\$&\'\(\)\*\+,;=.]+\Z') }
 
     def self.attribute_hints
       super.merge({ 'url' => i18n_translate_path('url_hint'),

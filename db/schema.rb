@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_05_152246) do
+ActiveRecord::Schema.define(version: 2023_01_06_175016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,8 @@ ActiveRecord::Schema.define(version: 2022_12_05_152246) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "sets_of_variables_json"
     t.bigint "project_id", null: false
+    t.bigint "default_test_environment_id"
+    t.index ["default_test_environment_id"], name: "index_experiments_on_default_test_environment_id"
     t.index ["project_id"], name: "index_experiments_on_project_id"
     t.index ["user_id"], name: "index_experiments_on_user_id"
   end
@@ -371,6 +373,7 @@ ActiveRecord::Schema.define(version: 2022_12_05_152246) do
   add_foreign_key "experiment_test_environments", "test_environments"
   add_foreign_key "experiment_to_user_groups", "experiments"
   add_foreign_key "experiment_to_user_groups", "user_groups"
+  add_foreign_key "experiments", "experiment_test_environments", column: "default_test_environment_id"
   add_foreign_key "experiments", "projects"
   add_foreign_key "experiments", "users"
   add_foreign_key "grades", "users"

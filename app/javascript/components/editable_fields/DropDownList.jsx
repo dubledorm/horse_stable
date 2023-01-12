@@ -30,7 +30,11 @@ class DropDownList extends React.Component {
     }
 
     humanState() {
-        return JSON.parse(this.props.values).find(item => item[1] == this.state.value)[0]
+      try {
+          return JSON.parse(this.props.values).find(item => item[1] == this.state.value)[0];
+      } catch (e) {
+          return '';
+      }
     }
 
     render() {
@@ -80,7 +84,8 @@ DropDownList.propTypes = {
     submit_button_text: PropTypes.string,
     values: PropTypes.string,
     start_value: PropTypes.string,
-    read_only: PropTypes.bool
+    read_only: PropTypes.bool,
+    url: PropTypes.string
 };
 
 export default DropDownList

@@ -115,6 +115,7 @@ ru:
         state: Состояние
         project: Проект
         project_id: Проект
+        default_test_environment_id: Окружение по умолчанию
         <<: *timestamps
       some_file:
         name: Название

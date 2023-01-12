@@ -143,7 +143,8 @@ module UserCabinet
 
     private
 
-    FIELD_NAMES = %i[human_name human_description categories user_groups project_id set_of_variables].freeze
+    FIELD_NAMES = %i[human_name human_description categories user_groups project_id set_of_variables
+                     default_test_environment_id].freeze
     def experiment_params
       params.required(:experiment).permit(*FIELD_NAMES)
     end

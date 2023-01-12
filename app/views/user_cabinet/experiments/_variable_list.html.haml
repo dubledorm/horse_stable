@@ -11,3 +11,7 @@
     read_environments_url: front_experiment_experiment_test_environments_path(experiment_id: @resource.id),
     name_title: t('.title'), submit_button_text: I18n.t('send'),
     cancel_button_text: I18n.t('cancel'), edit_button_text: I18n.t('edit'), read_only: false })
+.row
+  #default_test_environment
+    = rc_drop_down_list(@resource, :default_test_environment_id, user_cabinet_experiment_path(id: @resource.id),
+    @resource.options_for_select_environments)

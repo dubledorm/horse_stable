@@ -14,6 +14,7 @@ RSpec.describe Experiment, type: :model do
     it { should have_many(:operations) }
     it { should have_many(:user_groups) }
     it { should have_many(:experiment_test_environments) }
+    it { should belong_to(:default_test_environment) }
   end
 
   describe 'serialialization' do
@@ -28,6 +29,7 @@ RSpec.describe Experiment, type: :model do
                         'created_at' => experiment.created_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
                         'updated_at' => experiment.updated_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
                         'experiment_cases' => [],
+                        'default_test_environment_id' => nil,
                         'sets_of_variables_json' => nil} }
 
       it 'only print' do
@@ -47,6 +49,7 @@ RSpec.describe Experiment, type: :model do
                         'created_at' => experiment.created_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
                         'updated_at' => experiment.updated_at.xmlschema(ActiveSupport::JSON::Encoding.time_precision),
                         'experiment_cases' => [ experiment.experiment_cases[0].as_json ],
+                        'default_test_environment_id' => nil,
                         'sets_of_variables_json' => nil} }
 
       it 'only print' do
