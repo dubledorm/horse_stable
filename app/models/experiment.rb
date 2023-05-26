@@ -49,4 +49,5 @@ class Experiment < ApplicationRecord
   def variables_sets
     @variables_sets ||= Variables::ArrayOfSets.new(sets_of_variables_json.nil? ? {} : JSON.parse(sets_of_variables_json))
   end
+
 end
